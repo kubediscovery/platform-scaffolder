@@ -1,7 +1,7 @@
 
 
 module "platform" {
-  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//modules/aws/eks_cluster?ref=develop"
+  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/aws/eks_cluster?ref=develop"
 
   project_name = var.project_name
   cidr_block   = var.cidr_block
