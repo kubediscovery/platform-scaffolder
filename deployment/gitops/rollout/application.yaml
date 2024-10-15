@@ -1,0 +1,47 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-rollout
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"    
+  {%- if values.labels %}
+  labels:
+    {% for key, value in values.labels %}
+      ${{- key }}: "${{ value }}"
+    {% endfor -%}
+  {%- endif  %}
+spec:
+  destination:
+    name: ''
+    namespace: argoproj
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ''
+    repoURL: 'https://argoproj.github.io/argo-helm'
+    targetRevision: 2.37.7
+    chart: argo-rollouts
+    helm:
+      parameters:
+      - name: installCRDs
+        value: "true"
+      values: |
+        {%- if values.labels %}
+        global:
+          deploymentLabels:
+            {% for key, value in values.labels %}
+              ${{- key }}: "${{ value }}"
+            {% endfor -%}
+        {%- endif  %}
+            
+        controller:
+          replicas: 1
+        dashboard:
+          enabled: false
+  sources: []
+  project: ${{ values.projectName | replace(" ", "-") | lower}}
+  syncPolicy:
+    automated:
+      prune: true 
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,14 @@
+site_name: 'plataforma-infra-as-code'
+site_description: Developer platform developer for infra as code
+
+nav:
+  - Início: index.md
+  - Estrutura dos grupos: groups.md
+  - Repositorio: repository.md
+  - GitHub Workflow: workflow.md
+  - Terraform: terraform.md
+  - Atualização do Backstage: manifests.md
+  - Acessos: accesses.md
+
+plugins:
+  - techdocs-core

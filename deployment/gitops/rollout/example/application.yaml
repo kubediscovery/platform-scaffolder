@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rtls
+  namespace: argoproj
+spec:
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  project: ${{ values.projectName | replace(" ", "-") | lower}}
+  source:
+    path: deployment/gitops/rollout/example
+    repoURL: https://github.com/kubediscovery/${{ values.repositoryName }}
+    targetRevision: HEAD
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true

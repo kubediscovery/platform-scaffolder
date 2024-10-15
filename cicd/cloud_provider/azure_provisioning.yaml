@@ -1,0 +1,61 @@
+name: provisioning
+run-name: Terraform provisioning
+
+on:
+  workflow_dispatch:
+    inputs:
+      provider:
+        description: 'Cloud provider'
+        required: true
+        type: string
+        default: azure
+        
+  push:
+    branches:
+      - main
+
+jobs:
+  callTerraformScan:
+    name: Scan
+    uses: ./.github/workflows/terraform-scan.yaml
+
+  # CLOUD PROVIDER
+  callTerraformCloudProvider:
+    needs: callTerraformScan
+    name: Azure
+    uses: ./.github/workflows/cloudProvider.yaml
+    if: needs.callTerraformScan.result == 'success'
+    secrets:
+      ARM_SUBSCRIPTION_ID: "${{ secrets.ARM_SUBSCRIPTION_ID }}"
+      ARM_CLIENT_ID: "${{ secrets.ARM_CLIENT_ID }}"
+      ARM_TENANT_ID: "${{ secrets.ARM_TENANT_ID }}"
+      ARM_CLIENT_SECRET: "${{ secrets.ARM_CLIENT_SECRET }}"
+      AWS_ACCESS_KEY_ID:  "${{ secrets.AWS_ACCESS_KEY_ID }}"
+      AWS_SECRET_ACCESS_KEY:  "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+      AWS_DEFAULT_REGION:  "${{ secrets.AWS_DEFAULT_REGION }}"
+
+  callKubernetes:
+    needs: callTerraformCloudProvider
+    name: applyGitOps 
+    uses: ./.github/workflows/kubernetes.yaml
+    if: needs.callTerraformCloudProvider.result == 'success' && needs.callTerraformCloudProvider.outputs.action == 'apply'
+    secrets:
+      CF_API_TOKEN: ${{ secrets.CLOUDFLARE_DNS_TOKEN }}
+    with:
+      kubeconfig: ${{ needs.callTerraformCloudProvider.outputs.kubeconfig }}
+
+  newrelic:
+    runs-on: ubuntu-latest
+    name: New Relic
+    needs: callKubernetes
+    if: always()
+    steps:
+      - name: Set Release Version from Tag
+        run: echo "RELEASE_VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
+      - name: New Relic Application Deployment Marker
+        uses: newrelic/deployment-marker-action@v2.3.0
+        with:
+          apiKey: ${{ secrets.NEW_RELIC_API_KEY }}
+          guid: ${{ secrets.NEW_RELIC_DEPLOYMENT_ENTITY_GUID }}
+          version: "${{ env.RELEASE_VERSION }}"
+          user: "${{ github.actor }}"

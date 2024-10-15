@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kong
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  {%- if values.labels %}
+  labels:
+    {% for key, value in values.labels %}
+      ${{- key }}: "${{ value }}"
+    {% endfor -%}
+  {%- endif  %}
+spec:
+  destination:
+    name: ''
+    namespace: controller-kong
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ''
+    repoURL: 'https://charts.konghq.com'
+    targetRevision: 2.41.1
+    chart: kong
+    helm:
+      parameters:
+      - name: installCRDs
+        value: "true"
+      - name: "global.enabled"
+        value: "true"
+      - name: "standalone.enabled"
+        value: "false"
+      - name: "csi.enabled"
+        value: "true"
+      values: |
+        {%- if values.labels %}
+        extraLabels:
+          {% for key, value in values.labels %}
+            ${{- key }}: "${{ value }}"
+          {% endfor -%}
+        {%- else  %}  
+        extraLabels:  {}
+        {%- endif  %}
+  sources: []
+  project: ${{ values.projectName | replace(" ", "-") | lower}}
+  syncPolicy:
+    automated:
+      prune: true 
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,6 @@
+terraform.tfstate
+go.sum
+.terraform
+infra/example
+
+*terraform.*

@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ values.projectName | replace(" ", "-") | lower}}
+  {%- if values.description %}
+  description: ${{values.description | dump}}
+  {%- endif  %}
+  {%- if values.labels %}
+  labels: 
+    {% for key, value in values.labels %}
+      ${{- key }}: ${{ value }}
+    {% endfor -%}
+  {% endif  %}
+spec:
+  type: service
+  lifecycle: production
+  owner: ${{ values.userName | lower}}
+  system: ${{ values.labels['part-of'] | lower}}
+

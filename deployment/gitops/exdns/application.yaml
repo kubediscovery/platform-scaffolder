@@ -1,0 +1,54 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: exdns
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+  {%- if values.labels %}
+  labels:
+    {% for key, value in values.labels %}
+      ${{- key }}: "${{ value }}"
+    {% endfor -%}
+  {%- endif  %}
+spec:
+  destination:
+    name: ''
+    namespace: controller-exdns
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ''
+    repoURL: 'https://kubernetes-sigs.github.io/external-dns'
+    targetRevision: 1.15.0
+    chart: external-dns
+    helm:
+      parameters:
+      - name: installCRDs
+        value: "true"
+      values: |
+        {%- if values.labels %}
+        commonLabels:
+          {% for key, value in values.labels %}
+            ${{- key }}: "${{ value }}"
+          {% endfor -%}
+        {%- else  %}  
+        commonLabels:  {}
+        {%- endif  %}
+
+        domainFilters:
+        - synera.com.br
+        provider: 
+          name: cloudflare
+        env:
+          - name: CF_API_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: cloudflare-api-key
+                key: apiKey
+  sources: []
+  project: ${{ values.projectName | replace(" ", "-") | lower}}
+  syncPolicy:
+    automated:
+      prune: true 
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

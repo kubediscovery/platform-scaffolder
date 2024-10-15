@@ -1,0 +1,144 @@
+---
+name: kubernetes-deploy
+on:
+  workflow_call:
+    inputs:
+      kubeconfig:
+        description: 'Kubeconfig in base64'
+        required: true
+        type: string
+      argoNamespace:
+        description: 'ArgoCD namespace'
+        required: false
+        type: string
+        default: argoproj
+    secrets:
+      CF_API_TOKEN:
+        required: true
+
+jobs:
+  kubernetesDeploy:
+    name: deployArgoCD
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v3.13.0
+          kubeconfig: ${{ inputs.kubeconfig }}
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Kubeconfig
+        run: |
+          mkdir -p ~/.kube
+          echo ${{ inputs.kubeconfig }}|base64 -d > ~/.kube/config
+
+      - name: Add dependency chart repos
+        run: |
+          helm repo add argo https://argoproj.github.io/argo-helm
+  
+      - name: Search argocd chart
+        run: helm search repo argo
+
+      - name: check if argocd exists
+        id: argocd
+        run: |
+          kubectl get deploy  --namespace ${{ inputs.argoNamespace }} --ignore-not-found=true|wc -l | awk '{print $1}'
+          OUTPUT=$(kubectl get deploy  --namespace ${{ inputs.argoNamespace }} --ignore-not-found=true|wc -l | awk '{print $1}')
+          echo "::set-output name=EXISTS::$OUTPUT"
+
+      - name: Install argocd chart
+        if: steps.argocd.outputs.EXISTS == 0
+        run: |
+          helm upgrade -i --values ./deployment/helm/argocd/values.yaml argocd argo/argo-cd --create-namespace --namespace ${{ inputs.argoNamespace }}
+
+      - name: Waiting ArgoCD finish
+        if: steps.argocd.outputs.EXISTS == 0
+        run: |
+            check_command() {
+                kubectl get secrets --namespace ${{ inputs.argoNamespace }} argocd-initial-admin-secret -o yaml
+                if [ $? == 0 ]; then
+                    return 0
+                else
+                    return 1
+                fi
+            }
+
+            until check_command; do
+                echo "Waiting ArgoCD..."
+                sleep 1  
+            done
+
+            echo "ArgoCD is finished!"
+
+      - name: Provisioning
+        if: steps.argocd.outputs.EXISTS == 0
+        run: sleep 15
+
+      - name: Create repositories
+        run: kubectl apply -R -f ./deployment/gitops/argocd/repository --namespace ${{ inputs.argoNamespace }}
+
+      - name: Create project
+        run: kubectl apply -f ./deployment/gitops/argocd/project.yaml --namespace ${{ inputs.argoNamespace }}
+
+      - name: Deploy argo rollouts
+        run: kubectl apply -f ./deployment/gitops/rollout/application.yaml --namespace ${{ inputs.argoNamespace }}
+
+      - name: Remove kubeconfig
+        if: always()
+        run: |
+              rm -rf ~/.kube
+
+  callDns:
+    needs: 
+      - kubernetesDeploy
+    name: dns 
+    uses: ./.github/workflows/kubernetes-dns.yaml
+    if: needs.kubernetesDeploy.result == 'success'
+    secrets:
+      CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+    with:
+      kubeconfig: ${{ inputs.kubeconfig }}
+      argoNamespace: ${{ inputs.argoNamespace }}
+      
+  callVault:
+    needs: 
+      - kubernetesDeploy
+    name: vault 
+    uses: ./.github/workflows/kubernetes-vault.yaml
+    if: needs.kubernetesDeploy.result == 'success'
+    secrets:
+      CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+    with:
+      kubeconfig: ${{ inputs.kubeconfig }}
+      argoNamespace: ${{ inputs.argoNamespace }}
+      
+  deployRollout:
+    name: deployRollout
+    runs-on: ubuntu-20.04
+    needs: 
+      - callDns
+      - callVault
+      - kubernetesDeploy
+    if: needs.kubernetesDeploy.result == 'success'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Kubeconfig
+        run: |
+          mkdir -p ~/.kube
+          echo ${{ inputs.kubeconfig }}|base64 -d > ~/.kube/config
+
+      - name: Deploy argo rollouts
+        run: kubectl apply -f ./deployment/gitops/rollout/example/application.yaml --namespace ${{ inputs.argoNamespace }}
+
+      - name: Remove kubeconfig
+        if: always()
+        run: |
+              rm -rf ~/.kube

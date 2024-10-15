@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: exsecrets
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+  {%- if values.labels %}
+  labels:
+    {% for key, value in values.labels %}
+      ${{- key }}: "${{ value }}"
+    {% endfor -%}
+  {%- endif  %}
+spec:
+  destination:
+    name: ''
+    namespace: controller-vault
+    server: https://kubernetes.default.svc
+  source:
+    path: ''
+    repoURL: https://charts.external-secrets.io
+    targetRevision: 0.10.0
+    chart: external-secrets
+    helm:
+      parameters:
+        - name: installCRDs
+          value: "true"
+      values: |
+        {%- if values.labels %}
+        commonLabels:
+          {% for key, value in values.labels %}
+            ${{- key }}: "${{ value }}"
+          {% endfor -%}
+        {%- else  %}  
+        commonLabels:  {}
+        {%- endif  %}
+  sources: []
+  project: ${{ values.projectName | replace(" ", "-") | lower}}
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

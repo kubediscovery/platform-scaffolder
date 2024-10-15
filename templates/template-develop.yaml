@@ -1,0 +1,219 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: plataforma-orchestration-develop
+  title: DEV - Plataforma Orchestration
+  description: This template will create the platform orchestration structure
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    kubediscovery.com/updateAt: "202410112312"
+spec:
+  owner: kubediscovery
+  type: service
+  parameters:
+    - title: User information
+      required:
+        - userName
+        - userEmail
+      properties:
+        userName:
+          ttile: User name 
+          type: string
+          description: User logged
+          ui:field: UserFieldName
+        userEmail:
+          ttile: Email of user
+          type: string
+          description: Email of user logged
+          ui:field: UserFieldEmail
+    - title: Project information
+      required:
+        - projectName
+        - projectInstance
+        - projectVersion
+      properties:
+        projectName:
+          ttile: Project name
+          type: string
+          description: Project name to be create
+          default: tutorial
+          maxLength: 8
+          minLength: 8
+        projectInstance:
+          ttile: Project instance
+          type: string
+          description: Set the instance name
+          default: internal
+        projectVersion:
+          title: Project version
+          type: string
+          description: Set the version
+          default: v0.1.0
+        # projectOwner:
+        #   title: Project owner (team)
+        #   type: string
+        #   description: Owner group of this project
+        #   default: cloud
+        #   ui:field: OwnerPicker
+        #   ui:options:
+        #       catalogFilter:
+        #         - kind: Group
+        cloudProvider:
+          title: Choose the cloud prvoider
+          type: string
+          description: Set the cloud provider
+          default: azure
+          enum:
+          - azure
+          - aws
+    - title: Repository information
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedRepos:
+              - platform9
+              - platform10
+            allowedHosts:
+              - github.com
+            allowedOwners:
+              - kubediscovery
+  steps:
+    - id: utils
+      name: Get utils parameters
+      action: synera:utils
+      input:
+        projectName: ${{ parameters.projectName}}
+        codeHash: 4
+        currentDate: true
+
+    - id: fetch-catalog
+      name: Fetch Catalog
+      action: fetch:template
+      input:
+        url: ../catalog/component
+        targetPath: ./catalog
+        values:
+          projectName: ${{ steps['utils'].output.projectName}}
+          userName: ${{ parameters.userName }}
+          description: description
+          labels:
+            part-of: ${{ steps['utils'].output.projectName | replace(" ","_") }}
+            system: ${{ steps['utils'].output.projectName | replace(" ","_") }}
+            instance: ${{ parameters.projectInstance | replace(" ","_") }}
+            owner: ${{ parameters.userName | replace(" ","_") }}
+            version: ${{ parameters.projectVersion | replace(" ","_") }}
+
+    - id: fetch-cicd
+      name: Fetch CI/CD
+      action: fetch:plain
+      input:
+        url: ../cicd
+        targetPath: ./
+        values:
+          projectName: ${{ steps['utils'].output.projectName}}
+          userName: ${{ parameters.userName }}
+          description: description
+
+    - id: fetch-infra
+      name: Fetch infra as code
+      action: fetch:template
+      input:
+        url: ../terraform/projects/${{ parameters.cloudProvider }}
+        targetPath: ./infra/terraform
+        values:
+          projectName: ${{ steps['utils'].output.projectName}}
+          userName: ${{ parameters.userName }}
+          description: description
+          provider: ${{ parameters.cloudProvider }}
+          createdAt: ${{ steps['utils'].output.currentDate}}
+          labels:
+            part-of: ${{ steps['utils'].output.projectName | replace(" ","_") }}
+            system: ${{ steps['utils'].output.projectName | replace(" ","_") }}
+            instance: ${{ parameters.projectInstance | replace(" ","_") }}
+            owner: ${{ parameters.userName | replace(" ","_") }}
+            version: ${{ parameters.projectVersion | replace(" ","_") }}
+
+    - id: fetch-deployment
+      name: Fetch kubernetes deployment
+      action: fetch:template
+      input:
+        url: ../deployment
+        targetPath: ./deployment
+        values:
+          projectName: ${{ steps['utils'].output.projectName}}
+          userName: ${{ parameters.userName }}
+          description: description
+          provider: ${{ parameters.cloudProvider }}
+          createdAt: ${{ steps['utils'].output.currentDate}}
+          labels:
+            part-of: ${{ steps['utils'].output.projectName | replace(" ","_") }}
+            system: ${{ steps['utils'].output.projectName | replace(" ","_") }}
+            instance: ${{ parameters.projectInstance | replace(" ","_") }}
+            owner: ${{ parameters.userName | replace(" ","_") }}
+            version: ${{ parameters.projectVersion | replace(" ","_") }}
+        
+    - id: get-secrets
+      name: getting secrets
+      action: cloud:vault:get
+      input:
+        cloudProvider: ${{ parameters.cloudProvider }}
+
+    - id: publish
+      name: Publish
+      action: publish:github
+      if: ${{ parameters.cloudProvider === 'azure' }}
+      input:
+        allowedHosts: ['github.com']
+        description: This is ${{ parameters.name }}
+        repoUrl: ${{ parameters.repoUrl }}
+        defaultBranch: main
+        repoVariables:
+          CLOUD_PROVIDER: ${{ parameters.cloudProvider }}
+        secrets:
+          ARM_CLIENT_ID: ${{ steps['get-secrets'].output['ARM_CLIENT_ID'] }}
+          ARM_SUBSCRIPTION_ID: ${{ steps['get-secrets'].output['ARM_SUBSCRIPTION_ID'] }}
+          ARM_CLIENT_SECRET: ${{ steps['get-secrets'].output['ARM_CLIENT_SECRET'] }}
+          ARM_TENANT_ID: ${{ steps['get-secrets'].output['ARM_TENANT_ID'] }}
+          DOCKER_HUB_LOGIN: ${{ steps['get-secrets'].output['DOCKER_HUB_LOGIN'] }}
+          GIT_CLIENT_ID: ${{ steps['get-secrets'].output['GITHUB_CLIENT_ID'] }}
+          GIT_CLIENT_SECRET: ${{ steps['get-secrets'].output['GITHUB_CLIENT_SECRET'] }}
+          GIT_TOKEN: ${{ steps['get-secrets'].output['GITHUB_TOKEN'] }}
+          RABBIT_HOST: ${{ steps['get-secrets'].output['RABBIT_HOST'] }}
+          RABBIT_USERNAME: ${{ steps['get-secrets'].output['RABBIT_USERNAME'] }}
+          RABBIT_PASSWORD: ${{ steps['get-secrets'].output['RABBIT_PASSWORD'] }}
+          RABBIT_PORT: ${{ steps['get-secrets'].output['RABBIT_PORT'] }}
+          RABBIT_USE_SSL: ${{ steps['get-secrets'].output['RABBIT_USE_SSL'] }}
+          CATALOG_TOKEN: ${{ steps['get-secrets'].output['CATALOG_TOKEN'] }}
+          CLOUDFLARE_DNS_TOKEN: ${{ steps['get-secrets'].output['CLOUDFLARE_DNS_TOKEN'] }}
+          SONAR_CLOUD_TOKEN: ${{ steps['get-secrets'].output['SONAR_CLOUD_TOKEN'] }}
+          
+    - id: wait
+      name: working in repository
+      action: debug:wait
+      input:
+        seconds: 15
+
+    - id: dispatch
+      name: dispatch
+      action: github:actions:dispatch
+      input:
+        workflowId: provisioning.yml
+        branchOrTagName: main
+        description: This is 
+        repoUrl: ${{ parameters.repoUrl }}
+        workflowInputs:
+          provider: ${{ parameters.cloudProvider }}
+
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps['publish'].output.remoteUrl }}
+      # - title: Open in catalog
+      #   icon: catalog
+      #   entityRef: ${{ steps['register'].output.entityRef }}

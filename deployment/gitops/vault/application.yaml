@@ -1,0 +1,60 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hashicorp-vault
+  {%- if values.labels %}
+  labels:
+    {% for key, value in values.labels %}
+      ${{- key }}: "${{ value }}"
+    {% endfor -%}
+  {%- endif  %}
+spec:
+  destination:
+    name: ''
+    namespace: controller-vault
+    server: https://kubernetes.default.svc
+  source:
+    path: ''
+    repoURL: https://helm.releases.hashicorp.com
+    targetRevision: 0.28.1
+    chart: vault
+    helm:
+      values: |
+        injector:
+          enabled: false
+        ui:
+          enabled: true
+        server:
+          affinity: ""
+          dataStorage:
+            enabled: false
+          ingress:
+            enabled: true
+            ingressClassName: kong
+            hosts:
+              - host: vault.${{ values.projectName | replace(" ", "-") | lower}}.synera.com.br
+                paths: []
+          standalone:
+            enabled: true
+            config: |
+              ui = true
+
+              listener "tcp" {
+                tls_disable = 1
+                address = "[::]:8200"
+                cluster_address = "[::]:8201"
+              }
+              storage "file" {
+                path = "/vault/data"
+              }
+          ha:
+            enabled: false
+
+  sources: []
+  project: ${{ values.projectName | replace(" ", "-") | lower}}
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

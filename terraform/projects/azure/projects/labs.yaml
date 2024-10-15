@@ -1,0 +1,17 @@
+---
+name: "${{ values.projectName | replace(" ", "-") | lower}}"
+provider: "${{ values.provider | replace(" ", "-") | lower}}"
+cidr: "10.0.0.0/16"
+{%- if values.labels %}
+tags: 
+    {% for key, value in values.labels %}
+    ${{- key }}: "${{ value }}"
+    {% endfor -%}
+    CreatedAt: "${{ values.createdAt | replace(" ", "-") | lower}}"
+    ManagedBy: "terraform"
+{%- else  %}  
+tags: 
+  Environment: "dev"
+  CreatedAt: "${{ values.createdAt | replace(" ", "-") | lower}}"
+  ManagedBy: "terraform"
+{%- endif  %}
