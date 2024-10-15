@@ -123,7 +123,7 @@ spec:
       name: Fetch infra as code
       action: fetch:template
       input:
-        url: ../infra/${{ parameters.cloudProvider }}
+        url: ../terraform/projects/${{ parameters.cloudProvider }}
         targetPath: ./infra/terraform
         values:
           projectName: ${{ steps['utils'].output.projectName}}
