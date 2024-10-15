@@ -32,7 +32,7 @@ module "managed_node_group" {
 }
 
 # module "managed-addons" {
-#   source = "git::https://github.com/kubediscovery/platform-infrastructure.git//modules/aws/eks_cluster/managed-addons/?ref=aws"
+#   source = "git::https://github.com/kubediscovery/platform-infrastructure.git//modules/aws/eks_cluster/managed-addons/?ref=develop"
 
 #   project_name       = var.project_name
 #   tags               = var.tags
@@ -41,7 +41,7 @@ module "managed_node_group" {
 # }
 
 # module "argocd_applications" {
-#   source = "git::https://github.com/kubediscovery/platform-infrastructure.git//modules/addons/argoproj/applications/?ref=aws"
+#   source = "git::https://github.com/kubediscovery/platform-infrastructure.git//modules/addons/argoproj/applications/?ref=develop"
 
 #   password    = module.argocd.secret.data.password
 #   server_addr = module.argocd.service.spec.0.cluster_ip

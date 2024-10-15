@@ -1,7 +1,7 @@
 
 
 module "platform" {
-  source = "git::https://github.com/kubediscovery/platform-infrastructure.git//modules/azure/aks_cluster?ref=aws"
+  source = "git::https://github.com/kubediscovery/platform-infrastructure.git//modules/azure/aks_cluster?ref=develop"
 
   project_name = var.project_name
   cidr_block   = var.cidr_block
@@ -10,14 +10,14 @@ module "platform" {
 }
 
 # module "argocd" {
-#   source = "git::https://github.com/kubediscovery/platform-infrastructure.git//modules/addons/argoproj/argocd/?ref=aws"
+#   source = "git::https://github.com/kubediscovery/platform-infrastructure.git//modules/addons/argoproj/argocd/?ref=develop"
 
 #   project_name = var.project_name
 #   depends_on   = [module.platform]
 # }
 
 # module "argocd_applications" {
-#   source = "git::https://github.com/kubediscovery/platform-infrastructure.git//modules/addons/argoproj/applications/?ref=aws"
+#   source = "git::https://github.com/kubediscovery/platform-infrastructure.git//modules/addons/argoproj/applications/?ref=develop"
 
 #   depends_on = [module.platform]
 # }
