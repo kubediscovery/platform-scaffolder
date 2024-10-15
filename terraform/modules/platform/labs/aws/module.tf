@@ -1,7 +1,7 @@
 
 
 module "platform" {
-  source = "git::https://github.com/kubediscovery/platform-infrastructure.git//modules/aws/eks_cluster?ref=aws"
+  source = "git::https://github.com/kubediscovery/platform-infrastructure.git//terraform/modules/aws/eks_cluster?ref=aws"
 
   project_name = var.project_name
   cidr_block   = var.cidr_block
@@ -10,7 +10,7 @@ module "platform" {
 }
 
 # module "addons" {
-#   source = "git::https://github.com/kubediscovery/platform-infrastructure.git//modules/addons/init/?ref=aws"
+#   source = "git::https://github.com/kubediscovery/platform-infrastructure.git//terraform/modules/addons/init/?ref=aws"
 
 #   project_name           = var.project_name
 #   cluster_endpoint       = module.platform.cluster.endpoint
