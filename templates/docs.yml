@@ -1,0 +1,307 @@
+
+Imagine sua infraestrutura ser gerenciada através de uma única interface. Onde as mudanças são automatizadas, a conformidade é garantida e a colaboração entre equipes é facilitada.
+
+Parece um sonho, não? Mas com a combinação certa de ferramentas, podemos transformar esse sonho em realidade.
+
+Seja bem-vindo à nossa série de artigos dedicados a um dos tópicos mais empolgantes e essenciais para o gerenciamento moderno de infra as a code: Backstage, Terraform, ArgoCD e Kubernetes. Nesta série, vamos explorar como essas quatro ferramentas poderosas podem revolucionar a forma como você gerencia sua infraestrutura, tornando um fluxo de trabalho eficiente e robusto para a automação da infraestrutura como código.
+
+O Que Você Vai Ver
+Primeiro, vamos a uma rápida introdução das ferramentas citadas acima.
+
+Backstage: é um IDP (Internal Developer Portal), ou seja o portal do desenvolvedor para criar novas aplicações de forma padronizada e centralizando todos os recursos tais como documentação, API, dependencia de recursos, monitoramento e muito mais.
+
+Terraform: é uma das ferramentas mais poderosas de gerenciamento de infra as a code.
+
+ArgoCD: é um Operator de Kubernetes para o gerenciamento de deployments de forma otimizada, sincronização de repositório em tempo real e tendo diversos controles através de uma interface.
+
+Kubernetes: o MAIOR orchestrador de containers dos últimos tempos, no qual dispensa qualquer comentário.
+
+Nosso foco será na integração dessas ferramentas, e não na instalação. Se você tiver dúvidas sobre a instalação, sinta-se à vontade para me contatar diretamente.
+
+O Que Esperar da Série
+
+Agora que finalizamos a nossa breve introdução vamos a nossa proposta.
+
+Nosso objetivo, será mostrar como montar um fluxo automatizado da infraestrutura e popular todas as entidades (Component, Resource, ...) no Backstage automaticamente, no qual será uma árvore de dependência, link de documentácões e muito mais.
+
+* Nessa série, quando fomos falar de Backstage o nosso menor foco será aos templatese por outro lado, o principal foco serão os plugins de integrações, seja de backend ou frontend.
+
+Conforme a imagem abaixo, irei comentar um pouco do fluxo que iremos implementar, explicando rapidamente cada etapa, pois teremos sessões especificadas parada cada uma delas.
+
+1. Teremos um repositório base, onde terão todos os nosso códigos (templates, esqueletos, ...);
+2. Iremos criar um novo projeto (repositório) através do Backstage onde o mesmo irá usar o repostório base para o nosso novo projeto;
+3. Após criado o nosso repositório, irá iniciar o Github Actions "pode ser qualquer tipo de workflow, tal como Argo Workflow, Tekton, Jenkins, ....". Esse workflow, fará análise de código, executará o Terraform, criará o primeiro depoy do Kubernetes (ArgoCD) e por fim notificará nosso serviço de mensageria;
+4. O ArgoCD será responsável podr fazer todo o deploy de nossos softwares, que temos como base e também notificará o nosso serviço de mensageria;
+5. Teremos um plugin no Backstage, onde fica escutando o serviço de mensageria, onde cataloga todas as entidades e faz a inserção de forma automática, 
+6. Por fim, teremos na interface do Backstage todos os recursos criados na interface do Backstage e conforma cada annotation, habilitando os plugins, seja de kubernetes, monitoramento, logs, ...
+
+
+Conforme veremos, teremos uma V2 da nossa estrutura, onde trocaremos o serviço de mensageria por um microserviço, que no nosso caso, irei desenvolver um Operator do Kubernetes para tal e será esse microserviço, responsável por buscar todos os recursos de cloud (infraestrutura) e registrar no Backstage.
+
+
+Entrutura de diretórios:
+Vamos entender como será a nossa estrutura de diretório do nosso repositório criado através do Backstage:
+
+``` 
+|- .github
+|   |- workflow
+|   |   |- code.yaml         // código de scan do nosso código em Golang
+|   |   |- deploy.yaml       // código de deploymento do ArgoCD no Kubernetes
+|   |   |- provisioning.yaml // código de provisionamento através do Terraform
+|- catalog
+|  |- catalog-info.yaml      // arquivo utilizado pelo o Backstage
+|  | - docs                  // diretório com documentações 
+|- deploy
+|  |- gitops
+|  |  |- project             // diretório com arquivos de project e repositórios do ArgoCD
+|  |  |- application         // diretório com os applicationSet do ArcoCD
+|  |- manifests
+|  |  |- helm                // alguns helms values se necessário
+|- infra
+|  |- terraform              // arquivos e modules do Terraform
+|- src                       // código do Golang
+```
+
+Backstage
+Para não ficar muito longo esse artigo, vamos entender a configuração do backstage que teremos e criar o nosso template base e no próximo artigo veremos os plugins que precisaremos desenvolver.
+
+O Backstage usa o arquivo app-config.yaml como arquivo de configuração, comentarei apenas no que iremos usar:
+
+Configuração:
+```
+# Integração com o GITHUB, para a criação do repositório
+integrations:
+  github:
+    - host: github.com
+      token: ${GITHUB_TOKEN}
+
+# URL necessárias para o nosso projeto inicial, iremos atualizando com a evolução do projeto
+proxy:
+  endpoints:
+    '/snyk':
+      target: https://api.snyk.io/
+      headers:
+        User-Agent: tech-services/backstage-plugin/1.0
+        Authorization: token ${SNYK_TOKEN}
+      pathRewrite:
+        "^/proxy/snyk/": "/"
+    '/sonarqube':
+      target: https://sonarcloud.io/api
+      allowedMethods: ['GET']
+      auth: "${SONAR_TOKEN}:"
+    '/mailtrap':
+      changeOrigin: false
+      secure: false
+      target: https://send.api.mailtrap.io/api/send
+      allowedMethods:
+        - POST
+        - GET
+
+sonarqube:
+    baseUrl: https://sonarcloud.io
+    apiKey: ${SONAR_TOKEN}
+
+# Esse se referencia a autenticação no Github, para visualizar os workflows 
+auth: 
+  environment: ${ENVRIOMENT}
+  session:
+    secret: ${ENVRIOMENT_HASH}
+  providers:
+    github:
+      development:
+        clientId: ${GITHUB_CLIENT_ID}
+        clientSecret: ${GITHUB_CLIENT_SECRET}
+        signIn:
+          resolvers:
+          - resolver: usernameMatchingUserEntityName
+
+# Credenciais com a Cloud 
+azure:
+  credentials:
+    - client_id: ${AZURE_CLIENT_ID}
+      client_secret: ${AZURE_CLIENT_SECRET}
+      subscription: ${AZURE_SUBSCRIPTION_ID}
+      tenant: ${AZURE_TENANT_ID}
+  cloud:
+    keyvault: ${AZURE_KEYVAULT}
+
+# Informações do nosso serviço de mensageria, que teremos integração
+message_queue:
+  rabbitmq:
+    url: ${RMQ_URL}
+    vhost: ${RMQ_VHOST}
+  dead_letter:
+    exchange: ${RMQ_DLX}
+    queue: ${RMQ_DLQ}
+  infra_as_code:
+    exchange: ${RMQ_IAC_EX}
+    queue: ${RMQ_IAC_QUEUE}
+    filter_header: ${RMQ_IAC_FILTER}
+
+# Template inicial que teremos no Backstage
+catalog:
+  locations:
+    - type: url
+      target: https://github.com/${USER}/${REPOSITORY}/template.yaml
+```
+
+No Backstage, toda nova requisição no qual temos a intenção, chamamos de template. Eu particularmente divido o template em 4 sessões, que são medatata (estrtura base), parameters (nosso formulário de frontend), steps (nossas operações no backend, com informações do frontend) e output (o report de tudo que foi gerado).
+
+Como veremos abaixo, as informações do projeto, virarão labels(kubernetes)/tags(cloud), conforme o link https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/#labels
+
+Vamos então entender o nosso template base.
+Template:
+```
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: create-dynamic-structure
+  title: Create infrastructure as a code 
+  description: Create infrastructure as a code and report to Backstage
+spec:
+  owner: group:mygroup
+  type: dynamic
+  parameters:
+    - title: User info
+      required:
+        - userName
+        - userEmail
+      properties:
+        userName:
+          ttile: Username 
+          type: string
+          description: Username
+        userEmail:
+          ttile: Email
+          type: string
+          description: Email of user
+    - title: Project info
+      required:
+        - projectName
+        - repoUrl
+      properties:
+        projectName:
+          ttile: Project name
+          type: string
+          description: Nome do projeto a ser criado
+          default: platfor
+          maxLength: 7
+          minLength: 7
+        projectVersion:
+          ttile: Project version
+          type: string
+          description: Versão do projeto
+          default: v0.1.0
+        projectInstance:
+          ttile: Project instance
+          type: string
+          description: Instancia do projeto
+          default: v0.1.0
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+            allowedOwners:
+              - githubuser
+  steps:
+    - id: fetch-catalog
+      name: Fetch Catalog
+      action: fetch:template
+      input:
+        url: ../catalog
+        targetPath: ./catalog
+        values:
+          projectName: ${{ parameters.projectName }}
+          projectVersion: ${{ parameters.projectVersion }}
+          projectInstance: ${{ parameters.projectInstance }}
+          userName: ${{ parameters.userName }}
+          description: description
+
+    - id: fetch-cicd
+      name: Fetch CI/CD
+      action: fetch:plain
+      input:
+        url: ../.github
+        targetPath: ./
+        values:
+          projectName: ${{ parameters.projectName }}
+          projectVersion: ${{ parameters.projectVersion }}
+          projectInstance: ${{ parameters.projectInstance }}
+          userName: ${{ parameters.userName }}
+          description: description
+
+    - id: fetch-infra
+      name: Fetch infra as code
+      action: fetch:template
+      input:
+        url: ../infra
+        targetPath: ./infra
+        values:
+          projectName: ${{ parameters.projectName }}
+          projectVersion: ${{ parameters.projectVersion }}
+          projectInstance: ${{ parameters.projectInstance }}
+          userName: ${{ parameters.userName }}
+          description: description
+          
+    - id: get-secrets
+      name: getting secrets from vault (custom)
+      action: get:secrets
+      input:
+        secretName: ${{ parameters.secretName }}
+        vaultName: ${{ parameters.vaultName }}
+        subscription: ${{ parameters.subscription }}
+        
+    - id: publish
+      name: Publish
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: This is ${{ parameters.name }}
+        repoUrl: ${{ parameters.repoUrl }}
+        defaultBranch: main
+        secrets:
+          ARM_CLIENT_ID: ${{ steps['get-secrets'].output['ARM_CLIENT_ID'] }}
+          ARM_SUBSCRIPTION_ID: ${{ steps['get-secrets'].output['ARM_SUBSCRIPTION_ID'] }}
+          ARM_CLIENT_SECRET: ${{ steps['get-secrets'].output['ARM_CLIENT_SECRET'] }}
+          ARM_TENANT_ID: ${{ steps['get-secrets'].output['ARM_TENANT_ID'] }}
+          DOCKER_HUB_LOGIN: ${{ steps['get-secrets'].output['DOCKER_HUB_LOGIN'] }}
+          GIT_CLIENT_ID: ${{ steps['get-secrets'].output['GITHUB_CLIENT_ID'] }}
+          GIT_CLIENT_SECRET: ${{ steps['get-secrets'].output['GITHUB_CLIENT_SECRET'] }}
+          GIT_TOKEN: ${{ steps['get-secrets'].output['GITHUB_TOKEN'] }}
+          RABBIT_HOST: ${{ steps['get-secrets'].output['RABBIT_HOST'] }}
+          RABBIT_USERNAME: ${{ steps['get-secrets'].output['RABBIT_USERNAME'] }}
+          RABBIT_PASSWORD: ${{ steps['get-secrets'].output['RABBIT_PASSWORD'] }}
+          RABBIT_PORT: ${{ steps['get-secrets'].output['RABBIT_PORT'] }}
+          RABBIT_USE_SSL: ${{ steps['get-secrets'].output['RABBIT_USE_SSL'] }}
+          
+    - id: wait
+      name: working in repository
+      action: debug:wait
+      input:
+        seconds: 15
+
+    - id: dispatch
+      name: dispatch
+      action: github:actions:dispatch
+      input:
+        workflowId: provisioning.yml
+        branchOrTagName: main
+        description: This is 
+        repoUrl: ${{ parameters.repoUrl }}
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps['publish'].output.remoteUrl }}
+````
+
+Bom, nessa primeira etapa, deixamos o nosso projeto pré pronto para o consumo.  
+Na próxima etapa, veremos os seguintes itens:
+- cração do plugin de get secrets;
+- entender o arquivo de github actions;
+- entender o fluxo das steps;
+
+Qualquer dúvida ou segestão, sinta-se à vontade para me contatar diretamente.

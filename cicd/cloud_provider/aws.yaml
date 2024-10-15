@@ -1,0 +1,89 @@
+---
+name: terraform-aws
+on:
+  workflow_call:
+    outputs:
+      report:
+        description: "The first output string"
+        value: ${{ jobs.terraformAws.outputs.report }}
+      kubeconfig:
+        description: "The first output string"
+        value: ${{ jobs.terraformAws.outputs.kubeconfig }}
+      action:
+        description: "Action to terraform"
+        value: ${{ jobs.terraformAws.outputs.action }}
+    inputs:
+      action:
+        description: 'Action to terraform'
+        required: false
+        type: string
+        default: apply
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        description: 'AWS access key'
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        description: 'AWS secret key'
+        required: true
+      AWS_DEFAULT_REGION:
+        description: 'AWS default region'
+        required: false
+
+jobs:
+  terraformAws:
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+    name: terraformAws
+    runs-on: ubuntu-20.04
+
+    outputs:
+      report: ${{ steps.report.outputs.REPORT }}
+      kubeconfig: ${{ steps.kubeconfig.outputs.KUBECONFIG }}
+      action: ${{ inputs.action }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1  
+        with:
+          terraform_wrapper: false
+
+      - name: Terraform Init
+        run: terraform init -backend-config=backend.hcl
+        working-directory: ./infra/terraform
+
+      - name: Terraform Create a plan
+        run: terraform plan -out "tfplan"
+        working-directory: ./infra/terraform
+
+      - name: Terraform show a plan
+        run: terraform show "tfplan"
+        working-directory: ./infra/terraform
+
+      - name: Terraform ${{ inputs.action }} a plan
+        run: terraform ${{ inputs.action }} -parallelism=20 --auto-approve
+        working-directory: ./infra/terraform
+
+      - name: Terraform output
+        id: terraform-output
+        run: |
+          terraform output
+        working-directory: ./infra/terraform
+
+      - name: Terraform output project name
+        id: report
+        if: inputs.action == 'apply'
+        run: |
+          OUTPUT=$(terraform output -raw project_name)
+          echo "::set-output name=REPORT::$OUTPUT"
+        working-directory: ./infra/terraform
+
+      - name: Terraform output kubeconfig
+        id: kubeconfig
+        run: |
+          OUTPUT=$(terraform output -raw kubeconfig|base64 -w 0)
+          echo "::set-output name=KUBECONFIG::$OUTPUT"
+        working-directory: ./infra/terraform

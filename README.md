@@ -1,2 +1,4 @@
-# platform-scaffolder
-Scaffolder of the Develop Platform
+# platform-demo-scaffolder
+Skaffolder of demostration Platform by Synera
+
+## docs

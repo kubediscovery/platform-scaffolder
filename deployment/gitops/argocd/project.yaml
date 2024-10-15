@@ -1,0 +1,35 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: ${{ values.projectName | replace(" ", "-") | lower}}
+  {%- if values.labels %}
+  labels:
+    {% for key, value in values.labels %}
+      ${{- key }}: "${{ value }}"
+    {% endfor -%}
+  {%- endif  %}
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  description: Deployments with the cluster
+  destinations:
+  - name: in-cluster
+    namespace: '*'
+    server: https://kubernetes.default.svc
+  namespaceResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  sourceRepos:
+  - https://charts.bitnami.com/bitnami
+  - https://helm.releases.hashicorp.com
+  - https://charts.konghq.com
+  - https://charts.external-secrets.io
+  - https://kubernetes-sigs.github.io/external-dns
+  - https://argoproj.github.io/argo-helm
+  - https://github.com/kubediscovery/${{ values.repositoryName }}
+  orphanedResources:
+    warn: false

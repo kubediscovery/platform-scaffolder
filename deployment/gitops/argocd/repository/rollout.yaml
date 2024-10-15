@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: rollout-example
+  labels:
+    argocd.argoproj.io/secret-type: repository
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+stringData:
+  url: https://github.com/kubediscovery/${{ values.repositoryName }}
+  type: git
+  name: argoproj

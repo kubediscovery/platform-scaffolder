@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-styles-cm
+data:
+  my-styles.css: |
+    .sidebar__logo span {
+      display: none;
+    }
+    .sidebar__logo:after {
+      content: 'Customized Text';
+    }
+    .sidebar {
+      background: #ff00c8;
+    }
+    .page__content-wrapper {
+      background: #ff00c8;
+    }

@@ -1,0 +1,54 @@
+---
+name: kubernetes-dns-deploy
+run-name: Deploy DNS
+
+on:
+  workflow_call:
+    inputs:
+      kubeconfig:
+        description: 'Kubeconfig in base64'
+        required: true
+        type: string
+      argoNamespace:
+        description: 'ArgoCD namespace'
+        required: true
+        type: string
+    secrets:
+      CF_API_TOKEN:
+        required: true
+
+jobs:
+  kubernetesDnsDeploy:
+    name: deployDns
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v3.13.0
+          kubeconfig: ${{ inputs.kubeconfig }}
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+  
+      - name: Kubeconfig
+        run: |
+          mkdir -p ~/.kube
+          echo ${{ inputs.kubeconfig }}|base64 -d > ~/.kube/config
+
+      - name: Create secret
+        run: |
+          echo $CF_API_TOKEN
+          kubectl create namespace controller-exdns --dry-run=client -o yaml | kubectl apply -f -
+          kubectl create --namespace controller-exdns secret generic cloudflare-api-key --from-literal=apiKey=${CF_API_TOKEN} --dry-run=client -o yaml | kubectl apply -f -
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+
+      - name: Apply Kong ingress controller
+        run: kubectl apply -f ./deployment/gitops/kong/application.yaml --namespace ${{ inputs.argoNamespace }}
+
+      - name: Apply External dns
+        run: kubectl apply -f ./deployment/gitops/exdns/application.yaml --namespace  ${{ inputs.argoNamespace }}
