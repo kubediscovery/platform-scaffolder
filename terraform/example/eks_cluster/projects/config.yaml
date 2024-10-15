@@ -1,5 +1,0 @@
----
-clusters:
-  - name: learn
-    region: us-east-1
-    path: learn_aws/projects/config.yaml
