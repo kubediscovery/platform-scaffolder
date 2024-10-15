@@ -6,7 +6,7 @@
 # }
 
 output "cluster" {
-  value = module.platform
+  value = module.k8s_cluster
 }
 
 output "project_name" {
