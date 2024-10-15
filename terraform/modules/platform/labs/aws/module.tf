@@ -1,7 +1,7 @@
 
 
 module "platform" {
-  source = "git::https://github.com/kubediscovery/platform-infrastructure.git//modules/aws/eks_cluster?ref=develop"
+  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//modules/aws/eks_cluster?ref=develop"
 
   project_name = var.project_name
   cidr_block   = var.cidr_block
@@ -10,7 +10,7 @@ module "platform" {
 }
 
 # module "addons" {
-#   source = "git::https://github.com/kubediscovery/platform-infrastructure.git//modules/addons/init/?ref=develop"
+#   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//modules/addons/init/?ref=develop"
 
 #   project_name           = var.project_name
 #   cluster_endpoint       = module.platform.cluster.endpoint
