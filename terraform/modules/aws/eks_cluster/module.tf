@@ -30,28 +30,3 @@ module "managed_node_group" {
   cluster_name = module.cluster.cluster_name
   subnet_ids   = [module.network.subnet_priv_1a, module.network.subnet_priv_1b]
 }
-
-# module "managed-addons" {
-#   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/aws/eks_cluster/managed-addons/?ref=develop"
-
-#   project_name       = var.project_name
-#   tags               = var.tags
-#   cluster_name       = module.cluster.cluster_name
-#   enabled_csi_driver = true
-# }
-
-# module "argocd_applications" {
-#   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/argoproj/applications/?ref=develop"
-
-#   password    = module.argocd.secret.data.password
-#   server_addr = module.argocd.service.spec.0.cluster_ip
-# }
-
-# module "lb_controller" {
-#   source = "./lb-controller"
-
-#   project_name      = var.project_name
-#   tags              = var.tags
-#   cluster_name      = module.cluster.cluster_name
-#   oidc_provider_url = module.cluster.oidc_provider
-# }
