@@ -31,7 +31,7 @@ variable "capacity_type" {
 variable "instance_types" {
   type        = list(string)
   description = "EKS cluster name to create MNG"
-  default     = ["t3.small"]
+  default     = ["t3.medium"]
 }
 
 variable "desired_size" {
