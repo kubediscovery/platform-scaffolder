@@ -12,7 +12,7 @@ resource "kubernetes_storage_class" "standard" {
     name = "standard"
   }
 
-  storage_provisioner = "kubernetes.io/aws-ebs"
+    storage_provisioner = "ebs.csi.aws.com"
 
   parameters = {
     type = "gp2"
