@@ -48,7 +48,7 @@ module "argocd" {
 }
 
 module "kong" {
-  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraformmodules/addons/kong/?ref=develop"
+  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/kong/?ref=develop"
   count  = local.enabled_addons.kong_ingress_controller.enabled ? 1 : 0
 
   labels        = var.tags
