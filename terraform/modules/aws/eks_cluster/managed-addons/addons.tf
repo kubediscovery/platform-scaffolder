@@ -9,7 +9,7 @@ resource "aws_eks_addon" "ebs_csi_driver" {
 
 resource "kubernetes_storage_class" "standard" {
   metadata {
-    name = "standard"
+    name = "efs-standard"
   }
 
   storage_provisioner = "efs.csi.aws.com"
@@ -17,3 +17,41 @@ resource "kubernetes_storage_class" "standard" {
   reclaim_policy      = "Delete"
   volume_binding_mode = "WaitForFirstConsumer"
 }
+
+resource "kubernetes_persistent_volume_v1" "standard" {
+  metadata {
+    name = "efs-standard"
+  }
+    spec {
+    capacity = {
+      storage = "2Gi"
+    }
+    access_modes = ["ReadWriteMany"]
+    volume_mode = "Filesystem"
+    storage_class_name = kubernetes_storage_class.standard.metadata.0.name
+    csi {
+      driver = "efs.csi.aws.com"
+      volume_handle = "EFS_VOLUME_ID"
+    }
+    persistent_volume_source {
+      vsphere_volume {
+        volume_path = "/absolute/path"
+      }
+    }
+  }
+}
+
+
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: efs-storage-claim
+#   namespace: storage
+# spec:
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: efs-sc
+#   resources:
+#     requests:
+#       storage: 5Gi
