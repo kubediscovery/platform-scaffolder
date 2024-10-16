@@ -5,7 +5,6 @@
 #   depends_on = [module.platform]
 # }
 
-
 locals {
   empty_addons = {
     "metrics_server" = {
@@ -51,7 +50,6 @@ module "argocd" {
   project_name  = var.project_name
 }
 
-
 module "argocd_publish" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
 
@@ -81,4 +79,14 @@ module "atlantis" {
   github_config   = try(local.enabled_addons.atlantis.github_config, {})
   aws_config      = try(local.enabled_addons.atlantis.aws_config, {})
   atlantis_config = try(local.enabled_addons.atlantis.atlantis_config, {})
+}
+
+module "atlantis_publish" {
+  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
+
+  api_token = var.cloudflare_token
+  zone_id   = var.cloudflare_token
+  record_type = module.atlantis[0].publish.type == "address" ? "A" : "CNAME"
+  record_name = module.atlantis[0].publish.name
+  record_address = module.atlantis[0].publish.address
 }

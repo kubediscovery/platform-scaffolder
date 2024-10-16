@@ -20,3 +20,10 @@ resource "helm_release" "atlantis" {
     github_config = var.github_config
   })]
 }
+
+data "kubernetes_ingress_v1" "atlantis_server" {
+  metadata {
+    name      = "atlantis"
+    namespace = helm_release.atlantis.namespace
+  }
+}
