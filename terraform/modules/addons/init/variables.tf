@@ -54,3 +54,9 @@ variable "cloudflare_zone_id" {
   description = "Cloudflare API token to manage DNS records"
   default     = ""
 }
+
+variable "cluster_storage_class" {
+  type        = string
+  description = "Storage class to use in the cluster"
+  default     = ""
+}
