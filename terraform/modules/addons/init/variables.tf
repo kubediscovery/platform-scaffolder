@@ -42,3 +42,9 @@ variable "enabled_addons" {
   description = "Enabled addons for the cluster"
   default     = {}
 }
+
+variable "cloudflare_token" {
+  type        = string
+  default = "teste"
+  description = "value of the cluster token."
+}

@@ -56,11 +56,11 @@ module "argocd_publish" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
   count  = local.enabled_addons.argoproj_argocd.enabled ? 1 : 0
 
-api_token = var.cloudflare.api_token
-zone_id   = var.cloudflare.zone_id
-record_type = module.argocd.publish.type == "address" ? "A" : "CNAME"
-record_name = module.argocd.publish.name
-record_address = module.argocd.publish.address
+  api_token = var.cloudflare_token
+  zone_id   = var.cloudflare_token
+  record_type = module.argocd.publish.type == "address" ? "A" : "CNAME"
+  record_name = module.argocd.publish.name
+  record_address = module.argocd.publish.address
 }
 
 module "kong" {
