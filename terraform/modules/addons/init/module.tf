@@ -12,9 +12,20 @@
 #   depends_on = [module.platform]
 # }
 
+locals {
+  enabled_addons = length(var.enabled_addons) > 0 ? var.enabled_addons : {
+    "metrics-server"               = false
+    "cluster-autoscaler"           = false
+    "aws-node-termination-handler" = false
+    "argoproj-argocd"              = false
+    "argoproj-rollout"             = false
+    "kong-ingress-controller"      = false
+  }
+}
+
 module "argocd" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/argoproj/argocd/?ref=develop"
-  count  = length(var.enabled_addons) > 0 ? (contains(keys(var.enabled_addons), "argoproj-argocd") && var.enabled_addons["argoproj-argocd"]) ? 1 : 0 : 0
+  count  = contains(keys(locals.enabled_addons), "argoproj-argocd") && locals.enabled_addons["argoproj-argocd"] ? 1 : 0
 
 
 
