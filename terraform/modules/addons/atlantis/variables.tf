@@ -1,7 +1,7 @@
 
 variable "name" {
   type        = string
-  default     = "antlantis"
+  default     = "atlantis"
   description = "Atlantis name to install"
 }
 

@@ -1,5 +1,5 @@
 
-atlantisUrl: "atlantis.${project_name}.kubediscovery.com"
+atlantisUrl: "http://atlantis.${project_name}.kubediscovery.com"
 
 ingress:
   enabled: true
@@ -10,22 +10,13 @@ ingress:
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
   tls: false
 
-
 volumeClaim:
-  enabled: false
+  enabled: true
+  accessMode: ReadWriteOnce
   dataStorage: 1Gi
-  storageClassName: gp2
+  storageClassName: ${storage_class}
 
-storageClassName: gp2
-
-aws: {
-  %{ for key, value in aws_config ~}
-  ${key}: "${value}"
-  %{ endfor ~}
-}
-  
-github: {
-  %{ for key, value in github_config ~}
-  ${key}: "${value}"
-  %{ endfor ~}
-}
+github:
+  user: teste
+  token: teste
+  secret: teste
