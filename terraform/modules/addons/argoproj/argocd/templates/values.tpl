@@ -50,7 +50,9 @@ configs:
       content: url(https://synera.com.br/wp-content/uploads/2024/10/3.png);
     }
     .login {
-      background-color: #222;
+      min-height: 100vh;
+      background: linear-gradient(to top left, #ffffff 0%, #555 100%);
+      display: flex;
     }
 
   cm:
