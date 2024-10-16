@@ -29,9 +29,3 @@ github: {
   ${key}: "${value}"
   %{ endfor ~}
 }
-
-atlantis: {
-  %{ for key, value in atlantis_config ~}
-  ${key}: "${value}"
-  %{ endfor ~}
-}

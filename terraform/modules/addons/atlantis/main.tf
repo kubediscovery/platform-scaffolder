@@ -18,7 +18,6 @@ resource "helm_release" "atlantis" {
     ingress_class = var.ingress_class
     aws_config    = var.aws_config
     github_config = var.github_config
-    atlantis_config =  var.atlantis_config
   })]
 }
 
@@ -28,7 +27,6 @@ locals {
     ingress_class   = var.ingress_class
     aws_config      = var.aws_config
     github_config   = var.github_config
-    atlantis_config =  var.atlantis_config
   })])
 }
 
