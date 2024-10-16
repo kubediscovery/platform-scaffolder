@@ -16,7 +16,6 @@ resource "helm_release" "argocd" {
   values = [templatefile("${path.module}/templates/values.tpl", {
     project_name  = var.project_name
     ingress_class = var.ingress_class
-    labels        = var.labels
   })]
 }
 
