@@ -10,5 +10,12 @@ ingress:
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
   tls: false
 
+
+volumeClaim:
+  dataStorage: 1Gi
+  storageClassName: gp2
+
+storageClassName: gp2
+
 aws: {}
 github: {}
