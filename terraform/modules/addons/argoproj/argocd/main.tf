@@ -17,6 +17,10 @@ resource "helm_release" "argocd" {
     project_name  = var.project_name
     ingress_class = var.ingress_class
   })]
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 data "kubernetes_service" "argocd_server" {

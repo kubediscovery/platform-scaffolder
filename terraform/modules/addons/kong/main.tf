@@ -9,6 +9,10 @@ resource "helm_release" "kong" {
   values = [templatefile("${path.module}/templates/values.tpl", {
     install_crds = true
   })]
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 data "kubernetes_service" "kong" {
