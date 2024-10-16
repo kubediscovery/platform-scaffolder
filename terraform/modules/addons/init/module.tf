@@ -67,7 +67,7 @@ module "atlantis" {
   labels          = var.tags
   chart_version   = try(local.enabled_addons.atlantis.version, "5.7.0")
   project_name    = var.project_name
-  github_config   = local.enabled_addons.atlantis.github_config
-  aws_config      = local.enabled_addons.atlantis.aws_config
-  atlantis_config = local.enabled_addons.atlantis.atlantis_config
+  github_config   = try(local.enabled_addons.atlantis.github_config, {})
+  aws_config      = try(local.enabled_addons.atlantis.aws_config, {})
+  atlantis_config = try(local.enabled_addons.atlantis.atlantis_config, {})
 }
