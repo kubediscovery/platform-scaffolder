@@ -6,20 +6,21 @@
  * Module to deploy install in Kubernetes the Atlantis.
  */
 
-# resource "helm_release" "atlantis" {
-#   name             = var.name
-#   repository       = var.repository
-#   chart            = var.chart
-#   version          = var.chart_version
-#   namespace        = var.namespace
-#   create_namespace = var.create_namespace
-#   values = [templatefile("${path.module}/templates/values.tpl", {
-#     project_name  = var.project_name
-#     ingress_class = var.ingress_class
-#     aws_config    = var.aws_config
-#     github_config = var.github_config
-#   })]
-# }
+resource "helm_release" "atlantis" {
+  name             = var.name
+  repository       = var.repository
+  chart            = var.chart
+  version          = var.chart_version
+  namespace        = var.namespace
+  create_namespace = var.create_namespace
+  values = [templatefile("${path.module}/templates/values.tpl", {
+    project_name  = var.project_name
+    ingress_class = var.ingress_class
+    aws_config    = var.aws_config
+    github_config = var.github_config
+    atlantis_config =  var.atlantis_config
+  })]
+}
 
 locals {
   value = jsonencode([templatefile("${path.module}/templates/values.tpl", {
