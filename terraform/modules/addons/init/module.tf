@@ -52,13 +52,16 @@ module "argocd" {
 }
 
 
-# module "argocd_dns" {
-#   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
-#   count  = local.enabled_addons.argoproj_argocd.enabled ? 1 : 0
+module "argocd_publish" {
+  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
+  count  = local.enabled_addons.argoproj_argocd.enabled ? 1 : 0
 
-#   chart_version = try(local.enabled_addons.argoproj_argocd.version, "7.5.2")
-#   project_name  = var.project_name
-# }
+api_token = var.cloudflare.api_token
+zone_id   = var.cloudflare.zone_id
+record_type = module.argocd.publish.type == "address" ? "A" : "CNAME"
+record_name = module.argocd.publish.name
+record_address = module.argocd.publish.address
+}
 
 module "kong" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/kong/?ref=develop"
