@@ -1,8 +1,6 @@
 installCRDs: true
 global:
   domain: gitops.${project_name}.kubediscovery.com
-  additionalLabels: 
-    - ${labels}
 
 certificate:
   enabled: false
