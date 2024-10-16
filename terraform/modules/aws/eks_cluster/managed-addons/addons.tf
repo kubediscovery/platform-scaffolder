@@ -32,6 +32,12 @@ resource "kubernetes_persistent_volume_v1" "standard" {
     volume_mode        = "Filesystem"
     storage_class_name = kubernetes_storage_class.standard.metadata.0.name
 
+    claim_ref {
+      namespace = "storage"
+      name      = "efs-storage-claim"
+    }
+
+    persistent_volume_reclaim_policy = "Retain"
     persistent_volume_source {
       csi {
         driver        = "efs.csi.aws.com"
