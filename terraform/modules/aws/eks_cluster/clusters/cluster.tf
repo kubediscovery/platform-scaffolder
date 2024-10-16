@@ -20,6 +20,10 @@ resource "aws_eks_cluster" "eks_cluster" {
     }
   )
 
+  lifecycle {
+    create_before_destroy = true
+  }
+
   depends_on = [
     aws_iam_role_policy_attachment.eks_cluster_policy_attachment
   ]

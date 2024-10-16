@@ -10,6 +10,9 @@ resource "aws_subnet" "eks_subnet_plublic_1a" {
       "Kubernetes.io/role/elb" = "1"
     }
   )
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_subnet" "eks_subnet_plublic_1b" {
@@ -24,15 +27,24 @@ resource "aws_subnet" "eks_subnet_plublic_1b" {
       "Kubernetes.io/role/elb" = "1"
     }
   )
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 
 resource "aws_route_table_association" "eks_rtn_assoc_1a" {
   subnet_id      = aws_subnet.eks_subnet_plublic_1a.id
   route_table_id = aws_route_table.eks_public_route_table.id
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_route_table_association" "eks_rtn_assoc_1b" {
   subnet_id      = aws_subnet.eks_subnet_plublic_1b.id
   route_table_id = aws_route_table.eks_public_route_table.id
+  lifecycle {
+    create_before_destroy = true
+  }
 }

@@ -21,6 +21,9 @@ resource "aws_iam_role" "eks_cluster_role" {
       Name = "${var.project_name}-eks-cluster-role"
     }
   )
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "eks_cluster_policy_attachment" {
@@ -64,6 +67,9 @@ resource "aws_iam_policy" "eks_cluster_ebs_policy" {
       }
     ]
   })
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "eks_cluster_ebs_policy_attachment" {

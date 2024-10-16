@@ -26,6 +26,10 @@ resource "aws_eks_node_group" "eks_node_group" {
   # release_version = var.release_version
   version = var.cluster_group_version
 
+  lifecycle {
+    create_before_destroy = true
+  }
+
   depends_on = [
     aws_iam_role_policy_attachment.eks_mng_role_attachment_worker,
     aws_iam_role_policy_attachment.eks_mng_role_attachment_ecr,

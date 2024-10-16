@@ -4,6 +4,9 @@ resource "aws_vpc" "eks_vpc" {
   enable_dns_support   = true
   enable_dns_hostnames = true
 
+  lifecycle {
+    create_before_destroy = true
+  }
   tags = merge(
     local.tags,
     {

@@ -6,6 +6,9 @@ resource "aws_internet_gateway" "eks_igw" {
       Name = "${var.project_name}-igw"
     }
   )
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_route_table" "eks_public_route_table" {
@@ -23,4 +26,7 @@ resource "aws_route_table" "eks_public_route_table" {
       Name = "${var.project_name}-pub-rtb"
     }
   )
+  lifecycle {
+    create_before_destroy = true
+  }
 }

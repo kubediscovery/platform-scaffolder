@@ -10,6 +10,9 @@ resource "aws_subnet" "eks_subnet_private_1a" {
       "Kubernetes.io/role/internal-elb" = "1"
     }
   )
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_subnet" "eks_subnet_private_1b" {
@@ -24,14 +27,23 @@ resource "aws_subnet" "eks_subnet_private_1b" {
       "Kubernetes.io/role/internal-elb" = "1"
     }
   )
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_route_table_association" "eks_rtn_assoc_priv_1a" {
   subnet_id      = aws_subnet.eks_subnet_private_1a.id
   route_table_id = aws_route_table.eks_private_route_table_1a.id
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_route_table_association" "eks_rtn_assoc_priv_1b" {
   subnet_id      = aws_subnet.eks_subnet_private_1b.id
   route_table_id = aws_route_table.eks_private_route_table_1b.id
+  lifecycle {
+    create_before_destroy = true
+  }
 }

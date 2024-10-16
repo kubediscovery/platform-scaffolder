@@ -7,6 +7,9 @@ resource "aws_eip" "eks_ngw_eip_1a" {
       "Kubernetes.io/role/elb" = "1"
     }
   )
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_eip" "eks_ngw_eip_1b" {
@@ -18,6 +21,9 @@ resource "aws_eip" "eks_ngw_eip_1b" {
       "Kubernetes.io/role/elb" = "1"
     }
   )
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 
@@ -41,6 +47,9 @@ resource "aws_nat_gateway" "eks_ngw_1b" {
       Name = "${var.project_name}-ngw-1b"
     }
   )
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_route_table" "eks_private_route_table_1a" {
@@ -58,6 +67,9 @@ resource "aws_route_table" "eks_private_route_table_1a" {
       Name = "${var.project_name}-priv-rtb-1a"
     }
   )
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_route_table" "eks_private_route_table_1b" {
@@ -75,4 +87,7 @@ resource "aws_route_table" "eks_private_route_table_1b" {
       Name = "${var.project_name}-priv-rtb-1b"
     }
   )
+  lifecycle {
+    create_before_destroy = true
+  }
 }
