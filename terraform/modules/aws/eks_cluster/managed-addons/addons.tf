@@ -12,11 +12,7 @@ resource "kubernetes_storage_class" "standard" {
     name = "standard"
   }
 
-    storage_provisioner = "ebs.csi.aws.com"
-
-  parameters = {
-    type = "gp2"
-  }
+  storage_provisioner = "efs.csi.aws.com"
 
   reclaim_policy      = "Delete"
   volume_binding_mode = "WaitForFirstConsumer"

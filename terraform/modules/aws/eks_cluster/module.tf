@@ -36,9 +36,9 @@ module "managed_node_group" {
 module "managed_addons" {
   source = "./managed-addons"
 
-  project_name          = var.project_name
-  tags                  = var.tags
-  cluster_name          = module.cluster.cluster_name
-  enabled_csi_driver    = true
+  project_name       = var.project_name
+  tags               = var.tags
+  cluster_name       = module.cluster.cluster_name
+  enabled_csi_driver = true
 
 }
