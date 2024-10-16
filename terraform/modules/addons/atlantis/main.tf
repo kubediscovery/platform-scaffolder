@@ -27,7 +27,7 @@ locals {
     ingress_class   = var.ingress_class
     aws_config      = var.aws_config
     github_config   = var.github_config
-    atlantis_config = yamldecode( var.atlantis_config)
+    atlantis_config = yamlencode( var.atlantis_config)
   })])
 }
 resource "null_resource" "name" {
