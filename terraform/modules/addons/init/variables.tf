@@ -40,24 +40,5 @@ variable "cluster_token" {
 variable "enabled_addons" {
   type        = map(map(any))
   description = "Enabled addons for the cluster"
-  default = {
-    "metrics-server" = {
-      enabled = false
-    }
-    "cluster-autoscaler" = {
-      enabled = false
-    }
-    "aws-node-termination-handler" = {
-      enabled = false
-    }
-    "argoproj-argocd" = {
-      enabled = false
-    }
-    "argoproj-rollout" = {
-      enabled = false
-    }
-    "kong-ingress-controller" = {
-      enabled = false
-    }
-  }
+  default     = {}
 }
