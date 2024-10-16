@@ -25,7 +25,7 @@ locals {
 
 module "argocd" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/argoproj/argocd/?ref=develop"
-  count  = locals.enabled_addons["argoproj-argocd"] ? 1 : 0
+  count  = locals.enabled_addons.argoproj-argocd ? 1 : 0
 
 
 
