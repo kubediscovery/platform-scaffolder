@@ -41,11 +41,23 @@ variable "enabled_addons" {
   type        = map(bool)
   description = "Enabled addons for the cluster"
   default = {
-    "metrics-server"               = false
-    "cluster-autoscaler"           = false
-    "aws-node-termination-handler" = false
-    "argoproj-argocd"              = false
-    "argoproj-rollout"             = false
-    "kong-ingress-controller"      = false
+    "metrics-server" = {
+      enabled = false
+    }
+    "cluster-autoscaler" = {
+      enabled = false
+    }
+    "aws-node-termination-handler" = {
+      enabled = false
+    }
+    "argoproj-argocd" = {
+      enabled = false
+    }
+    "argoproj-rollout" = {
+      enabled = false
+    }
+    "kong-ingress-controller" = {
+      enabled = false
+    }
   }
 }
