@@ -48,10 +48,10 @@ module "argocd" {
 }
 
 module "kong" {
-  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//modules/addons/kong/?ref=develop"
-  count  = local.enabled_addons.kong.enabled ? 1 : 0
+  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraformmodules/addons/kong/?ref=develop"
+  count  = local.enabled_addons.kong_ingress_controller.enabled ? 1 : 0
 
   labels        = var.tags
-  chart_version = try(local.enabled_addons.argoproj_argocd.version, "7.5.2")
+  chart_version = try(local.enabled_addons.kong_ingress_controller.version, "7.5.2")
   project_name  = var.project_name
 }
