@@ -1,7 +1,8 @@
 installCRDs: true
 global:
   domain: gitops.${project_name}.kubediscovery.com
-  additionalLabels: ${labels}
+  additionalLabels: 
+    - ${labels}
 
 certificate:
   enabled: false
@@ -57,6 +58,6 @@ configs:
 
   cm:
     ui.bannercontent: Synera, deploy de forma inteligente
-    ui.bannerurl: "https://www.synera.com.br"
+    ui.bannerurl: "https://www.kubediscovery.com"
     ui.bannerpermanent: "true"
     ui.bannerposition: "top"
