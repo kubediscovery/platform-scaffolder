@@ -33,7 +33,7 @@ data "kubernetes_secret" "argocd_server" {
   }
 }
 
-data "kubernetes_endpoints_v1" "argocd_server" {
+data "kubernetes_ingress_v1" "argocd_server" {
   metadata {
     name      = "argocd-server"
     namespace = helm_release.argocd.namespace
