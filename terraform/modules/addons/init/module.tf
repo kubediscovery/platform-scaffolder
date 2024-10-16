@@ -43,6 +43,6 @@ module "argocd" {
   count  = local.enabled_addons.argoproj-argocd.enabled ? 1 : 0
 
   labels        = var.tags
-  chart_version = lookup(local.enabled_addons["argoproj-argocd"], "version", "7.5.2")
+  chart_version = try(local.enabled_addons.argoproj-argocd.version, "7.5.2")
   project_name  = var.project_name
 }
