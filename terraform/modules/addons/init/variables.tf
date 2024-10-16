@@ -38,7 +38,7 @@ variable "cluster_token" {
 }
 
 variable "enabled_addons" {
-  type        = map(map(bool))
+  type        = map(map(any))
   description = "Enabled addons for the cluster"
   default = {
     "metrics-server" = {
