@@ -36,11 +36,6 @@ resource "aws_iam_role_policy_attachment" "eks_service_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
 }
 
-resource "aws_iam_role_policy_attachment" "eks_csi_policy_attachment" {
-  role       = aws_iam_role.eks_cluster_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_EFS_CSI_Driver_Policy"
-}
-
 resource "aws_iam_policy" "eks_cluster_ebs_policy" {
   name        = "eks-cluster-ebs-policy"
   description = "Policy to allow EKS to create and manage EBS volumes"
