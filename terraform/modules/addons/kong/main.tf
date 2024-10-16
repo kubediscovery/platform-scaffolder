@@ -1,11 +1,11 @@
 
 resource "helm_release" "kong" {
-  name             = "kong"
-  repository       = "https://charts.konghq.com"
-  chart            = "kong"
-  version          = "2.42.0"
-  namespace        = "kong-controller"
-  create_namespace = true
+  name             = var.name
+  repository       = var.repository
+  chart            = var.chart
+  version          = var.chart_version
+  namespace        = var.namespace
+  create_namespace = var.create_namespace
   values           = [templatefile("${path.module}/templates/values.tpl", {})]
 }
 
