@@ -8,13 +8,9 @@ output "service" {
   value = data.kubernetes_service.argocd_server
 }
 
-output "secret" {
-  value = data.kubernetes_secret.argocd_server
+output "initial_secret" {
+  value = data.kubernetes_secret.argocd_server.data.password
 }
-
-# output "ep" {
-#   value = data.kubernetes_endpoints_v1.argocd_server
-# }
 
 output "external_address" {
   value = {
