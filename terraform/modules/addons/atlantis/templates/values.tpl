@@ -24,4 +24,8 @@ aws: {
   %{ endfor ~}
 }
   
-github: {}
+github: {
+  %{ for key, value in github_config ~}
+  ${key}: "${value}"
+  %{ endfor ~}
+}

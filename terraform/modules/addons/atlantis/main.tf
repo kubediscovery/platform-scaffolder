@@ -17,5 +17,6 @@ resource "helm_release" "atlantis" {
     project_name  = var.project_name
     ingress_class = var.ingress_class
     aws_config    = var.aws_config
+    github_config = var.github_config
   })]
 }
