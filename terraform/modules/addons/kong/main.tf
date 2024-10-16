@@ -6,7 +6,9 @@ resource "helm_release" "kong" {
   version          = var.chart_version
   namespace        = var.namespace
   create_namespace = var.create_namespace
-  values           = [templatefile("${path.module}/templates/values.tpl", {})]
+  values = [templatefile("${path.module}/templates/values.tpl", {
+    install_crds = true
+  })]
 }
 
 data "kubernetes_service" "kong" {

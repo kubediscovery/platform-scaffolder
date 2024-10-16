@@ -1,4 +1,4 @@
-installCRDs: "true"
+installCRDs: ${install_crds}
 global:
   enabled: true
 standalone:
