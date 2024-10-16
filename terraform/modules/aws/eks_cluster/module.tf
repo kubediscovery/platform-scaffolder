@@ -32,3 +32,13 @@ module "managed_node_group" {
   subnet_ids            = [module.network.subnet_priv_1a, module.network.subnet_priv_1b]
   cluster_group_version = var.cluster_group_version
 }
+
+module "managed_addons" {
+  source = "./managed-addons"
+
+  project_name          = var.project_name
+  tags                  = var.tags
+  cluster_name          = module.cluster.cluster_name
+  enabled_csi_driver    = true
+
+}
