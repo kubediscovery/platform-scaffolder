@@ -37,9 +37,9 @@ resource "null_resource" "name" {
   }
 }
 
-# data "kubernetes_ingress_v1" "atlantis_server" {
-#   metadata {
-#     name      = "atlantis"
-#     namespace = helm_release.atlantis.namespace
-#   }
-# }
+data "kubernetes_ingress_v1" "atlantis_server" {
+  metadata {
+    name      = "atlantis"
+    namespace = helm_release.atlantis.namespace
+  }
+}
