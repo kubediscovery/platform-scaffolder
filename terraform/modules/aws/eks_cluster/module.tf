@@ -40,5 +40,4 @@ module "managed_addons" {
   tags               = var.tags
   cluster_name       = module.cluster.cluster_name
   enabled_csi_driver = true
-
 }
