@@ -50,15 +50,15 @@ module "argocd" {
   project_name  = var.project_name
 }
 
-module "argocd_publish" {
-  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
+# module "argocd_publish" {
+#   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
 
-  api_token = var.cloudflare_api_token
-  zone_id   = var.cloudflare_api_token
-  record_type = module.argocd[0].publish.type == "address" ? "A" : "CNAME"
-  record_name = module.argocd[0].publish.name
-  record_address = module.argocd[0].publish.address
-}
+#   api_token = var.cloudflare_api_token
+#   zone_id   = var.cloudflare_api_token
+#   record_type = module.argocd[0].publish.type == "address" ? "A" : "CNAME"
+#   record_name = module.argocd[0].publish.name
+#   record_address = module.argocd[0].publish.address
+# }
 
 module "kong" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/kong/?ref=develop"
@@ -81,12 +81,12 @@ module "atlantis" {
   atlantis_config = try(local.enabled_addons.atlantis.atlantis_config, {})
 }
 
-module "atlantis_publish" {
-  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
+# module "atlantis_publish" {
+#   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
 
-  api_token = var.cloudflare_api_token
-  zone_id   = var.cloudflare_api_token
-  record_type = length(module.atlantis) > 0 ? (module.atlantis[0].publish.type == "address" ? "A" : "CNAME") : "CNAME"
-  record_name = length(module.atlantis) > 0 ? module.atlantis[0].publish.name : ""
-  record_address = length(module.atlantis) > 0 ? module.atlantis[0].publish.address : ""
-}
+#   api_token = var.cloudflare_api_token
+#   zone_id   = var.cloudflare_api_token
+#   record_type = length(module.atlantis) > 0 ? (module.atlantis[0].publish.type == "address" ? "A" : "CNAME") : "CNAME"
+#   record_name = length(module.atlantis) > 0 ? module.atlantis[0].publish.name : ""
+#   record_address = length(module.atlantis) > 0 ? module.atlantis[0].publish.address : ""
+# }

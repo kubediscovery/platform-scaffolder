@@ -1,3 +1,3 @@
 output "arogcd" {
-  value = module.argocd
+  value = var.cloudflare_api_token
 }
