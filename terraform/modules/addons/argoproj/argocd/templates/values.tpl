@@ -38,21 +38,20 @@ configs:
       display: "Synera sempre ao seu lado";
     }
     .sidebar__logo img {
-      content: url(https://synera.com.br/wp-content/uploads/2022/09/logo-normal-branco-150x150.png);
+      content: url(https://synera.com.br/wp-content/uploads/2024/10/width_500.png);
     }
     .login .argo__logo {
-      background-image: url(https://synera.com.br/wp-content/uploads/2022/09/1.png);
+      background-image: url(https://synera.com.br/wp-content/uploads/2024/10/logo-horizontal-660-192.png);
      }
     .login__box img {
-      content: url(https://synera.com.br/wp-content/uploads/2024/01/logo-normal.png);
+      content: url(https://synera.com.br/wp-content/uploads/2024/10/3.png);
     }
     .logo-image img {
-      content: url(https://synera.com.br/wp-content/uploads/2024/01/logo-normal.png);
+      content: url(https://synera.com.br/wp-content/uploads/2024/10/3.png);
     }
     .login {
       background-color: #222;
     }
-
 
   cm:
     ui.bannercontent: Synera, deploy de forma inteligente
