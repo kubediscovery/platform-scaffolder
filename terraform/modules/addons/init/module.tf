@@ -86,7 +86,7 @@ module "atlantis_publish" {
 
   api_token = var.cloudflare_api_token
   zone_id   = var.cloudflare_api_token
-  record_type = module.atlantis[0].publish.type == "address" ? "A" : "CNAME"
-  record_name = module.atlantis[0].publish.name
-  record_address = module.atlantis[0].publish.address
+  record_type = length(module.atlantis) > 0 ? (module.atlantis[0].publish.type == "address" ? "A" : "CNAME") : "CNAME"
+  record_name = length(module.atlantis) > 0 ? module.atlantis[0].publish.name : ""
+  record_address = length(module.atlantis) > 0 ? module.atlantis[0].publish.address : ""
 }
