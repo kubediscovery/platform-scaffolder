@@ -18,6 +18,6 @@ output "ep" {
 
 output "external_address" {
   value = {
-    "address"    = data.kubernetes_ingress_v1.argocd_server.status.loadbalancer.ingress.0.hostname 
+    "address"    = data.kubernetes_ingress_v1.argocd_server.status
   }
 }
