@@ -19,6 +19,5 @@ module "addons" {
   cluster_ca_certificate = base64decode(module.k8s_cluster.cluster.cluster_ca_certificate)
   tags                   = var.tags
   cluster_token          = module.k8s_cluster.cluster.token
-
 }
 
