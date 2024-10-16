@@ -52,3 +52,15 @@ variable "enabled" {
   type    = any
   default = ""
 }
+
+variable "cluster_version" {
+  type        = string
+  description = "Cluster version"
+  default     = "1.31"
+}
+
+variable "cluster_group_version" {
+  type        = string
+  description = "Cluster version"
+  default     = "1.31"
+}

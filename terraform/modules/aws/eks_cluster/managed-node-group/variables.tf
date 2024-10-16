@@ -54,7 +54,7 @@ variable "min_size" {
   default     = 1
 }
 
-variable "mng_version" {
+variable "cluster_group_version" {
   type        = string
   description = "value of version"
   default     = "1.28"

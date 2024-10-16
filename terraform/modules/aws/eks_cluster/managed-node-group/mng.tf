@@ -24,7 +24,7 @@ resource "aws_eks_node_group" "eks_node_group" {
   # disk_size       = var.disk_size
   # ami_type        = var.ami_type
   # release_version = var.release_version
-  version = var.mng_version
+  version = var.cluster_group_version
 
   depends_on = [
     aws_iam_role_policy_attachment.eks_mng_role_attachment_worker,

@@ -78,3 +78,15 @@ variable "enabled_argocd" {
   }
   description = "ArgoCD"
 }
+
+variable "cluster_version" {
+  type        = string
+  description = "Cluster version"
+  default     = "1.31"
+}
+
+variable "cluster_group_version" {
+  type        = string
+  description = "Cluster version"
+  default     = "1.31"
+}
