@@ -16,7 +16,7 @@ resource "helm_release" "atlantis" {
   values = [templatefile("${path.module}/templates/values.tpl", {
     project_name  = var.project_name
     ingress_class = var.ingress_class
-    aws           = var.aws_config
-    github        = var.github_config
+    aws           = try(var.aws_config, {})
+    github        = try(var.github_config, {})
   })]
 }
