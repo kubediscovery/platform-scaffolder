@@ -27,3 +27,10 @@ variable "cluster_version" {
   description = "Cluster version"
   default     = "1.31"
 }
+
+variable "support_type" {
+  type        = string
+  description = "Support type for the EKS cluster"
+  default     = "STANDARD"
+
+}
