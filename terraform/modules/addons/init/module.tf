@@ -60,8 +60,6 @@ module "argocd_publish" {
   record_type = module.argocd.publish.type == "address" ? "A" : "CNAME"
   record_name = module.argocd.publish.name
   record_address = module.argocd.publish.address
-
-  depends_on = [ module.argocd ]
 }
 
 module "kong" {
