@@ -51,6 +51,15 @@ module "argocd" {
   project_name  = var.project_name
 }
 
+
+# module "argocd_dns" {
+#   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
+#   count  = local.enabled_addons.argoproj_argocd.enabled ? 1 : 0
+
+#   chart_version = try(local.enabled_addons.argoproj_argocd.version, "7.5.2")
+#   project_name  = var.project_name
+# }
+
 module "kong" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/kong/?ref=develop"
   count  = local.enabled_addons.kong_ingress_controller.enabled ? 1 : 0

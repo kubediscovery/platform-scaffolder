@@ -12,3 +12,7 @@ output "cluster" {
 output "project_name" {
   value = var.project_name
 }
+
+output "addons" {
+  value = module.addons
+}
