@@ -56,11 +56,19 @@ variable "ingress_class" {
 variable "aws_config" {
   type        = map(any)
   nullable    = false
+  sensitive   = true
   description = "AWS configuration"
 }
 
 variable "github_config" {
   type        = map(any)
   nullable    = false
+  sensitive   = true
   description = "GitHub configuration to Atlantis"
+}
+
+variable "atlantis_config" {
+  type        = map(any)
+  nullable    = false
+  description = "Atlantis configuration"
 }
