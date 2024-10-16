@@ -102,3 +102,9 @@ variable "cloudflare_api_token" {
   description = "Cloudflare API token to manage DNS records"
   default     = ""
 }
+
+variable "cloudflare_zone_id" {
+  type        = string
+  description = "Cloudflare API token to manage DNS records"
+  default     = ""
+}
