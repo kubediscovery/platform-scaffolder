@@ -23,22 +23,22 @@
 
 locals {
   value = [templatefile("${path.module}/templates/values.tpl", {
-    project_name  = var.project_name
-    ingress_class = var.ingress_class
-    aws_config    = var.aws_config
-    github_config = var.github_config
+    project_name    = var.project_name
+    ingress_class   = var.ingress_class
+    aws_config      = var.aws_config
+    github_config   = var.github_config
     atlantis_config = var.atlantis_config
   })]
 }
 resource "null_resource" "name" {
-provisioner "local-exec" {
+  provisioner "local-exec" {
     command = "echo ${local.value}"
-}
-}
-
-data "kubernetes_ingress_v1" "atlantis_server" {
-  metadata {
-    name      = "atlantis"
-    namespace = helm_release.atlantis.namespace
   }
 }
+
+# data "kubernetes_ingress_v1" "atlantis_server" {
+#   metadata {
+#     name      = "atlantis"
+#     namespace = helm_release.atlantis.namespace
+#   }
+# }
