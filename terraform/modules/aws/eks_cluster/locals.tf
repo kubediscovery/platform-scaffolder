@@ -8,4 +8,6 @@ locals {
     cluster_auth_base64 = module.cluster.certificate_authority[0].data
     token               = data.aws_eks_cluster_auth.this.token
   })
+
+
 }

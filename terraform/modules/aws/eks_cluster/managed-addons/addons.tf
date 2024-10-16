@@ -22,36 +22,19 @@ resource "kubernetes_persistent_volume_v1" "standard" {
   metadata {
     name = "efs-standard"
   }
-    spec {
+  spec {
     capacity = {
       storage = "2Gi"
     }
-    access_modes = ["ReadWriteMany"]
-    volume_mode = "Filesystem"
+    access_modes       = ["ReadWriteMany"]
+    volume_mode        = "Filesystem"
     storage_class_name = kubernetes_storage_class.standard.metadata.0.name
-    csi {
-      driver = "efs.csi.aws.com"
-      volume_handle = "EFS_VOLUME_ID"
-    }
+
     persistent_volume_source {
-      vsphere_volume {
-        volume_path = "/absolute/path"
+      csi {
+        driver        = "efs.csi.aws.com"
+        volume_handle = "EFS_VOLUME_ID"
       }
     }
   }
 }
-
-
-# ---
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   name: efs-storage-claim
-#   namespace: storage
-# spec:
-#   accessModes:
-#     - ReadWriteMany
-#   storageClassName: efs-sc
-#   resources:
-#     requests:
-#       storage: 5Gi

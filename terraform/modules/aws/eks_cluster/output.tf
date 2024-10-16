@@ -23,6 +23,13 @@ output "vpc" {
   }
 }
 
+output "volume" {
+  value = {
+    "storage_class"     = module.managed_addons.storage_class
+    "persistent_volume" = module.managed_addons.persistent_volume
+  }
+}
+
 output "cluster" {
   value = {
     "endpoint"                   = module.cluster.endpoint
@@ -33,6 +40,10 @@ output "cluster" {
     "cluster_ca_certificate_b64" = base64encode(module.cluster.certificate_authority[0].data)
     "kubeconfig"                 = module.cluster.kubeconfig
     "token"                      = module.cluster.token
+    "volume" = {
+      "storage_class"     = module.managed_addons.storage_class
+      "persistent_volume" = module.managed_addons.persistent_volume
+    }
   }
 }
 
