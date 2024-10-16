@@ -21,6 +21,6 @@ module "addons" {
   cluster_token          = module.k8s_cluster.cluster.token
   cloudflare_api_token   = var.cloudflare_api_token
   cloudflare_zone_id     = var.cloudflare_zone_id
-  cluster_storage_class  = k8s_cluster.cluster.volume.storage_class
+  cluster_storage_class  = module.k8s_cluster.cluster.volume.storage_class
 }
 
