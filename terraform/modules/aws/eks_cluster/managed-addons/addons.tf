@@ -7,9 +7,9 @@ resource "aws_eks_addon" "ebs_csi_driver" {
 }
 
 
-resource "kubernetes_storage_class" "ebs_sc" {
+resource "kubernetes_storage_class" "standard" {
   metadata {
-    name = "ebs-sc"
+    name = "standard"
   }
 
   storage_provisioner = "kubernetes.io/aws-ebs"
