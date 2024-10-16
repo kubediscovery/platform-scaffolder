@@ -64,7 +64,10 @@ module "atlantis" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/atlantis/?ref=develop"
   count  = local.enabled_addons.atlantis.enabled ? 1 : 0
 
-  labels        = var.tags
-  chart_version = try(local.enabled_addons.atlantis.version, "5.7.0")
-  project_name  = var.project_name
+  labels          = var.tags
+  chart_version   = try(local.enabled_addons.atlantis.version, "5.7.0")
+  project_name    = var.project_name
+  github_config   = local.enabled_addons.atlantis.github_config
+  aws_config      = local.enabled_addons.atlantis.aws_config
+  atlantis_config = local.enabled_addons.atlantis.atlantis_config
 }
