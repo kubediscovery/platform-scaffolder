@@ -36,3 +36,16 @@ variable "cluster_token" {
   type        = string
   description = "value of the cluster token."
 }
+
+variable "enabled_addons" {
+  type        = map(bool)
+  description = "Enabled addons for the cluster"
+  default = {
+    "metrics-server"               = false
+    "cluster-autoscaler"           = false
+    "aws-node-termination-handler" = false
+    "argoproj-argocd"              = false
+    "argoproj-rollout"             = false
+    "kong-ingress-controller"      = false
+  }
+}

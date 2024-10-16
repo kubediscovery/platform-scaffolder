@@ -11,3 +11,9 @@
 
 #   depends_on = [module.platform]
 # }
+
+resource "null_resource" "name" {
+  provisioner "local-exec" {
+    command = "echo ${var.enabled_addons}"
+  }
+}

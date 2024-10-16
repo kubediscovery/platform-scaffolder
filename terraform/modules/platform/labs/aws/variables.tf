@@ -90,3 +90,9 @@ variable "cluster_group_version" {
   description = "Cluster version"
   default     = "1.31"
 }
+
+variable "enabled_addons" {
+  type        = map(bool)
+  description = "Enable addons for the EKS cluster"
+  default     = {}
+}
