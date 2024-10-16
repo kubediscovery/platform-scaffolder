@@ -6,12 +6,6 @@
 # }
 
 
-# module "newrelic" {
-#   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//modules/addons/newrelic?ref=develop"
-
-#   depends_on = [module.platform]
-# }
-
 locals {
   empty_addons = {
     "metrics-server" = {
@@ -49,6 +43,6 @@ module "argocd" {
   count  = local.enabled_addons.argoproj-argocd.enabled ? 1 : 0
 
   labels        = var.tags
-  chart_version = lookup(local.enabled_addons["argoproj-argocd"], "version", "7.5.2")
+  chart_version = "7.5.2"
   project_name  = var.project_name
 }
