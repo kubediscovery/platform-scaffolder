@@ -96,3 +96,9 @@ variable "enabled_addons" {
   description = "Enabled addons for the cluster"
   default     = {}
 }
+
+variable "cloudflare_api_token" {
+  type        = string
+  description = "Cloudflare API token to manage DNS records"
+  default     = ""
+}

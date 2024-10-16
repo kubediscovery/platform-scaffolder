@@ -43,8 +43,8 @@ variable "enabled_addons" {
   default     = {}
 }
 
-variable "cloudflare_token" {
+variable "cloudflare_api_token" {
   type        = string
-  default = "teste"
-  description = "value of the cluster token."
+  description = "Cloudflare API token to manage DNS records"
+  default     = ""
 }
