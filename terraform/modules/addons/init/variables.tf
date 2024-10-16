@@ -38,7 +38,7 @@ variable "cluster_token" {
 }
 
 variable "enabled_addons" {
-  type        = map(any)
+  type        = any
   description = "Enabled addons for the cluster"
   default     = {}
 }
