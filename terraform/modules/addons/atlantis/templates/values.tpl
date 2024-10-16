@@ -10,6 +10,5 @@ ingress:
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
   tls: false
 
-aws: ${aws}
-
-github: ${github}
+aws: {}
+github: {}
