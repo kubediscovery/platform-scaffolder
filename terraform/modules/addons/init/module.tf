@@ -14,7 +14,7 @@
 
 module "argocd" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/argoproj/argocd/?ref=develop"
-  count  = (!isempty(var.enabled_addons) && var.enabled_addons["argoproj-argocd"]) ? 1 : 0
+  count  = (length(var.enabled_addons) > 0 && var.enabled_addons["argoproj-argocd"]) ? 1 : 0
 
 
   labels       = var.tags
