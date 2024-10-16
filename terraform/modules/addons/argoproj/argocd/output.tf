@@ -12,9 +12,9 @@ output "secret" {
   value = data.kubernetes_secret.argocd_server
 }
 
-output "ep" {
-  value = data.kubernetes_endpoints_v1.argocd_server
-}
+# output "ep" {
+#   value = data.kubernetes_endpoints_v1.argocd_server
+# }
 
 output "external_address" {
   value = {
