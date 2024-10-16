@@ -22,17 +22,17 @@
 # }
 
 locals {
-  value = [templatefile("${path.module}/templates/values.tpl", {
+  value = jsonencode([templatefile("${path.module}/templates/values.tpl", {
     project_name    = var.project_name
     ingress_class   = var.ingress_class
     aws_config      = var.aws_config
     github_config   = var.github_config
     atlantis_config = var.atlantis_config
-  })]
+  })])
 }
 resource "null_resource" "name" {
   provisioner "local-exec" {
-    command = "echo ${local.value}"
+    command = "echo  ${local.value}"
   }
 }
 
