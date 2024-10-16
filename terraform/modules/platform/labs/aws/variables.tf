@@ -92,7 +92,7 @@ variable "cluster_group_version" {
 }
 
 variable "enabled_addons" {
-  type        = map(any)
+  type        = any
   description = "Enabled addons for the cluster"
   default     = {}
 }
