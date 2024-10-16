@@ -19,6 +19,6 @@ output "ep" {
 output "external_address" {
   value = {
     "address" = data.kubernetes_service.argocd_server.status.0.load_balancer.0.argocd_server.0.hostname != "" ? data.kubernetes_service.argocd_server.status.0.load_balancer.0.ingress.0.hostname : data.kubernetes_service.argocd_server.status.0.load_balancer.0.ingress.0.ip
-    "type"    = data.kubernetes_service.argocd_server.status.0.load_balancer.0.argocd_server.0.hostname != "" ? "hostname" : "ip"
+    "type"    = data.kubernetes_ingress_v1.argocd_server.spec.0.rules.0.host != "" ? "ingress" : "loadbalancer"
   }
 }
