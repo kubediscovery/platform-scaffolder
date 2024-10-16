@@ -12,6 +12,7 @@ ingress:
 
 
 volumeClaim:
+  enabled: false
   dataStorage: 1Gi
   storageClassName: gp2
 
