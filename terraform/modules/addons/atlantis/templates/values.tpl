@@ -18,5 +18,10 @@ volumeClaim:
 
 storageClassName: gp2
 
-aws: {}
+aws: {
+  %{ for key, value in aws_config ~}
+  ${key}: "${value}"
+  %{ endfor ~}
+}
+  
 github: {}
