@@ -61,7 +61,6 @@ resource "aws_iam_policy" "eks_cluster_ebs_policy" {
           "ec2:DeleteSnapshot",
           "ec2:DescribeAvailabilityZones",
           "ec2:DescribeSnapshots",
-          "ec2:DescribeTags",
           "ec2:DescribeVolumesModifications"
         ]
         Resource = "*"
@@ -86,4 +85,9 @@ resource "aws_iam_role_policy_attachment" "eks_ebs_csi_policy_attachment" {
 resource "aws_iam_role_policy_attachment" "eks_efs_csi_policy_attachment" {
   role       = aws_iam_role.eks_cluster_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEFSCSIDriverPolicy"
+}
+
+resource "aws_iam_role_policy_attachment" "eks_efs_csi_policy_operator_attachment" {
+  role       = aws_iam_role.eks_cluster_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/ROSAAmazonEBSCSIDriverOperatorPolicy"
 }
