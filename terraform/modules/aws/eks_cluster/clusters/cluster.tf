@@ -3,9 +3,6 @@ resource "aws_eks_cluster" "eks_cluster" {
   role_arn = aws_iam_role.eks_cluster_role.arn
 
   version = var.cluster_version
-  upgrade_policy { 
-    support_type = var.support_type
-  }
 
   vpc_config {
     subnet_ids = [
