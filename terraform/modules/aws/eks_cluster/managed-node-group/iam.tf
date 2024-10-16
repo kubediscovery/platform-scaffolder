@@ -57,7 +57,13 @@ resource "aws_iam_policy" "eks_ebs_policy" {
           "ec2:DescribeInstances",
           "ec2:CreateTags",
           "ec2:DeleteTags",
-          "ec2:DescribeTags"
+          "ec2:DescribeTags",
+          "ec2:CreateSnapshot",
+          "ec2:DeleteSnapshot",
+          "ec2:DescribeAvailabilityZones",
+          "ec2:DescribeSnapshots",
+          "ec2:DescribeTags",
+          "ec2:DescribeVolumesModifications"
         ]
         Resource = "*"
       }
