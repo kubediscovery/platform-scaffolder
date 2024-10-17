@@ -8,3 +8,7 @@ resource "cloudflare_record" "record" {
   proxied = var.record_proxy
   ttl     = var.record_ttl
 }
+
+provider "cloudflare" {
+  api_token = var.api_token
+}
