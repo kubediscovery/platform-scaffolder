@@ -8,6 +8,10 @@ terraform {
       source  = "hashicorp/helm"
       version = "2.8.0"
     }
+        cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "5.0.0-alpha1"
+    }
   }
 }
 
@@ -26,3 +30,8 @@ provider "helm" {
   }
 }
 
+
+
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
+}
