@@ -39,7 +39,7 @@ resource "kubernetes_persistent_volume_v1" "efs_pv" {
 resource "kubernetes_persistent_volume_claim_v1" "this" {
   metadata {
     name   = "efs-pvc"
-    namespace = "default"
+    namespace = "storage"
     labels = var.tags
   }
   spec {
