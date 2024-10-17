@@ -1,5 +1,5 @@
 
-resource "cloudflare_record" "record" {
+resource "cloudflare_dns_record" "record" {
 
   zone_id = var.zone_id
   name    = var.record_name
@@ -7,8 +7,4 @@ resource "cloudflare_record" "record" {
   type    = var.record_type
   proxied = var.record_proxy
   ttl     = var.record_ttl
-}
-
-provider "cloudflare" {
-  api_token = var.api_token
 }
