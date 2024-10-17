@@ -2,7 +2,7 @@ installCRDs: ${install_crds}
 global:
   enabled: true
   postgresql:
-    enabled: true
+    enabled: false
     auth:
       postgresPassword: bWRRcG94d0xkMjROMVZDeDl0X3JGZEpiQ0c0ajQtZGkK
       postgresqlDatabase: kong
@@ -43,7 +43,7 @@ env:
   password: kong_admin_password
 
 postgresql:
-  enabled: enable
+  enabled: false
   auth:
     username: kong
     database: bWRRcG94d0xkMjROMVZDeDl0X3JGZEpiQ0c0ajQtZGkK

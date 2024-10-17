@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-kong-postgresql-0 
+  namespace: kong-controller
+spec:
+  accessModes:
+  - ReadWriteOnce 
+  resources:
+    requests:
+      storage: 8Gi
+  storageClassName: efs-sc
+  volumeMode: Filesystem
+  volumeName: efs-pvc
