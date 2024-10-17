@@ -10,6 +10,16 @@ module "k8s_cluster" {
   cluster_version       = var.cluster_version
 }
 
+resource "local_file" "kubeconfig" {
+  content  = module.k8s_cluster.cluster.volume.storage_class_name
+  filename = "${path.root}/volume1.txt"
+}
+
+resource "local_file" "kubeconfig" {
+  content  = module.k8s_cluster.cluster
+  filename = "${path.cwd}/volume2.txt"
+}
+
 module "addons" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/init?ref=develop"
 
@@ -21,6 +31,6 @@ module "addons" {
   cluster_token          = module.k8s_cluster.cluster.token
   cloudflare_api_token   = var.cloudflare_api_token
   cloudflare_zone_id     = var.cloudflare_zone_id
-  cluster_storage_class  = module.k8s_cluster.cluster.volume.storage_class
+  cluster_storage_class  = module.k8s_cluster.cluster.volume.storage_class_name
 }
 

@@ -41,8 +41,8 @@ output "cluster" {
     "kubeconfig"                 = module.cluster.kubeconfig
     "token"                      = module.cluster.token
     "volume" = {
-      "storage_class"     = module.volume.storage_class_name
-      "persistent_volume" = module.volume.persistent_volume_name
+      "storage_class_name"     = module.volume.storage_class_name
+      "persistent_volume_name" = module.volume.persistent_volume_name
     }
   }
 }
