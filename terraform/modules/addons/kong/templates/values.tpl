@@ -37,7 +37,6 @@ gateway:
 #     enabled: true
 #     ingressClassName: kong
 #     hostname: portalapi.platform.kubediscovery.com
-
 admin:
   # Enable creating a Kubernetes service for the Developer Portal API
   enabled: true
@@ -56,5 +55,12 @@ enterprise:
 env:
   # role: control_plane
   password: kong_admin_password
+  database: "postgres"
+  pg_host: raja.db.elephantsql.com
+  pg_port: 5432
+  pg_timeout: 5000
+  pg_user: qqcsmuuu
+  pg_password: ${pg_password}
+  pg_database: qqcsmuuu
 
   # (reverse-i-search)`kubectl create': kubectl create secret generic kong-enterprise-license --from-literal=license="'{}'" -n kong-controller
