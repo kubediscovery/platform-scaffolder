@@ -21,6 +21,16 @@ manager:
     ingressClassName: kong
     hostname: manager.platform.kubediscovery.com
 
+portalapi:
+  enabled: true
+  http:
+    enabled: true
+
+portalapi:
+  enabled: true
+  http:
+    enabled: true
+
 gateway:
   env:
     router_flavor: expressions
