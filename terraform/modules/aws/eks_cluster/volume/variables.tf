@@ -27,3 +27,13 @@ variable "tags" {
   description = "Tags to be added to the AWS resources"
   default = {}
 }
+
+variable "subnet_ids" {
+  type        = list(string)
+  description = "Subnet IDs to launch the EKS cluster into"
+}
+
+variable "security_group_ids" {
+  type        = list(string)
+  description = "Security Group IDs to attach to the EKS cluster"
+}

@@ -44,7 +44,9 @@ module "managed_addons" {
 
 module "volume" {
   source     = "./volume"
-  
+
   tags       = var.tags
   depends_on = [module.cluster.endpoint]
+  subnet_ids = module.network.private_subnet
+  security_group_ids = module.cluster.security_group_id
 }

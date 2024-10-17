@@ -64,3 +64,4 @@ variable "cluster_group_version" {
   description = "Cluster version"
   default     = "1.31"
 }
+
