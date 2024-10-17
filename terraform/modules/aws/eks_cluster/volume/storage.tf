@@ -19,10 +19,7 @@ resource "kubernetes_persistent_volume_v1" "efs_pv" {
     capacity = {
       storage = var.storage_capacity_size
     }
-    claim_ref {
-      name = kubernetes_persistent_volume_claim_v1.this.metadata.0.name
-      namespace = kubernetes_persistent_volume_claim_v1.this.metadata.0.namespace
-    }
+
     access_modes = [
       "ReadWriteOnce"
     ]
