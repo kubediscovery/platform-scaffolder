@@ -70,7 +70,7 @@ module "kong" {
   project_name  = var.project_name
 }
 
-module "kong" {
+module "konga" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/konga/?ref=develop"
   count  = local.enabled_addons.kong_ingress_controller.enabled ? 1 : 0
 
