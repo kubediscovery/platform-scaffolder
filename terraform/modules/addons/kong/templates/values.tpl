@@ -36,3 +36,5 @@ enterprise:
 env:
   role: control_plane
   password: kong_admin_password
+
+  # (reverse-i-search)`kubectl create': kubectl create secret generic kong-enterprise-license --from-literal=license="'{}'" -n kong-controller

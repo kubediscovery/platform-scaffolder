@@ -1,5 +1,6 @@
 
 resource "cloudflare_dns_record" "record" {
+  count = var.record_name != "" ? 1 : 0 && var.record_address != "" ? 1 : 0
 
   zone_id = var.zone_id
   name    = var.record_name
