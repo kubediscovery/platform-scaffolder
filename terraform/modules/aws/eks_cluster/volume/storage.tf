@@ -29,7 +29,6 @@ resource "kubernetes_persistent_volume_v1" "efs_pv" {
     persistent_volume_source {
       csi {
         driver        = kubernetes_storage_class_v1.efs_sc.storage_provisioner
-        volume_handle = "EFS_VOLUME_ID"
       }
     }
   }
