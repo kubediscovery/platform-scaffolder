@@ -6,9 +6,9 @@ output "initial_secret" {
 
 output "publish" {
   value = {
-    "name"    = data.kubernetes_ingress_v1.argocd_server.spec == null ? [] : ""
-    "address" = data.kubernetes_ingress_v1.argocd_server.status == null ? [] : ""
-    "type"    = data.kubernetes_ingress_v1.argocd_server.status == null ? [] : ""
+    "name"    = data.kubernetes_ingress_v1.argocd_server.spec == null ? "ok" : ""
+    "address" = data.kubernetes_ingress_v1.argocd_server.status == null ? "ok" : ""
+    "type"    = data.kubernetes_ingress_v1.argocd_server.status == null ? "ok" : ""
   }
   description = "External address to access the ArgoCD server"
   sensitive   = false
