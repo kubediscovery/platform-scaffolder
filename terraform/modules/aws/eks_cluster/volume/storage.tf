@@ -47,7 +47,7 @@ resource "kubernetes_persistent_volume_claim_v1" "this" {
     ]
     resources {
       requests = {
-        storage = var.storage_capacity_size
+        storage = "1Gi"
       }
     }
     volume_mode = "Filesystem"
