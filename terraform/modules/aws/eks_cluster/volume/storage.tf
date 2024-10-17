@@ -10,6 +10,11 @@ resource "kubernetes_storage_class_v1" "efs_sc" {
   allow_volume_expansion = false  
 }
 
+resource "aws_efs_file_system" "this" {
+  creation_token = "efs-token"
+  tags = var.tags
+}
+
 resource "kubernetes_persistent_volume_v1" "efs_pv" {
   metadata {
     name   = var.persistent_volume_name
@@ -29,7 +34,7 @@ resource "kubernetes_persistent_volume_v1" "efs_pv" {
     persistent_volume_source {
       csi {
         driver        = kubernetes_storage_class_v1.efs_sc.storage_provisioner
-        volume_handle = "awsElasticBlockStore"
+        volume_handle = aws_efs_file_system.this.id
       }
     }
   }
