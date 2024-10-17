@@ -71,7 +71,7 @@ module "kong" {
 
 module "kong_publish" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
-  for_each = toset(module.kong.publish[0])
+  for_each = module.kong.publish
 
 
   api_token      = var.cloudflare_api_token
