@@ -17,3 +17,31 @@ data "kubernetes_service" "kong" {
     namespace = helm_release.kong.namespace
   }
 }
+
+data "kubernetes_ingress_v1" "kong_manager" {
+  metadata {
+    name      = "${helm_release.kong.name}-kong-manager"
+    namespace = helm_release.kong.namespace
+  }
+}
+
+data "kubernetes_ingress_v1" "kong_portal" {
+  metadata {
+    name      = "${helm_release.kong.name}-kong-portal"
+    namespace = helm_release.kong.namespace
+  }
+}
+
+data "kubernetes_ingress_v1" "kong_portalapi" {
+  metadata {
+    name      = "${helm_release.kong.name}-kong-portalapi"
+    namespace = helm_release.kong.namespace
+  }
+}
+
+data "kubernetes_ingress_v1" "kong_admin" {
+  metadata {
+    name      = "${helm_release.kong.name}-kong-admin"
+    namespace = helm_release.kong.namespace
+  }
+}
