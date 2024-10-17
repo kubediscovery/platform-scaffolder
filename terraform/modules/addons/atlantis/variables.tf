@@ -72,6 +72,11 @@ variable "atlantis_config" {
   storage_class_name = string
   
 })
+
   nullable    = false
   description = "Atlantis configuration"
+  default = {
+  storage_class_name = "default"
+  
+}
 }

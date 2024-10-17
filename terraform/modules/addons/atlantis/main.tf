@@ -6,10 +6,10 @@
  * Module to deploy install in Kubernetes the Atlantis.
  */
 
-resource "local_file" "volume1" {
-  content  = var.atlantis_config.storage_class_name
-  filename = "${path.root}/volume_atlnti_sc.txt"
-}
+# resource "local_file" "volume1" {
+#   content  = var.atlantis_config.storage_class_name
+#   filename = "${path.root}/volume_atlnti_sc.txt"
+# }
 
 resource "helm_release" "atlantis" {
   name             = var.name
@@ -21,7 +21,7 @@ resource "helm_release" "atlantis" {
   values = [templatefile("${path.module}/templates/values.tpl", {
     project_name  = var.project_name
     ingress_class = var.ingress_class
-    storage_class = try(var.atlantis_config.storage_class, "efs-sc")
+    storage_class =  "efs-sc"
     # github_config = var.github_config
   })]
 }
