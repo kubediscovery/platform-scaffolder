@@ -3,5 +3,5 @@ output "arogcd" {
 }
 
 output "publish" {
-  value = module.argocd.publish
+  value = module.argocd[0].publish
 }
