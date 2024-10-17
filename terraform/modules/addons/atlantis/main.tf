@@ -6,6 +6,11 @@
  * Module to deploy install in Kubernetes the Atlantis.
  */
 
+resource "local_file" "volume1" {
+  content  = var.atlantis_config.storage_class_name
+  filename = "${path.root}/volume_atlnti_sc.txt"
+}
+
 resource "helm_release" "atlantis" {
   name             = var.name
   repository       = var.repository
