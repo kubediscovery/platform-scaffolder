@@ -15,7 +15,6 @@ manager:
 portal:
   # Enable creating a Kubernetes service for the Developer Portal
   enabled: true
-  type: ClusterIP
   ingress:
     enabled: true
     ingressClassName: kong
@@ -24,7 +23,6 @@ portal:
 portalapi:
   # Enable creating a Kubernetes service for the Developer Portal API
   enabled: true
-  type: ClusterIP
   ingress:
     enabled: true
     ingressClassName: kong
@@ -32,7 +30,6 @@ portalapi:
 
 admin:
   enabled: true
-  type: ClusterIP
   http:
     enabled: true
   ingress:
