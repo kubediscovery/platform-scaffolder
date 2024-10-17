@@ -28,14 +28,6 @@ portalapi:
     ingressClassName: kong
     hostname: portalapi.platform.kubediscovery.com
 
-admin:
-  enabled: true
-  http:
-    enabled: true
-  ingress:
-    enabled: true
-    ingressClassName: kong
-    hostname: admin.platform.kubediscovery.com
 
 enterprise:
   enabled: false
