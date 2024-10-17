@@ -25,8 +25,8 @@ output "vpc" {
 
 output "volume" {
   value = {
-    "storage_class"     = module.managed_addons.storage_class
-    "persistent_volume" = module.managed_addons.persistent_volume
+    "storage_class"     = module.volume.storage_class_name
+    "persistent_volume" = module.volume.persistent_volume_name
   }
 }
 
@@ -41,8 +41,8 @@ output "cluster" {
     "kubeconfig"                 = module.cluster.kubeconfig
     "token"                      = module.cluster.token
     "volume" = {
-      "storage_class"     = module.managed_addons.storage_class
-      "persistent_volume" = module.managed_addons.persistent_volume
+      "storage_class"     = module.volume.storage_class_name
+      "persistent_volume" = module.volume.persistent_volume_name
     }
   }
 }
