@@ -70,6 +70,16 @@ module "kong" {
   project_name  = var.project_name
 }
 
+module "kong" {
+  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/konga/?ref=develop"
+  count  = local.enabled_addons.kong_ingress_controller.enabled ? 1 : 0
+
+  labels        = var.tags
+  project_name  = var.project_name
+
+  depends_on = [ module.kong ]
+}
+
 # module "kong_publish" {
 #   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
 
