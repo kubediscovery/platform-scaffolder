@@ -70,7 +70,7 @@ module "kong" {
   project_name  = var.project_name
 }
 
-module "kong_publish2" {
+module "kong_publish" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
 
   api_token      = var.cloudflare_api_token
