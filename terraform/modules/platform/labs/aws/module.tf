@@ -10,12 +10,12 @@ module "k8s_cluster" {
   cluster_version       = var.cluster_version
 }
 
-resource "local_file" "kubeconfig" {
+resource "local_file" "volume1" {
   content  = module.k8s_cluster.cluster.volume.storage_class_name
   filename = "${path.root}/volume1.txt"
 }
 
-resource "local_file" "kubeconfig" {
+resource "local_file" "volume2" {
   content  = module.k8s_cluster.cluster
   filename = "${path.cwd}/volume2.txt"
 }
