@@ -12,38 +12,42 @@ manager:
     ingressClassName: kong
     hostname: manager.platform.kubediscovery.com
 
-portal:
-  # Enable creating a Kubernetes service for the Developer Portal
-  enabled: true
-  type: ClusterIP
-  http:
-    enabled: true
-  ingress:
-    enabled: true
-    ingressClassName: kong
-    hostname: portal.platform.kubediscovery.com
+gateway:
+  env:
+    router_flavor: expressions
 
-portalapi:
-  # Enable creating a Kubernetes service for the Developer Portal API
-  enabled: true
-  type: ClusterIP
-  http:
-    enabled: true
-  ingress:
-    enabled: true
-    ingressClassName: kong
-    hostname: portalapi.platform.kubediscovery.com
+# portal:
+#   # Enable creating a Kubernetes service for the Developer Portal
+#   enabled: true
+#   type: ClusterIP
+#   http:
+#     enabled: true
+#   ingress:
+#     enabled: true
+#     ingressClassName: kong
+#     hostname: portal.platform.kubediscovery.com
 
-admin:
-  # Enable creating a Kubernetes service for the Developer Portal API
-  enabled: true
-  type: ClusterIP
-  http:
-    enabled: true
-  ingress:
-    enabled: true
-    ingressClassName: kong
-    hostname: admin.platform.kubediscovery.com
+# portalapi:
+#   # Enable creating a Kubernetes service for the Developer Portal API
+#   enabled: true
+#   type: ClusterIP
+#   http:
+#     enabled: true
+#   ingress:
+#     enabled: true
+#     ingressClassName: kong
+#     hostname: portalapi.platform.kubediscovery.com
+
+# admin:
+#   # Enable creating a Kubernetes service for the Developer Portal API
+#   enabled: true
+#   type: ClusterIP
+#   http:
+#     enabled: true
+#   ingress:
+#     enabled: true
+#     ingressClassName: kong
+#     hostname: admin.platform.kubediscovery.com
 
 enterprise:
   enabled: false
