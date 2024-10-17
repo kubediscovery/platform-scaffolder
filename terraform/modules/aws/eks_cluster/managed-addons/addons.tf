@@ -6,6 +6,13 @@ resource "aws_eks_addon" "ebs_csi_driver" {
   tags         = var.tags
 }
 
+resource "aws_eks_addon" "efs_csi_driver" {
+  cluster_name      = var.cluster_name
+  addon_name        = "aws-efs-csi-driver"
+  
+  resolve_conflicts = "OVERWRITE"
+}
+
 
 resource "kubernetes_storage_class" "standard" {
   metadata {
