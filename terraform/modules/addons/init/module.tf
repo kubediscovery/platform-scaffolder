@@ -112,8 +112,9 @@ module "atlantis" {
   project_name  = var.project_name
   github_config = try(local.enabled_addons.atlantis.github_config, {})
   aws_config    = try(local.enabled_addons.atlantis.aws_config, {})
-  atlantis_config = try(local.enabled_addons.atlantis.atlantis_config, {
-    "storage_class_name" = var.cluster_storage_class_name
+    atlantis_config = try(local.enabled_addons.atlantis.atlantis_config, {
+    storage_class_name = var.cluster_storage_class_name
+    
   })
 }
 
