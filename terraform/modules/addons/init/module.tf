@@ -112,7 +112,11 @@ module "atlantis" {
   project_name  = var.project_name
   github_config = try(local.enabled_addons.atlantis.github_config, {})
   aws_config    = try(local.enabled_addons.atlantis.aws_config, {})
-  atlantis_config = {storage_class_name = var.storage.storage_class_name}
+  atlantis_config = {
+    storage_class_name = var.storage.storage_class_name
+    persistent_volume_name = var.storage.persistent_volume_name
+    persistent_volume_size = var.storage.persistent_volume_size
+    }
 }
 
 # module "atlantis_publish" {
