@@ -8,7 +8,6 @@ resource "helm_release" "kong" {
   create_namespace = var.create_namespace
   values = [templatefile("${path.module}/templates/values.tpl", {
     install_crds = true
-    pg_password = base64decode("bWRRcG94d0xkMjROMVZDeDl0X3JGZEpiQ0c0ajQtZGkK")
   })]
 }
 
