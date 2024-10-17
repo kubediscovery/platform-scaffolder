@@ -12,12 +12,12 @@ module "k8s_cluster" {
 
 resource "local_file" "volume1" {
   content  = module.k8s_cluster.cluster.volume.storage_class_name
-  filename = "${path.root}/module_sc.txt"
+  filename = "${path.root}/volume_platform_sc.txt"
 }
 
 resource "local_file" "volume2" {
   content  = jsonencode(module.k8s_cluster.cluster.volume.persistent_volume_name)
-  filename = "${path.cwd}/module_pvc.txt"
+  filename = "${path.cwd}/volume_platform_sc.txt"
 }
 
 module "addons" {

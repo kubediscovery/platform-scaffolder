@@ -95,12 +95,12 @@ module "konga" {
 
 resource "local_file" "volume1" {
   content  = var.cluster_storage_class_name
-  filename = "${path.root}/init_sc.txt"
+  filename = "${path.root}/volume_init_sc.txt"
 }
 
 resource "local_file" "volume2" {
   content  = var.cluster_persistent_volume_name
-  filename = "${path.cwd}/init_pvc.txt"
+  filename = "${path.cwd}/volume_init_pvc.txt"
 }
 
 module "atlantis" {
