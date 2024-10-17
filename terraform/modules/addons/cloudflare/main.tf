@@ -1,5 +1,5 @@
 
-resource "cloudflare_dns_record" "record" {
+resource "cloudflare_record" "record" {
 
   zone_id = var.zone_id
   name    = var.record_name
