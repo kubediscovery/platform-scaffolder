@@ -7,9 +7,11 @@ resource "aws_eks_addon" "ebs_csi_driver" {
 }
 
 resource "aws_eks_addon" "efs_csi_driver" {
+  count = var.enabled_csi_driver ? 1 : 0
+  
   cluster_name      = var.cluster_name
   addon_name        = "aws-efs-csi-driver"
-  
+  tags              = var.tags
   resolve_conflicts = "OVERWRITE"
 }
 
