@@ -8,7 +8,7 @@ resource "kubernetes_namespace_v1" "kong" {
 resource "kubernetes_secret_v1" "license" {
   metadata {
     name      = var.name
-    namespace = kube_namespace_v1.kong.metadata.0.name
+    namespace = kubernetes_namespace_v1.kong.metadata.0.name
     labels    = var.labels
   }
   data = {
