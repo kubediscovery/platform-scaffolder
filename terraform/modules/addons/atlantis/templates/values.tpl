@@ -15,6 +15,7 @@ volumeClaim:
   accessMode: ReadWriteOnce
   dataStorage: 1Gi
   storageClassName: ${storage_class}
+  volumeName: "efs-standard"
 
 github:
   user: teste

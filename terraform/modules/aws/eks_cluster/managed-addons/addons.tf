@@ -17,7 +17,7 @@ resource "kubernetes_storage_class" "standard" {
   reclaim_policy      = "Delete"
   volume_binding_mode = "WaitForFirstConsumer"
 
-  depends_on = [ aws_eks_addon.ebs_csi_driver ]
+  depends_on = [aws_eks_addon.ebs_csi_driver]
 }
 
 resource "kubernetes_persistent_volume_v1" "standard" {
@@ -46,5 +46,5 @@ resource "kubernetes_persistent_volume_v1" "standard" {
     }
   }
 
-  depends_on = [ aws_eks_addon.ebs_csi_driver ]
+  depends_on = [aws_eks_addon.ebs_csi_driver]
 }
