@@ -41,3 +41,9 @@ module "managed_addons" {
   cluster_name       = module.cluster.cluster_name
   enabled_csi_driver = true
 }
+
+module "volume" {
+  source = "./volume"
+
+  depends_on = [ module.cluster.endpoint ]
+}
