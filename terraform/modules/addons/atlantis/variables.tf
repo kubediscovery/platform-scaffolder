@@ -68,15 +68,14 @@ variable "github_config" {
 }
 
 variable "atlantis_config" {
-  type        = object({
-  storage_class_name = string
-  
-})
+  type = object({
+    storage_class_name = string
+  })
 
   nullable    = false
   description = "Atlantis configuration"
   default = {
-  storage_class_name = "default"
-  
-}
+    storage_class_name = "default"
+
+  }
 }
