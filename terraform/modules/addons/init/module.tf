@@ -70,15 +70,15 @@ module "kong" {
   project_name  = var.project_name
 }
 
-module "kong_publish" {
-  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
+# module "kong_publish" {
+#   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
 
-  api_token      = var.cloudflare_api_token
-  zone_id        = var.cloudflare_zone_id
-  record_type    = module.kong[0].publish[1].type == "address" ? "A" : "CNAME"
-  record_name    = module.kong[0].publish[1].name
-  record_address = module.kong[0].publish[1].address
-}
+#   api_token      = var.cloudflare_api_token
+#   zone_id        = var.cloudflare_zone_id
+#   record_type    = module.kong[0].publish[1].type == "address" ? "A" : "CNAME"
+#   record_name    = module.kong[0].publish[1].name
+#   record_address = module.kong[0].publish[1].address
+# }
 
 module "atlantis" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/atlantis/?ref=develop"
