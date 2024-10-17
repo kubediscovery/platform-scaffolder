@@ -53,7 +53,9 @@ module "argocd" {
 
 module "argocd_publish" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
-
+  providers = {
+    cloudflare = cloudflare
+  }
   api_token      = var.cloudflare_api_token
   zone_id        = var.cloudflare_zone_id
   record_type    = module.argocd[0].publish.type == "address" ? "A" : "CNAME"
