@@ -70,7 +70,7 @@ module "kong" {
 }
 
 module "kong_publish" {
-  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
+  source   = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
   for_each = module.kong.publish
 
 
@@ -85,11 +85,11 @@ module "atlantis" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/atlantis/?ref=develop"
   count  = local.enabled_addons.atlantis.enabled ? 1 : 0
 
-  labels          = var.tags
-  chart_version   = try(local.enabled_addons.atlantis.version, "5.7.0")
-  project_name    = var.project_name
-  github_config   = try(local.enabled_addons.atlantis.github_config, {})
-  aws_config      = try(local.enabled_addons.atlantis.aws_config, {})
+  labels        = var.tags
+  chart_version = try(local.enabled_addons.atlantis.version, "5.7.0")
+  project_name  = var.project_name
+  github_config = try(local.enabled_addons.atlantis.github_config, {})
+  aws_config    = try(local.enabled_addons.atlantis.aws_config, {})
   atlantis_config = try(local.enabled_addons.atlantis.atlantis_config, {
     "storage_class" = var.cluster_storage_class
   })
