@@ -75,9 +75,12 @@ module "kong_publish" {
 
   api_token      = var.cloudflare_api_token
   zone_id        = var.cloudflare_zone_id
-  record_type    = module.kong[0].publish[0].type == "address" ? "A" : "CNAME"
-  record_name    = module.kong[0].publish[0].name
-  record_address = module.kong[0].publish[0].address
+  record_type    = "A"
+  # module.kong[0].publish[0].type == "address" ? "A" : "CNAME"
+  record_name    = "d.platfom.kubediscovery.com"
+  # module.kong[0].publish[0].name
+  record_address = "192.168.0.1"
+  # module.kong[0].publish[0].address
 }
 
 module "atlantis" {
