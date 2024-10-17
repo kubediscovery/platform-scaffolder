@@ -40,10 +40,6 @@ locals {
     "atlantis"                     = try(var.enabled_addons.atlantis, local.empty_addons.atlantis)
   }
 
-  kong_publish_map = zipmap(
-    range(length(module.kong.publish)),
-    module.kong.publish
-  )
 }
 
 module "argocd" {
@@ -76,10 +72,7 @@ module "kong" {
 
 module "kong_publish" {
   source   = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
-
-      for_each = local.kong_publish_map
-
-
+  for_each = module.kong.publish
 
   api_token      = var.cloudflare_api_token
   zone_id        = var.cloudflare_zone_id
