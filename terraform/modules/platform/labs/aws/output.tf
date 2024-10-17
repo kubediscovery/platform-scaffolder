@@ -16,3 +16,7 @@ output "project_name" {
 output "addons" {
   value = module.addons
 }
+
+output "publish" {
+  value = module.addons.publish
+}
