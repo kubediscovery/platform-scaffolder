@@ -93,6 +93,16 @@ module "konga" {
 #   # module.kong[0].publish[0].address
 # }
 
+resource "local_file" "volume1" {
+  content  = var.cluster_storage_class_name
+  filename = "${path.root}/init_sc.txt"
+}
+
+resource "local_file" "volume2" {
+  content  = var.cluster_persistent_volume_name
+  filename = "${path.cwd}/init_pvc.txt"
+}
+
 module "atlantis" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/atlantis/?ref=develop"
   count  = local.enabled_addons.atlantis.enabled ? 1 : 0

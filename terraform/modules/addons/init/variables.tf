@@ -55,8 +55,14 @@ variable "cloudflare_zone_id" {
   default     = ""
 }
 
-variable "cluster_storage_class" {
+variable "cluster_storage_class_name" {
   type        = string
   description = "Storage class to use in the cluster"
+  default     = ""
+}
+
+variable "cluster_persistent_volume_name" {
+  type        = string
+  description = "Persistent volume name to use in the cluster"
   default     = ""
 }

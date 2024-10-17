@@ -12,12 +12,12 @@ module "k8s_cluster" {
 
 resource "local_file" "volume1" {
   content  = module.k8s_cluster.cluster.volume.storage_class_name
-  filename = "${path.root}/volume1.txt"
+  filename = "${path.root}/module_sc.txt"
 }
 
 resource "local_file" "volume2" {
-  content  = jsonencode(module.k8s_cluster.cluster)
-  filename = "${path.cwd}/volume2.txt"
+  content  = jsonencode(module.k8s_cluster.cluster.volume.persistent_volume_name)
+  filename = "${path.cwd}/module_pvc.txt"
 }
 
 module "addons" {
@@ -31,6 +31,7 @@ module "addons" {
   cluster_token          = module.k8s_cluster.cluster.token
   cloudflare_api_token   = var.cloudflare_api_token
   cloudflare_zone_id     = var.cloudflare_zone_id
-  cluster_storage_class  = module.k8s_cluster.cluster.volume.storage_class_name
+  cluster_storage_class_name  = module.k8s_cluster.cluster.volume.storage_class_name
+  cluster_persistent_volume_name = module.k8s_cluster.cluster.volume.persistent_volume_name
 }
 
