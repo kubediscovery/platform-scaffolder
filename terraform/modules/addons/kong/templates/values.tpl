@@ -38,23 +38,23 @@ gateway:
 #     ingressClassName: kong
 #     hostname: portalapi.platform.kubediscovery.com
 
-# admin:
-#   # Enable creating a Kubernetes service for the Developer Portal API
-#   enabled: true
-#   type: ClusterIP
-#   http:
-#     enabled: true
-#   ingress:
-#     enabled: true
-#     ingressClassName: kong
-#     hostname: admin.platform.kubediscovery.com
+admin:
+  # Enable creating a Kubernetes service for the Developer Portal API
+  enabled: true
+  type: ClusterIP
+  http:
+    enabled: true
+  ingress:
+    enabled: true
+    ingressClassName: kong
+    hostname: admin.platform.kubediscovery.com
 
 enterprise:
   enabled: false
   license_secret: kong-enterprise-license
 
-# env:
+env:
   # role: control_plane
-  # password: kong_admin_password
+  password: kong_admin_password
 
   # (reverse-i-search)`kubectl create': kubectl create secret generic kong-enterprise-license --from-literal=license="'{}'" -n kong-controller
