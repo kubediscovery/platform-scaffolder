@@ -1,7 +1,8 @@
 
 resource "kubernetes_storage_class_v1" "efs_sc" {
   metadata {
-    name = var.storage_class_name
+    name   = var.storage_class_name
+    labels = var.tags
   }
   storage_provisioner = var.storage_provisioner
   reclaim_policy      = "Retain"
@@ -9,7 +10,8 @@ resource "kubernetes_storage_class_v1" "efs_sc" {
 
 resource "kubernetes_persistent_volume_v1" "efs_pv" {
   metadata {
-    name = var.persistent_volume_name
+    name   = var.persistent_volume_name
+    labels = var.tags
   }
   spec {
     capacity = {

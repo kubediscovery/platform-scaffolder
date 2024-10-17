@@ -21,3 +21,9 @@ variable "storage_provisioner" {
   default     = "efs.csi.aws.com"
   description = "Storage provisioner for the volume to be created"
 }
+
+variable "tags" {
+  type        = map(string)
+  description = "Tags to be added to the AWS resources"
+  default = {}
+}

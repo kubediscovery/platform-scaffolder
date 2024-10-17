@@ -43,7 +43,8 @@ module "managed_addons" {
 }
 
 module "volume" {
-  source = "./volume"
-
-  depends_on = [ module.cluster.endpoint ]
+  source     = "./volume"
+  
+  tags       = var.tags
+  depends_on = [module.cluster.endpoint]
 }
