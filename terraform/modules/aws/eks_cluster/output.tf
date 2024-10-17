@@ -27,6 +27,7 @@ output "volume" {
   value = {
     "storage_class"     = module.volume.storage_class_name
     "persistent_volume" = module.volume.persistent_volume_name
+    "persistent_volume_size" = module.volume.persistent_volume_size
   }
 }
 
@@ -43,6 +44,7 @@ output "cluster" {
     "volume" = {
       "storage_class_name"     = module.volume.storage_class_name
       "persistent_volume_name" = module.volume.persistent_volume_name
+      "persistent_volume_size" = module.volume.persistent_volume_size
     }
   }
 }

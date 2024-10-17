@@ -76,6 +76,6 @@ variable "atlantis_config" {
   description = "Atlantis configuration"
   default = {
     storage_class_name = "default"
-
+    persistent_volume_size = "2Gi"
   }
 }
