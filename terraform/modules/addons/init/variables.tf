@@ -58,12 +58,12 @@ variable "cloudflare_zone_id" {
 variable "storage" {
   type = object({
     storage_class_name     = string
-    persistent_volume = string
+    persistent_volume_name = string
     persistent_volume_size = string
   })
   description = "values of the storage class and persistent volume"
   default = {
-    persistent_volume = "default"
+    persistent_volume_name = "default"
     storage_class_name     = "default"
     persistent_volume_size = "2Gi"
   }
