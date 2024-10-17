@@ -4,7 +4,7 @@ resource "helm_release" "kong" {
   repository       = var.repository
   chart            = var.chart
   version          = var.chart_version
-  namespace        = var.namespace
+  namespace        = kubernetes_namespace_v1.kong.metadata.0.name
   create_namespace = var.create_namespace
   values = [templatefile("${path.module}/templates/values.tpl", {
     install_crds = true
