@@ -2,8 +2,14 @@ installCRDs: ${install_crds}
 global:
   enabled: true
   postgresql:
+    enabled: true
     auth:
       postgresPassword: bWRRcG94d0xkMjROMVZDeDl0X3JGZEpiQ0c0ajQtZGkK
+      postgresqlDatabase: kong
+      postgresqlUsername: kong
+      password: bWRRcG94d0xkMjROMVZDeDl0X3JGZEpiQ0c0ajQtZGkK
+      username: kong
+
 standalone:
   enabled: "false"
 
