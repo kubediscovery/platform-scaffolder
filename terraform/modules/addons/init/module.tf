@@ -71,13 +71,14 @@ module "kong" {
 
 module "kong_publish" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
-  for_each = module.kong
+  for_each = toset(module.kong[0].publish)
+
 
   api_token      = var.cloudflare_api_token
   zone_id        = var.cloudflare_zone_id
-  record_type    = each.value.publish.type == "address" ? "A" : "CNAME"
-  record_name    = each.value.publish.name
-  record_address = each.value.publish.address
+  record_type    = each.value.type == "address" ? "A" : "CNAME"
+  record_name    = each.value.name
+  record_address = each.value.address
 }
 
 module "atlantis" {
