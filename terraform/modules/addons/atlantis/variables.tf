@@ -70,12 +70,15 @@ variable "github_config" {
 variable "atlantis_config" {
   type = object({
     storage_class_name = string
+    persistent_volume_name = string
+    persistent_volume_size = string
   })
 
   nullable    = false
   description = "Atlantis configuration"
   default = {
-    storage_class_name = "default"
+    persistent_volume_name = "default"
+    storage_class_name     = "default"
     persistent_volume_size = "2Gi"
   }
 }

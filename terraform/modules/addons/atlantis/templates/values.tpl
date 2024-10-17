@@ -13,7 +13,7 @@ ingress:
 volumeClaim:
   enabled: true
   accessMode: ReadWriteOnce
-  dataStorage: 1Gi
+  dataStorage: ${storage_size}
   storageClassName: ${storage_class}
   volumeName: "efs-standard"
 

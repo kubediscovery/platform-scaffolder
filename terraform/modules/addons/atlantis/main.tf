@@ -21,8 +21,9 @@ resource "helm_release" "atlantis" {
   values = [templatefile("${path.module}/templates/values.tpl", {
     project_name  = var.project_name
     ingress_class = var.ingress_class
-    storage_class =  "efs-sc"
-    # github_config = var.github_config
+    storage_class =  var.atlantis_config.storage_class_name
+    storage_size =  var.atlantis_config.persistent_volume_size
+
   })]
 }
 
