@@ -9,7 +9,7 @@ resource "kubernetes_storage_class_v1" "efs_sc" {
 
 resource "kubernetes_persistent_volume_v1" "efs_pv" {
   metadata {
-    name = "efs_pv"
+    name = "efs-pv"
   }
   spec {
     capacity = {
