@@ -9,6 +9,6 @@ output "persistent_volume_name" {
 }
 
 output "persistent_volume_size" {
-  value       = kubernetes_persistent_volume_v1.efs_pv.spec.0.capacity.0.storage
+  value       = var.storage_capacity_size
   description = "value of persistent volume size"
 }
