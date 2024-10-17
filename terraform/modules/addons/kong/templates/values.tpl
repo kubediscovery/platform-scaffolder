@@ -39,3 +39,11 @@ admin:
     enabled: true
     ingressClassName: kong
     hostname: admin.platform.kubediscovery.com
+
+enterprise:
+  enabled: false
+  license_secret: kong-enterprise-license
+
+env:
+  role: control_plane
+  password: kong_admin_password
