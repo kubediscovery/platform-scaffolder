@@ -16,7 +16,7 @@ resource "local_file" "volume1" {
 }
 
 resource "local_file" "volume2" {
-  content  = module.k8s_cluster.cluster
+  content  = jsonencode(module.k8s_cluster.cluster)
   filename = "${path.cwd}/volume2.txt"
 }
 
