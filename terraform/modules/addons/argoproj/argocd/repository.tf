@@ -1,0 +1,21 @@
+resource "kubernetes_manifest" "repo_argoproj" {
+  manifest = {
+    api_version = "v1"
+    kind        = "Secret"
+    metadata = {
+      name      = "argoproj"
+      namespace = var.namespace
+      labels    = merge(var.labels, { "argocd.argoproj.io/secret-type" = "repository" })
+
+    }
+
+    data = {
+
+      name    = "argoproj"
+      project = var.project_name
+      type    = "helm"
+      url     = "https://argoproj.github.io/argo-helm/"
+    }
+    type = "Opaque"
+  }
+}
