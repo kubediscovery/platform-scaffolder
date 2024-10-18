@@ -1,7 +1,7 @@
 
 resource "cloudflare_dns_record" "record" {  
 
-  for_each = { for idx, record in var.dns_records : idx => record if record.record_name != "" && record.record_address != "" }
+  for_each = { for idx, record in var.dns_records : idx => record if record.name != "" && record.address != "" }
   
   zone_id = var.zone_id
   name    = each.value.name
