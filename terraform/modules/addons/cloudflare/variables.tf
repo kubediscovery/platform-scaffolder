@@ -41,6 +41,6 @@ variable "record_proxy" {
 
 variable "record_ttl" {
   type        = number
-  default     = 3600
+  default     = 1
   description = "Record TTL to be used in Cloudflare"
 }
