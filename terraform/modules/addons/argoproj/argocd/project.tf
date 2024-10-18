@@ -43,7 +43,7 @@ resource "kubernetes_manifest" "platform_shared" {
     metadata = {
       name      = "${var.project_name}-shared"
       namespace = var.namespace
-      labels      = var.labels
+      labels      = merge(var.labels, { "app.kubernetes.io/part-of" = "platform" })
     }
     spec = {
       clusterResourceWhitelist = [
