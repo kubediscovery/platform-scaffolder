@@ -83,6 +83,8 @@ module "kong" {
 module "kong_publish" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
 
+  for_each = { for idx, record in module.kong[0].publish : idx => record }
+
   api_token      = var.cloudflare_api_token
   zone_id        = var.cloudflare_zone_id
   record_type    = module.kong[0].publish[0].type == "address" ? "A" : "CNAME"
