@@ -48,6 +48,6 @@ resource "local_file" "name" {
 }
 
 resource "local_file" "name2" {
-  content = yamlencode(kubernetes_manifest.repo_argoproj.manifest.data)
+  content = yamlencode(base64decode(kubernetes_manifest.repo_argoproj.manifest.data.url))
   filename = "${path.root}/repo_${var.project_name}2.yaml"
 }
