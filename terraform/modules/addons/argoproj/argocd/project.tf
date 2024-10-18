@@ -33,7 +33,9 @@ resource "kubernetes_manifest" "argo_project" {
       ]
 
       sourceRepos = [
-       base64decode(kubernetes_manifest.repo_argoproj.manifest.data.url)
+       base64decode(kubernetes_manifest.repo_argoproj.manifest.data.url),
+       base64decode(kubernetes_manifest.repo_bitnami.manifest.data.url),
+       
       ]
 
 
