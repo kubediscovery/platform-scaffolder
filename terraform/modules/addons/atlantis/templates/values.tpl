@@ -24,3 +24,16 @@ github:
   user: teste
   token: teste
   secret: teste
+
+statefulSet:
+  securityContext:
+    fsGroup: 1000
+    runAsUser: 100
+    fsGroupChangePolicy: "OnRootMismatch"
+
+
+containerSecurityContext:
+    allowPrivilegeEscalation: true
+    # runAsNonRoot: true
+    runAsUser: 100
+    fsGroup: 1000
