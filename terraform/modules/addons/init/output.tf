@@ -11,5 +11,5 @@ output "http_dns_records" {
   description = "values for the http dns records"
 }
 output "home" {
-  value = module.atlantis.home
+  value = module.atlantis[0].home
 }
