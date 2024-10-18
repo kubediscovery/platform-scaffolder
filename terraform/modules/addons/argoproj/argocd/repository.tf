@@ -15,6 +15,6 @@ resource "kubernetes_manifest" "repo_argoproj" {
       type    = "helm"
       url     = "https://argoproj.github.io/argo-helm/"
     }
-    type = "Opaque"
+    type = "StringData"
   }
 }
