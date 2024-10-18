@@ -10,11 +10,11 @@ resource "kubernetes_manifest" "repo_argoproj" {
 
     data = {
 
-      name    = "argoproj"
-      project = var.project_name
-      type    = "helm"
-      url     = "https://argoproj.github.io/argo-helm/"
+      name    = base64encode("argoproj")
+      project = base64encode(var.project_name)
+      type    = base64encode("helm")
+      url     = base64encode("https://argoproj.github.io/argo-helm/")
     }
-    type = "StringData"
+    type = "Opaque"
   }
 }
