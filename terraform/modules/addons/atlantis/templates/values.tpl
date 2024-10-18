@@ -36,4 +36,4 @@ containerSecurityContext:
     allowPrivilegeEscalation: true
     # runAsNonRoot: true
     runAsUser: 100
-    fsGroup: 1000
+
