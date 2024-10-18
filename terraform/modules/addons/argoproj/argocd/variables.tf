@@ -19,7 +19,7 @@ variable "chart" {
 
 variable "chart_version" {
   type        = string
-  default     = "7.5.2"
+  default     = "7.6.12"
   description = "Chart version"
 }
 

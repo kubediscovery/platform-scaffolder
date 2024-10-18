@@ -38,7 +38,7 @@ configs:
        background-color: #222;
      }
     .sidebar__logo span {
-      display: "Synera sempre ao seu lado";
+      display: "Kubediscovery sempre ao seu lado";
     }
     .sidebar__logo img {
       content: url(https://synera.com.br/wp-content/uploads/2024/10/width_500.png);
@@ -59,7 +59,7 @@ configs:
     }
 
   cm:
-    ui.bannercontent: Synera, deploy de forma inteligente
+    ui.bannercontent: Kubediscovery, deploy de forma inteligente
     ui.bannerurl: "https://www.kubediscovery.com"
     ui.bannerpermanent: "true"
     ui.bannerposition: "top"
