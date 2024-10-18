@@ -14,7 +14,6 @@ variable "dns_records" {
     name = string
     type = string
     address = string
-    
   }))
 }
 
