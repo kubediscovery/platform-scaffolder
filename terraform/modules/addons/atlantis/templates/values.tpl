@@ -1,6 +1,9 @@
 
 atlantisUrl: "http://atlantis.${project_name}.kubediscovery.com"
 
+service:
+  type: ClusterIP
+
 ingress:
   enabled: true
   ingressClassName: ${ingress_class}
