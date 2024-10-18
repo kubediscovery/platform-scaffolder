@@ -43,11 +43,11 @@ initContainers:
       image: busybox
       command: ["sh", "-c", "chown -R 100:1000 /atlantis-data"]
       volumeMounts:
-      - name: efs-standard
+      - name: atlantis-data
         mountPath: /atlantis-data
     - name: volume-mount-chmod
       image: busybox
       command: ["sh", "-c", "chmod -R 0770 /atlantis-data"]
       volumeMounts:
-      - name: efs-standard
+      - name: atlantis-data
         mountPath: /atlantis-data
