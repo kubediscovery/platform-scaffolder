@@ -1,4 +1,4 @@
-resource "kubernetes_manifest" "argo_project" {
+resource "kubernetes_manifest" "platform" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
     kind        = "AppProject"
@@ -7,7 +7,6 @@ resource "kubernetes_manifest" "argo_project" {
       namespace = var.namespace
       labels      = var.labels
     }
-
     spec = {
       clusterResourceWhitelist = [
         {
@@ -15,7 +14,6 @@ resource "kubernetes_manifest" "argo_project" {
           kind  = "*"
         }
       ]
-
       description = " Deploy of platform"
       destinations = [
         {
@@ -24,32 +22,55 @@ resource "kubernetes_manifest" "argo_project" {
           server    = "*"
         }
       ]
-
       namespaceResourceWhitelist = [
         {
           group = "*"
           kind  = "*"
         }
       ]
-
       sourceRepos = [
        base64decode(kubernetes_manifest.repo_argoproj.manifest.data.url),
        base64decode(kubernetes_manifest.repo_bitnami.manifest.data.url),
-       
       ]
-
-
     }
   }
 }
 
-
-resource "local_file" "name" {
-  content = yamlencode(kubernetes_manifest.repo_argoproj)
-  filename = "${path.root}/repo_${var.project_name}.yaml"
+resource "kubernetes_manifest" "platform_shared" {
+  manifest = {
+    apiVersion = "argoproj.io/v1alpha1"
+    kind        = "AppProject"
+    metadata = {
+      name      = "${var.project_name}-shared"
+      namespace = var.namespace
+      labels      = var.labels
+    }
+    spec = {
+      clusterResourceWhitelist = [
+        {
+          group = "*"
+          kind  = "*"
+        }
+      ]
+      description = " Deploy of platform"
+      destinations = [
+        {
+          name      = "*"
+          namespace = "*"
+          server    = "*"
+        }
+      ]
+      namespaceResourceWhitelist = [
+        {
+          group = "*"
+          kind  = "*"
+        }
+      ]
+      sourceRepos = [
+       base64decode(kubernetes_manifest.repo_argoproj.manifest.data.url),
+       base64decode(kubernetes_manifest.repo_bitnami.manifest.data.url),
+      ]
+    }
+  }
 }
 
-resource "local_file" "name2" {
-  content = yamlencode(base64decode(kubernetes_manifest.repo_argoproj.manifest.data.url))
-  filename = "${path.root}/repo_${var.project_name}2.yaml"
-}
