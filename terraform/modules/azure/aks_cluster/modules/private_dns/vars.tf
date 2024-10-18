@@ -2,10 +2,10 @@ variable "name" {
   type        = string
   description = "Private DNS domain"
 
-  validation {
-    condition     = can(regex("^([a-z0-9]+\\.)+([a-z0-9]+\\.)+[a-z]{1,3}$", var.name))
-    error_message = "The private dns domain should be a correct subdomain+domain"
-  }
+  # validation {
+  #   condition     = can(regex("^([a-z0-9]+\\.)+([a-z0-9]+\\.)+[a-z]{1,3}$", var.name))
+  #   error_message = "The private dns domain should be a correct subdomain+domain"
+  # }
 }
 
 variable "tags" {

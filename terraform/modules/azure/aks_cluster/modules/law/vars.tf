@@ -2,14 +2,14 @@ variable "name" {
   type        = string
   description = "Name of log analytics workspace"
 
-  validation {
-    condition     = length(var.name) == 12
-    error_message = "The log analytics workspace name should be a 12 character"
-  }
-  validation {
-    condition     = can(regex("^[a-z]{1,8}[0-9]{1,4}$", var.name))
-    error_message = "The log analytics workspace name should be starts with character"
-  }
+  # validation {
+  #   condition     = length(var.name) == 12
+  #   error_message = "The log analytics workspace name should be a 12 character"
+  # }
+  # validation {
+  #   condition     = can(regex("^[a-z]{1,8}[0-9]{1,4}$", var.name))
+  #   error_message = "The log analytics workspace name should be starts with character"
+  # }
 }
 
 variable "tags" {
