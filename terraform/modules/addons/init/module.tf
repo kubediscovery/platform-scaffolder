@@ -60,7 +60,6 @@ module "argocd_publish" {
   record_type    = module.argocd[0].publish.type == "address" ? "A" : "CNAME"
   record_name    = module.argocd[0].publish.name
   record_address = module.argocd[0].publish.address
-
   }]
 }
 
