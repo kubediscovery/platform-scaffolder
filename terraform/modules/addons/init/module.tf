@@ -70,15 +70,15 @@ module "kong" {
   project_name  = var.project_name
 }
 
-module "konga" {
-  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/konga/?ref=develop"
-  count  = local.enabled_addons.kong_ingress_controller.enabled ? 1 : 0
+# module "konga" {
+#   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/konga/?ref=develop"
+#   count  = local.enabled_addons.kong_ingress_controller.enabled ? 1 : 0
 
-  labels        = var.tags
-  project_name  = var.project_name
+#   labels        = var.tags
+#   project_name  = var.project_name
 
-  depends_on = [ module.kong ]
-}
+#   depends_on = [ module.kong ]
+# }
 
 # module "kong_publish" {
 #   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
