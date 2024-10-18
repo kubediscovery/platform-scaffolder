@@ -34,9 +34,8 @@ statefulSet:
 
 
 containerSecurityContext:
-    allowPrivilegeEscalation: true
-    # runAsNonRoot: true
-    runAsUser: 100
+    privileged: true 
+    runAsUser: 0
 
 initContainers:
     - name: volume-mount-chmod
