@@ -33,10 +33,10 @@ variable "resource_group" {
   type        = string
   description = "Name of resource group to deploy a resource"
 
-  validation {
-    condition     = length(var.resource_group) == 16
-    error_message = "The resource group name should be a 16 character"
-  }
+  # validation {
+  #   condition     = length(var.resource_group) == 16
+  #   error_message = "The resource group name should be a 16 character"
+  # }
 }
 
 variable "identity" {
