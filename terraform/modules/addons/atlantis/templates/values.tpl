@@ -38,12 +38,12 @@ containerSecurityContext:
     # runAsNonRoot: true
     runAsUser: 100
 
-initContainers:
-    - name: volume-mount-chmod
-      image: busybox
-      command: ["sh", "-c", "chmod -R 0770 /atlantis-data"]
-      securityContext:
-            privileged: true 
-      volumeMounts:
-      - name: atlantis-data
-        mountPath: /atlantis-data
+# initContainers:
+#     - name: volume-mount-chmod
+#       image: busybox
+#       command: ["sh", "-c", "chmod -R 0770 /atlantis-data"]
+#       securityContext:
+#             privileged: true 
+#       volumeMounts:
+#       - name: atlantis-data
+#         mountPath: /atlantis-data
