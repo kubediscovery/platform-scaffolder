@@ -52,7 +52,7 @@ module "argocd" {
 }
 
 resource "local_file" "name" {
-  content =  module.argocd[0].publish
+  content =  jsonencode( module.argocd[0].publish)
   filename = "${path.root}/publish_argocd_init.txt"
 }
 

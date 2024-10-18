@@ -14,7 +14,7 @@ locals {
 }
 
 resource "local_file" "name" {
-  content = local.publish
+  content =yamlencode( local.publish)
   filename = "${path.root}/publish_argocd.txt"
 }
 
