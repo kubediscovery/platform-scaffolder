@@ -8,6 +8,8 @@ ingress:
   enabled: true
   ingressClassName: ${ingress_class}
   host: "atlantis.${project_name}.kubediscovery.com"
+  path: /
+  pathType: Prefix
   # annotations:
   #   nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
   #   nginx.ingress.kubernetes.io/ssl-passthrough: "true"
