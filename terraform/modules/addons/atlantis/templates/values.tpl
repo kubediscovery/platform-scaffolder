@@ -1,7 +1,7 @@
 
 atlantisUrl: "http://atlantis.${project_name}.kubediscovery.com"
 
-orgAllowlist: :
+orgAllowlist:
   - "github.com/synera-br/*"
   - "github.com/kubediscovery/*"
 service:
