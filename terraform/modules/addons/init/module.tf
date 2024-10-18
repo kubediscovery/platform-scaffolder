@@ -51,14 +51,6 @@ module "argocd" {
   project_name  = var.project_name
 }
 
-# module "argocd_publish" {
-#   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
-
-#   api_token = var.cloudflare_api_token
-#   zone_id   = var.cloudflare_zone_id
-#   dns_records = []
-# }
-
 module "kong" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/kong/?ref=develop"
   count  = local.enabled_addons.kong_ingress_controller.enabled ? 1 : 0
@@ -67,15 +59,6 @@ module "kong" {
   chart_version = try(local.enabled_addons.kong_ingress_controller.version, "2.42.0")
   project_name  = var.project_name
 }
-
-
-# module "kong_publish" {
-#   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
-
-#   api_token   = var.cloudflare_api_token
-#   zone_id     = var.cloudflare_zone_id
-#   dns_records = []
-# }
 
 # module "konga" {
 #   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/konga/?ref=develop"
@@ -86,17 +69,6 @@ module "kong" {
 
 #   depends_on = [ module.kong ]
 # }
-
-
-resource "local_file" "volume1" {
-  content  = var.storage.persistent_volume_name
-  filename = "${path.root}/volume_init_sc.txt"
-}
-
-resource "local_file" "volume2" {
-  content  = var.storage.persistent_volume_name
-  filename = "${path.cwd}/volume_init_pvc.txt"
-}
 
 module "atlantis" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/atlantis/?ref=develop"
@@ -113,11 +85,3 @@ module "atlantis" {
     persistent_volume_size = var.storage.persistent_volume_size
   }
 }
-
-# module "atlantis_publish" {
-#   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
-
-#   api_token = var.cloudflare_api_token
-#   zone_id   = var.cloudflare_zone_id
-#   dns_records = []
-# }

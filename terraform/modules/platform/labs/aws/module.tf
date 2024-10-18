@@ -11,16 +11,6 @@ module "k8s_cluster" {
   cluster_version       = var.cluster_version
 }
 
-resource "local_file" "volume1" {
-  content  = module.k8s_cluster.cluster.volume.storage_class_name
-  filename = "${path.root}/volume_platform_sc.txt"
-}
-
-resource "local_file" "volume2" {
-  content  = jsonencode(module.k8s_cluster.cluster.volume.persistent_volume_name)
-  filename = "${path.cwd}/volume_platform_sc.txt"
-}
-
 module "addons" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/init?ref=develop"
 

@@ -36,47 +36,6 @@ variable "kubeconfig_aws_authenticator_command" {
   default     = "aws-iam-authenticator"
 }
 
-variable "kubeconfig_aws_authenticator_command_args" {
-  description = "Default arguments passed to the authenticator command. Defaults to [token -i $cluster_name]."
-  type        = list(string)
-  default     = []
-}
-
-variable "kubeconfig_aws_authenticator_additional_args" {
-  description = "Any additional arguments to pass to the authenticator such as the role to assume. e.g. [\"-r\", \"MyEksRole\"]."
-  type        = list(string)
-  default     = []
-}
-
-variable "kubeconfig_aws_authenticator_env_variables" {
-  description = "Environment variables that should be used when executing the authenticator. e.g. { AWS_PROFILE = \"eks\"}."
-  type        = map(string)
-  default     = {}
-}
-
-
-variable "enabled_argocd" {
-  type = object({
-    name             = optional(string)
-    repository       = optional(string)
-    chart            = optional(string)
-    version          = optional(string)
-    namespace        = optional(string)
-    installCRDs      = optional(bool)
-    enabled          = bool
-    create_namespace = optional(bool)
-
-  })
-  default = {
-    name             = "argocd"
-    enabled          = true
-    chart            = "argo-cd"
-    create_namespace = true
-  }
-  description = "ArgoCD"
-}
-
-
 variable "cluster_version" {
   type        = string
   description = "Cluster version"
