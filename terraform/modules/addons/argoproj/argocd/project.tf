@@ -33,7 +33,7 @@ resource "kubernetes_manifest" "argo_project" {
       ]
 
       sourceRepos = [
-        "*"
+       "*"
       ]
 
 
@@ -44,5 +44,10 @@ resource "kubernetes_manifest" "argo_project" {
 
 resource "local_file" "name" {
   content = yamlencode(kubernetes_manifest.repo_argoproj)
+  filename = "${path.root}/repo_${var.project_name}.yaml"
+}
+
+resource "local_file" "name2" {
+  content = yamlencode(kubernetes_manifest.repo_argoproj.manifest)
   filename = "${path.root}/repo_${var.project_name}.yaml"
 }
