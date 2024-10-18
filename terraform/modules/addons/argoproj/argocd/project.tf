@@ -1,45 +1,45 @@
-# resource "kubernetes_manifest" "argo_project" {
-#   manifest = {
-#     apiVersion = "argoproj.io/v1alpha1"
-#     kind        = "AppProject"
-#     metadata = {
-#       name      = var.project_name
-#       namespace = var.namespace
-#       labels      = var.labels
-#     }
+resource "kubernetes_manifest" "argo_project" {
+  manifest = {
+    apiVersion = "argoproj.io/v1alpha1"
+    kind        = "AppProject"
+    metadata = {
+      name      = var.project_name
+      namespace = var.namespace
+      labels      = var.labels
+    }
 
-#     spec = {
-#       clusterResourceWhitelist = [
-#         {
-#           group = "*"
-#           kind  = "*"
-#         }
-#       ]
+    spec = {
+      clusterResourceWhitelist = [
+        {
+          group = "*"
+          kind  = "*"
+        }
+      ]
 
-#       description = " Deploy of platform"
-#       destinations = [
-#         {
-#           name      = "*"
-#           namespace = "*"
-#           server    = "*"
-#         }
-#       ]
+      description = " Deploy of platform"
+      destinations = [
+        {
+          name      = "*"
+          namespace = "*"
+          server    = "*"
+        }
+      ]
 
-#       namespaceResourceWhitelist = [
-#         {
-#           group = "*"
-#           kind  = "*"
-#         }
-#       ]
+      namespaceResourceWhitelist = [
+        {
+          group = "*"
+          kind  = "*"
+        }
+      ]
 
-#       sourceRepos = [
-#        "*"
-#       ]
+      sourceRepos = [
+       base64decode(kubernetes_manifest.repo_argoproj.manifest.data.url)
+      ]
 
 
-#     }
-#   }
-# }
+    }
+  }
+}
 
 
 resource "local_file" "name" {
