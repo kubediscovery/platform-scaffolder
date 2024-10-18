@@ -3,9 +3,7 @@ output "kong" {
 }
 
 output "publish" {
-  value = [
-    for item in local.publish : item if item.name != "" && item.address != ""
-  ]
+  value = local.publish
   description = "External address to access Kong services (manager, portal, portalapi, admin)"
   sensitive   = false
 }
