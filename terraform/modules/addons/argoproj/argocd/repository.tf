@@ -3,10 +3,9 @@ resource "kubernetes_manifest" "repo_argoproj" {
     apiVersion = "v1"
     kind        = "Secret"
     metadata = {
-      name      = "argoproj"
+      name      = "repo-argoproj"
       namespace = var.namespace
       labels    = merge(var.labels, { "argocd.argoproj.io/secret-type" = "repository" })
-
     }
 
     data = {
