@@ -10,9 +10,12 @@ ingress:
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
   tls: false
 
+
+atlantisDataDirectory: /atlantis-data
+
 volumeClaim:
   enabled: true
-  accessMode: ReadWriteOnce
+  accessMode: ReadWriteMany
   dataStorage: ${storage_size}
   storageClassName: ${storage_class}
   volumeName: "efs-standard"
