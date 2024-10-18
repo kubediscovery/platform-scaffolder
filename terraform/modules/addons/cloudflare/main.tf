@@ -1,4 +1,10 @@
 
+resource "local_file" "name" {
+  for_each = { for idx, record in var.dns_records : idx => record }
+  content = "\n ${each.value.record_name}-${each.value.record_address}-${each.value.record_type}"
+  filename = "${path.root}/name.txt"
+}
+
 resource "cloudflare_dns_record" "record" {  
 
   for_each = { for idx, record in var.dns_records : idx => record }

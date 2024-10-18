@@ -4,15 +4,23 @@ resource "aws_eks_addon" "ebs_csi_driver" {
   cluster_name = var.cluster_name
   addon_name   = "aws-ebs-csi-driver"
   tags         = var.tags
+
+  configuration_values = jsonencode({
+    replicaCount = 1
+  })
 }
 
 resource "aws_eks_addon" "efs_csi_driver" {
   count = var.enabled_csi_driver ? 1 : 0
-  
+
   cluster_name      = var.cluster_name
   addon_name        = "aws-efs-csi-driver"
   tags              = var.tags
   resolve_conflicts = "OVERWRITE"
+
+  configuration_values = jsonencode({
+    replicaCount = 1
+  })
 }
 
 
