@@ -17,21 +17,6 @@ variable "dns_records" {
     
   }))
 }
-# variable "record_type" {
-#   type        = string
-#   default     = "A"
-#   description = "Record type to be used in Cloudflare"
-# }
-
-# variable "record_name" {
-#   type        = string
-#   description = "Record name to be used in Cloudflare"
-# }
-
-# variable "record_address" {
-#   type        = string
-#   description = "Record name to be used in Cloudflare"
-# }
 
 variable "record_proxy" {
   type        = bool
