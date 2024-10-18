@@ -51,13 +51,13 @@ module "argocd" {
   project_name  = var.project_name
 }
 
-module "argocd_publish" {
-  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
+# module "argocd_publish" {
+#   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
 
-  api_token = var.cloudflare_api_token
-  zone_id   = var.cloudflare_zone_id
-  dns_records = []
-}
+#   api_token = var.cloudflare_api_token
+#   zone_id   = var.cloudflare_zone_id
+#   dns_records = []
+# }
 
 module "kong" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/kong/?ref=develop"
@@ -69,13 +69,13 @@ module "kong" {
 }
 
 
-module "kong_publish" {
-  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
+# module "kong_publish" {
+#   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
 
-  api_token   = var.cloudflare_api_token
-  zone_id     = var.cloudflare_zone_id
-  dns_records = []
-}
+#   api_token   = var.cloudflare_api_token
+#   zone_id     = var.cloudflare_zone_id
+#   dns_records = []
+# }
 
 # module "konga" {
 #   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/konga/?ref=develop"
@@ -114,10 +114,10 @@ module "atlantis" {
   }
 }
 
-module "atlantis_publish" {
-  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
+# module "atlantis_publish" {
+#   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
 
-  api_token = var.cloudflare_api_token
-  zone_id   = var.cloudflare_zone_id
-  dns_records = []
-}
+#   api_token = var.cloudflare_api_token
+#   zone_id   = var.cloudflare_zone_id
+#   dns_records = []
+# }
