@@ -4,7 +4,16 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "3.108.0"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.32.0"
+    }
   }
+}
+provider "kubernetes" {
+  host                   = local.kube.kube_config[0].host
+  cluster_ca_certificate = base64decode(local.kube.kube_config[0].cluster_ca_certificate)
+  token                  = local.kube.kube_config[0].password
 }
 
 provider "azurerm" {
