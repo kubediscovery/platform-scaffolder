@@ -10,14 +10,14 @@ locals {
 }
 
 
-resource "cloudflare_dns_record" "record" {  
+# resource "cloudflare_dns_record" "record" {  
 
-  for_each = local.dns_records_map
+#   for_each = local.dns_records_map
   
-  zone_id = var.zone_id
-  name    = each.value.name
-  content = each.value.address
-  type    = each.value.type == "address" ? "A" : "CNAME"
-  proxied = var.record_proxy
-  ttl     = var.record_ttl
-}
+#   zone_id = var.zone_id
+#   name    = each.value.name
+#   content = each.value.address
+#   type    = each.value.type == "address" ? "A" : "CNAME"
+#   proxied = var.record_proxy
+#   ttl     = var.record_ttl
+# }
