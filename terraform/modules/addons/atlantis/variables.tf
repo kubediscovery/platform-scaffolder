@@ -82,3 +82,9 @@ variable "atlantis_config" {
     persistent_volume_size = "2Gi"
   }
 }
+
+variable "home" {
+  type        = string
+  default     = ""
+  description = "Namespace"
+}

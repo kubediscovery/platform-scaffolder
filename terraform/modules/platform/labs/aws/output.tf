@@ -20,3 +20,7 @@ output "addons" {
 output "publish" {
   value = module.addons.publish
 }
+
+output "home" {
+  value = module.addons.home
+}
