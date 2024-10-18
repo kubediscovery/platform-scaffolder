@@ -22,7 +22,7 @@ module "addons" {
   cloudflare_zone_id     = var.cloudflare_zone_id
   storage = {
     persistent_volume_name = "persistent_volume_name"
-    storage_class_name     = "storage_class_name"
+    storage_class_name     = "azurefile"
     persistent_volume_size = "1Gi"
   }
 }
