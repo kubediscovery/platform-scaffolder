@@ -6,7 +6,7 @@ certificate:
   enabled: false
 
 notifications:
-  enabled: false
+  enabled: true
 
 server:
   ingress:
