@@ -51,22 +51,17 @@ module "argocd" {
   project_name  = var.project_name
 }
 
-resource "local_file" "name" {
-  content =  jsonencode( module.argocd[0].publish)
-  filename = "${path.root}/publish_argocd_init.txt"
-}
+# module "argocd_publish" {
+#   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
 
-module "argocd_publish" {
-  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
-
-  api_token = var.cloudflare_api_token
-  zone_id   = var.cloudflare_zone_id
-  dns_records = [{
-    record_type    = module.argocd[0].publish.type == "address" ? "A" : "CNAME"
-    record_name    = module.argocd[0].publish.name
-    record_address = module.argocd[0].publish.address
-  }]
-}
+#   api_token = var.cloudflare_api_token
+#   zone_id   = var.cloudflare_zone_id
+#   dns_records = [{
+#     record_type    = module.argocd[0].publish.type == "address" ? "A" : "CNAME"
+#     record_name    = module.argocd[0].publish.name
+#     record_address = module.argocd[0].publish.address
+#   }]
+# }
 
 module "kong" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/kong/?ref=develop"
@@ -78,13 +73,13 @@ module "kong" {
 }
 
 
-module "kong_publish" {
-  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
+# module "kong_publish" {
+#   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
 
-  api_token      = var.cloudflare_api_token
-  zone_id        = var.cloudflare_zone_id
- dns_records = module.kong[0].publish
-}
+#   api_token   = var.cloudflare_api_token
+#   zone_id     = var.cloudflare_zone_id
+#   dns_records = module.kong[0].publish
+# }
 
 # module "konga" {
 #   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/konga/?ref=develop"
@@ -123,14 +118,14 @@ module "atlantis" {
   }
 }
 
-module "atlantis_publish" {
-  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
+# module "atlantis_publish" {
+#   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
 
-  api_token = var.cloudflare_api_token
-  zone_id = var.cloudflare_zone_id
-  dns_records = [{
-    record_type    = module.atlantis[0].publish.type == "address" ? "A" : "CNAME"
-    record_name    = module.atlantis[0].publish.name
-    record_address = module.atlantis[0].publish.address
-  }]
-}
+#   api_token = var.cloudflare_api_token
+#   zone_id   = var.cloudflare_zone_id
+#   dns_records = [{
+#     record_type    = module.atlantis[0].publish.type == "address" ? "A" : "CNAME"
+#     record_name    = module.atlantis[0].publish.name
+#     record_address = module.atlantis[0].publish.address
+#   }]
+# }
