@@ -33,9 +33,9 @@ statefulSet:
     fsGroupChangePolicy: "OnRootMismatch"
 
 
-containerSecurityContext:
-    privileged: true 
-    runAsUser: 0
+# containerSecurityContext:
+#     privileged: true 
+#     runAsUser: 0
 
 initContainers:
     - name: volume-mount-chmod
