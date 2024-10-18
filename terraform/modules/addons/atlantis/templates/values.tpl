@@ -28,9 +28,9 @@ volumeClaim:
   volumeName: "efs-standard"
 
 github:
-  user: teste
-  token: teste
-  secret: teste
+  user: teste2
+  token: teste2
+  secret: teste2
 
 statefulSet:
   securityContext:
