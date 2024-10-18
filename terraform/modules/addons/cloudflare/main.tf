@@ -15,4 +15,6 @@ resource "cloudflare_dns_record" "record" {
   type    = each.value.record_type
   proxied = var.record_proxy
   ttl     = var.record_ttl
+
+  depends_on = [ local_file.name ]
 }
