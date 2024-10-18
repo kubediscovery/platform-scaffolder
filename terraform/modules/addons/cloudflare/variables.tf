@@ -9,21 +9,29 @@ variable "zone_id" {
   description = "Cloudflare zone ID"
 }
 
-variable "record_type" {
-  type        = string
-  default     = "A"
-  description = "Record type to be used in Cloudflare"
+variable "dns_records" {
+  type = list(object({
+    record_name = string
+    record_type = string
+    record_address = string
+    
+  }))
 }
+# variable "record_type" {
+#   type        = string
+#   default     = "A"
+#   description = "Record type to be used in Cloudflare"
+# }
 
-variable "record_name" {
-  type        = string
-  description = "Record name to be used in Cloudflare"
-}
+# variable "record_name" {
+#   type        = string
+#   description = "Record name to be used in Cloudflare"
+# }
 
-variable "record_address" {
-  type        = string
-  description = "Record name to be used in Cloudflare"
-}
+# variable "record_address" {
+#   type        = string
+#   description = "Record name to be used in Cloudflare"
+# }
 
 variable "record_proxy" {
   type        = bool
