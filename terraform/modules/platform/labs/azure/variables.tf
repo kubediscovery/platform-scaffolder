@@ -1,10 +1,7 @@
 variable "tags" {
   type        = map(string)
   description = "Tags to be added to the AWS resources"
-  default = {
-    Environment = "dev"
-    PartOf      = "learn-aws"
-  }
+  default = {}
 }
 
 variable "cloud_provider" {
@@ -30,7 +27,7 @@ variable "cidr_block" {
 
 variable "region" {
   type        = string
-  description = "AWS region to create the resources"
+  description = "Azure region to create the resources"
 }
 
 variable "kubeconfig_aws_authenticator_command" {
@@ -78,3 +75,35 @@ variable "enabled_argocd" {
   }
   description = "ArgoCD"
 }
+
+
+variable "cluster_version" {
+  type        = string
+  description = "Cluster version"
+  default     = "1.31"
+}
+
+variable "cluster_group_version" {
+  type        = string
+  description = "Cluster version"
+  default     = "1.31"
+}
+
+variable "enabled_addons" {
+  type        = any
+  description = "Enabled addons for the cluster"
+  default     = {}
+}
+
+variable "cloudflare_api_token" {
+  type        = string
+  description = "Cloudflare API token to manage DNS records"
+  default     = ""
+}
+
+variable "cloudflare_zone_id" {
+  type        = string
+  description = "Cloudflare API token to manage DNS records"
+  default     = ""
+}
+
