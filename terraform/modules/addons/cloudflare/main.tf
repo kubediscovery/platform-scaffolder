@@ -7,7 +7,7 @@ resource "local_file" "name" {
 
 resource "cloudflare_dns_record" "record" {  
 
-  for_each = { for idx, record in var.dns_records : idx => record }
+  for_each = { for idx, record in var.dns_records : idx => record if record.record_name != "" }
   
   zone_id = var.zone_id
   name    = each.value.record_name

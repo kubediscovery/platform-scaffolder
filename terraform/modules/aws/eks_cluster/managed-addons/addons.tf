@@ -14,9 +14,7 @@ resource "aws_eks_addon" "efs_csi_driver" {
   addon_name        = "aws-efs-csi-driver"
   tags              = var.tags
   resolve_conflicts = "OVERWRITE"
-
 }
-
 
 resource "kubernetes_storage_class" "standard" {
   metadata {
