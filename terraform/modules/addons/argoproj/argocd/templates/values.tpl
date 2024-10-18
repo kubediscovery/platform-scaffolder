@@ -5,6 +5,9 @@ global:
 certificate:
   enabled: false
 
+notifications:
+  enabled: false
+
 server:
   ingress:
     enabled: true
