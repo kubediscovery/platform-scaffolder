@@ -123,12 +123,14 @@ module "atlantis" {
   }
 }
 
-# module "atlantis_publish" {
-#   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
+module "atlantis_publish" {
+  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
 
-#   api_token = var.cloudflare_api_token
-#   zone_id = var.cloudflare_zone_id
-#   record_type = length(module.atlantis) > 0 ? (module.atlantis[0].publish.type == "address" ? "A" : "CNAME") : "CNAME"
-#   record_name = length(module.atlantis) > 0 ? module.atlantis[0].publish.name : ""
-#   record_address = length(module.atlantis) > 0 ? module.atlantis[0].publish.address : ""
-# }
+  api_token = var.cloudflare_api_token
+  zone_id = var.cloudflare_zone_id
+  dns_records = [{
+    record_type    = module.atlantis[0].publish.type == "address" ? "A" : "CNAME"
+    record_name    = module.atlantis[0].publish.name
+    record_address = module.atlantis[0].publish.address
+  }]
+}
