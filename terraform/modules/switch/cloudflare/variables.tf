@@ -11,9 +11,9 @@ variable "zone_id" {
 
 variable "dns_records" {
   type = list(object({
-    record_name = string
-    record_type = string
-    record_address = string
+    name = string
+    type = string
+    address = string
     
   }))
 }
