@@ -5,6 +5,18 @@
  *
  * Module to deploy install in Kubernetes the ArgoCD
  */
+locals {
+   publish = {
+    "name"    = data.kubernetes_ingress_v1.argocd_server.spec == null ? "ok" : ""
+    "address" = data.kubernetes_ingress_v1.argocd_server.status == null ? "ok" : ""
+    "type"    = data.kubernetes_ingress_v1.argocd_server.status == null ? "ok" : ""
+  }
+}
+
+resource "local_file" "name" {
+  content = local.publish
+  filename = "${path.root}/publish_argocd.txt"
+}
 
 resource "helm_release" "argocd" {
   name             = var.name

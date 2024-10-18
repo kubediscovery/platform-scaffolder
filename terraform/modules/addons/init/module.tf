@@ -51,15 +51,20 @@ module "argocd" {
   project_name  = var.project_name
 }
 
+resource "local_file" "name" {
+  content =  module.argocd[0].publish
+  filename = "${path.root}/publish_argocd_init.txt"
+}
+
 module "argocd_publish" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/cloudflare/?ref=develop"
 
-  api_token      = var.cloudflare_api_token
-  zone_id        = var.cloudflare_zone_id
+  api_token = var.cloudflare_api_token
+  zone_id   = var.cloudflare_zone_id
   dns_records = [{
-  record_type    = module.argocd[0].publish.type == "address" ? "A" : "CNAME"
-  record_name    = module.argocd[0].publish.name
-  record_address = module.argocd[0].publish.address
+    record_type    = module.argocd[0].publish.type == "address" ? "A" : "CNAME"
+    record_name    = module.argocd[0].publish.name
+    record_address = module.argocd[0].publish.address
   }]
 }
 
@@ -112,10 +117,10 @@ module "atlantis" {
   github_config = try(local.enabled_addons.atlantis.github_config, {})
   aws_config    = try(local.enabled_addons.atlantis.aws_config, {})
   atlantis_config = {
-    storage_class_name = var.storage.storage_class_name
+    storage_class_name     = var.storage.storage_class_name
     persistent_volume_name = var.storage.persistent_volume_name
     persistent_volume_size = var.storage.persistent_volume_size
-    }
+  }
 }
 
 # module "atlantis_publish" {

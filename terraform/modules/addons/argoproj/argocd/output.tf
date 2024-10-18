@@ -5,21 +5,7 @@ output "initial_secret" {
 }
 
 output "publish" {
-  value = {
-    "name"    = data.kubernetes_ingress_v1.argocd_server.spec == null ? "ok" : ""
-    "address" = data.kubernetes_ingress_v1.argocd_server.status == null ? "ok" : ""
-    "type"    = data.kubernetes_ingress_v1.argocd_server.status == null ? "ok" : ""
-  }
+  value = local.publish
   description = "External address to access the ArgoCD server"
   sensitive   = false
 }
-
-# output "publish" {
-#   value = {
-#     "name"    = data.kubernetes_ingress_v1.argocd_server.spec == null ? "" : data.kubernetes_ingress_v1.argocd_server.spec.0.rule.0.host
-#     "address" = data.kubernetes_ingress_v1.argocd_server.status == null ? "" : try(data.kubernetes_ingress_v1.argocd_server.status.0.load_balancer.0.ingress.0.hostname, data.kubernetes_ingress_v1.argocd_server.status.0.load_balancer.0.ingress.0.ip)
-#     "type"    = data.kubernetes_ingress_v1.argocd_server.status == null ? "" : (data.kubernetes_ingress_v1.argocd_server.status.0.load_balancer.0.ingress.0.ip != "" ? "address" : "hostname")
-#   }
-#   description = "External address to access the ArgoCD server"
-#   sensitive   = false
-# }
