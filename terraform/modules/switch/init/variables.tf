@@ -34,16 +34,15 @@ variable "project_name" {
 }
 
 variable "http_dns_records" {
-  # type = list(object({
-  #   record_name = string
-  #   record_type = string
-  #   record_address = string    
-  # }))
-  # default = [ {
-  #   record_name = ""
-  #   record_type = ""
-  #   record_address = ""
-  # } ]
-  type = any
+  type = list(object({
+    name = string
+    type = string
+    address = string    
+  }))
+  default = [ {
+    name = ""
+    type = ""
+    address = ""
+  } ]
   description = "values for the http dns records to be added"
 }
