@@ -14,7 +14,7 @@ ingress:
 atlantisDataDirectory: /atlantis-data
 
 volumeClaim:
-  enabled: flase
+  enabled: false
   accessMode: ReadWriteMany
   dataStorage: ${storage_size}
   storageClassName: ${storage_class}
