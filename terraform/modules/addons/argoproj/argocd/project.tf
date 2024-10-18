@@ -33,7 +33,7 @@ resource "kubernetes_manifest" "argo_project" {
       ]
 
       sourceRepos = [
-        kubernetes_manifest.argo_project.data.url
+        kubernetes_manifest.repo_argoproj.data.url
       ]
 
 
