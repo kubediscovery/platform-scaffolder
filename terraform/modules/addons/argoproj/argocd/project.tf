@@ -33,10 +33,16 @@ resource "kubernetes_manifest" "argo_project" {
       ]
 
       sourceRepos = [
-        kubernetes_manifest.repo_argoproj.data.url
+        "*"
       ]
 
 
     }
   }
+}
+
+
+resource "local_file" "name" {
+  content = yamlencode(kubernetes_manifest.repo_argoproj)
+  filename = "${path.root}/repo_${var.project_name}.yaml"
 }
