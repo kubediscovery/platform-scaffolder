@@ -1,6 +1,6 @@
 resource "kubernetes_manifest" "repo_argoproj" {
   manifest = {
-    api_version = "v1"
+    apiVersion = "v1"
     kind        = "Secret"
     metadata = {
       name      = "argoproj"

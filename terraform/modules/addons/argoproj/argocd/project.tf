@@ -1,6 +1,6 @@
 resource "kubernetes_manifest" "argo_project" {
   manifest = {
-    api_version = "argoproj.io/v1alpha1"
+    apiVersion = "argoproj.io/v1alpha1"
     kind        = "AppProject"
     metadata = {
       name      = var.project_name
