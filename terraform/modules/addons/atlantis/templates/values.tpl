@@ -41,13 +41,13 @@ containerSecurityContext:
 initContainers:
     - name: volume-mount-mkdir
       image: busybox
-      command: ["sh", "-c", "mkdir /atlantis-data"]
+      command: ["sh", "-c", "mkdir -p /atlantis-data"]
       securityContext:
             privileged: true 
             runAsUser: 0
     - name: volume-mount-chmod
       image: busybox
-      command: ["sh", "-c", "chmod -R 0770 /atlantis-data"]
+      command: ["sh", "-c", "mkdir -p /atlantis-data ; chmod -R 0770 /atlantis-data"]
       securityContext:
             privileged: true 
             runAsUser: 0
