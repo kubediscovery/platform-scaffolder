@@ -1,7 +1,18 @@
+locals {
+  dns_records_map = {
+    for idx, record in var.dns_records : idx => {
+      name    = record.name
+      address = record.address
+      type    = record.type  == "address" ? "A" : "CNAME"
+    }
+    if record.name != "" && record.address != "" 
+  }
+}
+
 
 resource "cloudflare_dns_record" "record" {  
 
-  for_each = { for idx, record in var.dns_records : idx => record if record.name != "" && record.address != "" }
+  for_each = local.dns_records_map
   
   zone_id = var.zone_id
   name    = each.value.name
