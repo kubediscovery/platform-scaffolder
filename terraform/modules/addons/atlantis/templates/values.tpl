@@ -29,6 +29,7 @@ statefulSet:
   securityContext:
     fsGroup: 1000
     runAsUser: 100
+    runAsGroup: 1000
     fsGroupChangePolicy: "OnRootMismatch"
 
 
@@ -37,3 +38,10 @@ containerSecurityContext:
     # runAsNonRoot: true
     runAsUser: 100
 
+initContainers:
+    - name: volume-mount-hack
+      image: busybox
+      command: ["sh", "-c", "chown -R 100:1000 /atlantis-data"]
+      volumeMounts:
+      - name: logging-volume
+        mountPath: /atlantis-data
