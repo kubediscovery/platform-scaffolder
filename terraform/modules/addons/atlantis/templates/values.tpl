@@ -14,7 +14,7 @@ ingress:
 atlantisDataDirectory: /atlantis-data
 
 volumeClaim:
-  enabled: false
+  enabled: true
   accessMode: ReadWriteMany
   dataStorage: ${storage_size}
   storageClassName: ${storage_class}
@@ -39,15 +39,12 @@ containerSecurityContext:
     runAsUser: 100
 
 initContainers:
-    - name: volume-mount-mkdir
-      image: busybox
-      command: ["sh", "-c", "mkdir -p /atlantis-data"]
-      securityContext:
-            privileged: true 
-            runAsUser: 0
     - name: volume-mount-chmod
       image: busybox
-      command: ["sh", "-c", "mkdir -p /atlantis-data ; chmod -R 0770 /atlantis-data"]
+      command: ["sh", "-c", "chmod -R 0770 /atlantis-data"]
       securityContext:
             privileged: true 
             runAsUser: 0
+      volumeMounts:
+      - name: atlantis-data
+        mountPath: /atlantis-data
