@@ -14,7 +14,7 @@ locals {
 }
 
 resource "local_file" "name" {
-  content =yamlencode( local.publish)
+  content =yamlencode( data.kubernetes_ingress_v1.argocd_server)
   filename = "${path.root}/publish_argocd.txt"
 }
 
