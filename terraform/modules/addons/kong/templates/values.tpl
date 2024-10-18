@@ -8,8 +8,6 @@ standalone:
 manager:
   enabled: true
   type: ClusterIP
-  tls:
-    enabled: false
   ingress:
     enabled: true
     ingressClassName: kong
