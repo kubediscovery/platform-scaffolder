@@ -13,7 +13,7 @@ resource "helm_release" "argocd" {
   version          = var.chart_version
   namespace        = "argoproj"
   create_namespace = var.create_namespace
-  values = [templatefile("${path.module}/templates/values.tpl", {
+  values = [templatefile("${path.module}/templates/argocd.tpl", {
     project_name  = var.project_name
     ingress_class = var.ingress_class
   })]

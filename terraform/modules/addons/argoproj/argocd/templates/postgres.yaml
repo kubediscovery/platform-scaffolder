@@ -1,0 +1,9 @@
+
+
+ auth:
+  username: root
+global:
+  postgresql:
+    auth:
+      database: kubediscovery
+            

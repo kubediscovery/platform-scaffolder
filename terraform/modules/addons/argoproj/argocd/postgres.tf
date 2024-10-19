@@ -8,14 +8,14 @@ resource "kubernetes_manifest" "postgres" {
       labels    = var.labels
     }
     spec = {
-        syncPolicy ={
-    automated = {
-      prune = "true"
-      selfHeal = "true"
-    }
-      syncOptions = [
-    "CreateNamespace=true"]
-    }
+      syncPolicy = {
+        automated = {
+          prune    = "true"
+          selfHeal = "true"
+        }
+        syncOptions = [
+        "CreateNamespace=true"]
+      }
       destination = {
         namespace = kubernetes_manifest.platform_shared.manifest.metadata.name
         server    = "https://kubernetes.default.svc"
@@ -25,6 +25,11 @@ resource "kubernetes_manifest" "postgres" {
         chart          = "postgresql"
         repoURL        = base64decode(kubernetes_manifest.repo_bitnami.manifest.data.url)
         targetRevision = "16.0.3"
+        helm = {
+          valueFiles = [
+            "templates/postgres.yaml"
+          ]
+          }
       }
     }
   }
