@@ -38,19 +38,15 @@ resource "kubernetes_manifest" "postgres" {
             {
               name  = "global.postgresql.auth.username"
               value = "root"
+            },
+            {
+              name  = "global.storageClass"
+              value = var.storage.storage_class_name
+            },
+            {
+              name  = "global.defaultStorageClass"
+              value = var.storage.storage_class_name
             }
-            # {
-            #   name  = "global.storageClass"
-            #   value = var.storage.storage_class_name
-            # },
-            # {
-            #   name  = "global.defaultStorageClass"
-            #   value = var.storage.storage_class_name
-            # },
-            # {
-            #   name  = "primary.persistence.storageClass"
-            #   value = var.storage.storage_class_name
-            # },
             # {
             #   name  = "primary.persistence.size"
             #   value = "1Gi"
