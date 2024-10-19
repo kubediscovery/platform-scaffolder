@@ -10,8 +10,8 @@ resource "kubernetes_manifest" "postgres" {
     spec = {
       syncPolicy = {
         syncOptions = {
-          CreateNamespace = true
-          Replace         = true
+          createNamespace = "true"
+          replace         = "true"
         }
       }
       destination = {
