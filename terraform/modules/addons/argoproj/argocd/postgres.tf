@@ -8,7 +8,12 @@ resource "kubernetes_manifest" "postgres" {
       labels    = var.labels
     }
     spec = {
-      
+        syncPolicy ={
+    automated = {
+      prune = "true"
+      selfHeal = "true"
+    }
+    }
       destination = {
         namespace = kubernetes_manifest.platform_shared.manifest.metadata.name
         server    = "https://kubernetes.default.svc"
