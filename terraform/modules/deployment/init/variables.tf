@@ -45,8 +45,9 @@ variable "enabled_addons" {
 
 
 variable "ingress_class_name" {
-  type = list(string)
+  type = string
   description = "List of git repositories to be used as source for the GitOps"
+  default = ""
 }
 
 variable "gitops_source_repos_urls" {
