@@ -58,3 +58,17 @@ variable "ingress_class" {
   default     = "kong"
   description = "Ingress class to use in the ArgoCD"
 }
+
+variable "storage" {
+  type = object({
+    storage_class_name = string
+    persistent_volume_name = string
+    persistent_volume_size = string
+  })
+  description = "Storage configuration for ArgoCD persistent volume"
+  default = {
+    persistent_volume_name = "default"
+    storage_class_name     = "default"
+    persistent_volume_size = "2Gi"
+  }
+}

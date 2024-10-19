@@ -35,7 +35,13 @@ resource "kubernetes_manifest" "postgres" {
           }, {
             name  = "global.postgresql.auth.username"
             value = "root"
-          }]
+          },
+           {
+            name  = "global.storageClass"
+            value = var.storage.storage_class_name
+          }
+          
+]
       }
     }
   }
