@@ -19,16 +19,3 @@ output "ingress" {
     ingress_class_name = module.kong[0].ingress_class_name
   }
 }
-
-output "gitops_source_repos_urls" {
-  value = module.argocd[0].gitops_source_repos_urls
-  description = "values for the gitops source repos urls"
-  sensitive   = false
-}
-
-
-output "gitops_namespace" {
-  value = module.argocd[0].gitops_namespace
-  description = "values for the gitops namespace urls"
-  sensitive   = false
-}

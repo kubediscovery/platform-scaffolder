@@ -4,7 +4,7 @@ resource "kubernetes_manifest" "postgres" {
     kind       = "Application"
     metadata = {
       name      = "postgres"
-      namespace = "argoproj"
+      namespace = var.gitops_namespace
       labels    = var.labels
     }
     spec = {
@@ -17,13 +17,13 @@ resource "kubernetes_manifest" "postgres" {
         "CreateNamespace=true"]
       }
       destination = {
-        namespace = kubernetes_manifest.platform_shared.manifest.metadata.name
+        namespace = "platform-shared"
         server    = "https://kubernetes.default.svc"
       }
-      project = kubernetes_manifest.platform_shared.manifest.metadata.name
+      project = "platform-shared"
       source = {
         chart          = "postgresql"
-        repoURL        = base64decode(kubernetes_manifest.repo_bitnami.manifest.data.url)
+        repoURL        = var.gitops_source_repos_urls["postgres"]
         targetRevision = "16.0.3"
         helm = {
           parameters = [
@@ -55,19 +55,6 @@ resource "kubernetes_manifest" "postgres" {
               name  = "primary.persistence.storageClass"
               value = var.storage.storage_class_name
             },
-            # {
-            #   name  = "primary.persistence.existingClaim"
-            #   value = "postgres-pvc"
-            # },
-            # {
-            #   name  = "primary.persistence.enabled"
-            #   value = "true"
-            # },
-            # {
-            #   name  = "primary.persistentVolumeClaimRetentionPolicy.enabled	"
-            #   value = "true"
-            # }
-
             
           ]
         }
