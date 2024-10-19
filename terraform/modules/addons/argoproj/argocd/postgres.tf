@@ -70,7 +70,13 @@ resource "kubernetes_manifest" "postgres" {
             {
               name  = "primary.persistence.enabled"
               value = "true"
+            },
+            {
+              name  = "primary.persistentVolumeClaimRetentionPolicy.enabled	"
+              value = "true"
             }
+
+            
           ]
         }
       }
