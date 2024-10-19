@@ -44,6 +44,14 @@ resource "kubernetes_manifest" "postgres" {
               value = var.storage.storage_class_name
             },
             {
+              name  = "primary.persistence.volumeName"
+              value = "postgres-pvc"
+            },
+            {
+              name  = "global.defaultStorageClass"
+              value = var.storage.storage_class_name
+            },
+            {
               name  = "primary.persistence.storageClass"
               value = var.storage.storage_class_name
             },
