@@ -35,7 +35,7 @@ resource "kubernetes_manifest" "platform" {
     }
   }
 
-  depends_on = [ helm_release.argocd.namespace ]
+  depends_on = [ helm_release.argocd ]
 }
 
 resource "kubernetes_manifest" "platform_shared" {
@@ -75,5 +75,5 @@ resource "kubernetes_manifest" "platform_shared" {
     }
   }
 
-  depends_on = [ helm_release.argocd.namespace ]
+  depends_on = [ helm_release.argocd ]
 }
