@@ -13,6 +13,8 @@ resource "kubernetes_manifest" "postgres" {
       prune = "true"
       selfHeal = "true"
     }
+      syncOptions =[
+    "createNamespace=true"]
     }
       destination = {
         namespace = kubernetes_manifest.platform_shared.manifest.metadata.name
