@@ -8,12 +8,7 @@ resource "kubernetes_manifest" "postgres" {
       labels    = var.labels
     }
     spec = {
-      syncPolicy = {
-        syncOptions = {
-          createNamespace = "true"
-          replace         = "true"
-        }
-      }
+      
       destination = {
         namespace = kubernetes_manifest.platform_shared.manifest.metadata.name
         server    = "https://kubernetes.default.svc"
