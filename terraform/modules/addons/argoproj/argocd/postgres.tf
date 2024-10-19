@@ -52,7 +52,12 @@ resource "kubernetes_manifest" "postgres" {
           },{
             name  = "primary.persistence.storageClass"
             value = var.storage.storage_class_name
+          },{
+            name  = "primary.persistence.existingClaim"
+            value = "postgres-pvc"
           }
+
+          
           
 ]
       }
