@@ -8,3 +8,7 @@ output "publish" {
   sensitive   = false
 }
 
+
+output "ingress_class_name" {
+  value = local.ingress_class_name
+}

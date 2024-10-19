@@ -10,7 +10,7 @@ manager:
   type: ClusterIP
   ingress:
     enabled: true
-    ingressClassName: kong
+    ingressClassName: ${ingress_class_name}
     hostname: manager.platform.kubediscovery.com
     annotations:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"

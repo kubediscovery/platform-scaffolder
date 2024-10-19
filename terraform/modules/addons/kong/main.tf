@@ -8,6 +8,7 @@ resource "helm_release" "kong" {
   create_namespace = var.create_namespace
   values = [templatefile("${path.module}/templates/values.tpl", {
     install_crds = true
+    ingress_class_name = var.ingress_class_name
   })]
 }
 

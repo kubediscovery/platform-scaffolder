@@ -53,3 +53,9 @@ variable "project_name" {
   description = "Name of the project and prefix for resources"
 }
 
+
+variable "ingress_class_name" {
+  type        = string
+  default = "kong"
+  description = "Ingress class name to use in the Kong ingress controller"
+}

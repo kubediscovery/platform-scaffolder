@@ -19,4 +19,6 @@ locals {
       address = data.kubernetes_ingress_v1.kong_admin.status == null ? "" : try(data.kubernetes_ingress_v1.kong_admin.status.0.load_balancer.0.ingress.0.hostname, data.kubernetes_ingress_v1.kong_admin.status.0.load_balancer.0.ingress.0.ip)
       type    = data.kubernetes_ingress_v1.kong_admin.status == null ? "" : data.kubernetes_ingress_v1.kong_admin.status.0.load_balancer.0.ingress.0.ip != "" ? "address" : "hostname"
   }]
+
+  ingress_class_name = "kong"
 }

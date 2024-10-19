@@ -13,3 +13,9 @@ output "http_dns_records" {
 output "home" {
   value = module.atlantis[0].home
 }
+
+output "ingress" {
+  value = {
+    ingress_class_name = module.kong[0].ingress_class_name
+  }
+}
