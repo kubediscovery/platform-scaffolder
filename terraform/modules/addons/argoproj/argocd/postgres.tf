@@ -26,42 +26,50 @@ resource "kubernetes_manifest" "postgres" {
         repoURL        = base64decode(kubernetes_manifest.repo_bitnami.manifest.data.url)
         targetRevision = "16.0.3"
         helm = {
-          parameters = [{
-            name  = "auth.username"
-            value = "root"
-          }, {
-            name  = "global.postgresql.auth.database"
-            value = "kubediscovery"
-          }, {
-            name  = "global.postgresql.auth.username"
-            value = "root"
-          },
-           {
-            name  = "global.storageClass"
-            value = var.storage.storage_class_name
-          },
-           {
-            name  = "primary.persistence.storageClass"
-            value = var.storage.storage_class_name
-          },{
-            name  = "primary.persistence.size"
-            value = "1Gi"
-          },{
-            name  = "primary.persistence.volumeName"
-            value = "postgres-pvc"
-          },{
-            name  = "primary.persistence.storageClass"
-            value = var.storage.storage_class_name
-          },{
-            name  = "primary.persistence.existingClaim"
-            value = "postgres-pvc"
-          }
-
-          
-          
-]
+          parameters = [
+            {
+              name  = "auth.username"
+              value = "root"
+            },
+            {
+              name  = "global.postgresql.auth.database"
+              value = "kubediscovery"
+            },
+            {
+              name  = "global.postgresql.auth.username"
+              value = "root"
+            },
+            {
+              name  = "global.storageClass"
+              value = var.storage.storage_class_name
+            },
+            {
+              name  = "primary.persistence.storageClass"
+              value = var.storage.storage_class_name
+            },
+            {
+              name  = "primary.persistence.size"
+              value = "1Gi"
+            },
+            {
+              name  = "primary.persistence.volumeName"
+              value = "postgres-pvc"
+            },
+            {
+              name  = "primary.persistence.storageClass"
+              value = var.storage.storage_class_name
+            },
+            {
+              name  = "primary.persistence.existingClaim"
+              value = "postgres-pvc"
+            },
+            {
+              name  = "primary.persistence.enabled"
+              value = "true"
+            }
+          ]
+        }
       }
     }
   }
-}
 }
