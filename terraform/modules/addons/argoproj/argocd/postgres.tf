@@ -40,3 +40,4 @@ resource "kubernetes_manifest" "postgres" {
     }
   }
 }
+}
