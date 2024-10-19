@@ -26,12 +26,16 @@ resource "kubernetes_manifest" "postgres" {
         repoURL        = base64decode(kubernetes_manifest.repo_bitnami.manifest.data.url)
         targetRevision = "16.0.3"
         helm = {
-          values = {
-            auth.username = "root"
-global.postgresql.auth.database =  "kubediscovery"
-global.postgresql.auth.password = "root"
-global.postgresql.auth.username = "root"
-          }
+          parameters = [{
+            name  = "auth.username"
+            value = "root"
+          }, {
+            name  = "global.postgresql.auth.database"
+            value = "kubediscovery"
+          }, {
+            name  = "global.postgresql.auth.username"
+            value = "root"
+          }]
       }
     }
   }
