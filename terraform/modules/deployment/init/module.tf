@@ -6,7 +6,7 @@ module "postgres" {
 
   labels        = var.tags
   project_name  = var.project_name
-  ingress_class = var.ingress_class_name
+  # ingress_class = var.ingress_class_name
   storage = var.storage
   gitops_namespace = var.gitops_namespace
   gitops_source_repos_urls = var.gitops_source_repos_urls
