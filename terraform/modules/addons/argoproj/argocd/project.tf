@@ -4,7 +4,7 @@ resource "kubernetes_manifest" "platform" {
     kind        = "AppProject"
     metadata = {
       name      = var.project_name
-      namespace = var.namespace
+      namespace = helm_release.argocd.namespace
       labels      = var.labels
     }
     spec = {
@@ -42,7 +42,7 @@ resource "kubernetes_manifest" "platform_shared" {
     kind        = "AppProject"
     metadata = {
       name      = "${var.project_name}-shared"
-      namespace = var.namespace
+      namespace = helm_release.argocd.namespace
       labels      = merge(var.labels, { "app.kubernetes.io/part-of" = "platform" })
     }
     spec = {
