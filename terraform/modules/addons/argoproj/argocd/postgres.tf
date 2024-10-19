@@ -38,39 +38,39 @@ resource "kubernetes_manifest" "postgres" {
             {
               name  = "global.postgresql.auth.username"
               value = "root"
-            },
-            {
-              name  = "global.storageClass"
-              value = var.storage.storage_class_name
-            },
-            {
-              name  = "global.defaultStorageClass"
-              value = var.storage.storage_class_name
-            },
-            {
-              name  = "primary.persistence.storageClass"
-              value = var.storage.storage_class_name
-            },
-            {
-              name  = "primary.persistence.size"
-              value = "1Gi"
-            },
-            {
-              name  = "primary.persistence.storageClass"
-              value = var.storage.storage_class_name
-            },
-            {
-              name  = "primary.persistence.existingClaim"
-              value = "postgres-pvc"
-            },
-            {
-              name  = "primary.persistence.enabled"
-              value = "true"
-            },
-            {
-              name  = "primary.persistentVolumeClaimRetentionPolicy.enabled	"
-              value = "true"
             }
+            # {
+            #   name  = "global.storageClass"
+            #   value = var.storage.storage_class_name
+            # },
+            # {
+            #   name  = "global.defaultStorageClass"
+            #   value = var.storage.storage_class_name
+            # },
+            # {
+            #   name  = "primary.persistence.storageClass"
+            #   value = var.storage.storage_class_name
+            # },
+            # {
+            #   name  = "primary.persistence.size"
+            #   value = "1Gi"
+            # },
+            # {
+            #   name  = "primary.persistence.storageClass"
+            #   value = var.storage.storage_class_name
+            # },
+            # {
+            #   name  = "primary.persistence.existingClaim"
+            #   value = "postgres-pvc"
+            # },
+            # {
+            #   name  = "primary.persistence.enabled"
+            #   value = "true"
+            # },
+            # {
+            #   name  = "primary.persistentVolumeClaimRetentionPolicy.enabled	"
+            #   value = "true"
+            # }
 
             
           ]
