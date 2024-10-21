@@ -10,12 +10,6 @@ output "publish" {
   sensitive   = false
 }
 
-output "gitops_source_repos_urls" {
-  value = local.gitops_source_repos_urls
-  description = "values for the gitops source repos urls"
-  sensitive   = false
-}
-
 output "gitops_namespace" {
   value = helm_release.argocd.namespace
   description = "values for the gitops source repos urls"
