@@ -20,11 +20,11 @@ output "ingress" {
   }
 }
 
-output "gitops_source_repos_urls" {
-  value = module.argocd[0].gitops_source_repos_urls
-  description = "values for the gitops source repos urls"
-  sensitive   = false
-}
+# output "gitops_source_repos_urls" {
+#   value = module.argocd[0].gitops_source_repos_urls
+#   description = "values for the gitops source repos urls"
+#   sensitive   = false
+# }
 
 
 output "gitops_namespace" {
