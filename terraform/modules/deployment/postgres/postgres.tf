@@ -78,7 +78,16 @@ resource "kubernetes_manifest" "postgres" {
                         {
               name  = "containerSecurityContext.enabled"
               value = "false"
+            },
+                        {
+              name  = "volumePermissions.enabled"
+              value = "true"
+            },
+                        {
+              name  = "volumePermissions.securityContext.runAsUser"
+              value = 1001
             }
+
             
           ]
         }
