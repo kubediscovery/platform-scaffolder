@@ -55,6 +55,10 @@ resource "kubernetes_manifest" "postgres" {
               name  = "volumePermissions.securityContext.runAsUser"
               value = "auto"
             },
+                       {
+              name  = "primary.persistence.enabled"
+              value = "true"
+            },
             {
               name  = "primary.persistence.storageClass"
               value = var.storage.storage_class_name
