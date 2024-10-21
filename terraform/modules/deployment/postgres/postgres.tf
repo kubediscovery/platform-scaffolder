@@ -64,6 +64,10 @@ resource "kubernetes_manifest" "postgres" {
               value = var.storage.storage_class_name
             },
             {
+              name  = "primary.persistence.securityContext.privileged"
+              value = "true"
+            },
+            {
               name  = "primary.persistence.size"
               value = "1Gi"
             },
