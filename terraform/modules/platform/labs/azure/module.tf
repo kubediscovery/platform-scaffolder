@@ -41,7 +41,7 @@ module "deployment" {
     storage_class_name     = "azurefile"
     persistent_volume_size = "1Gi"
   }
-  gitops_namespace = module.addons.gitops_namespace
-  gitops_source_repos_urls = module.addons.gitops_source_repos_urls
+  # gitops_namespace = module.addons.gitops_namespace
+  # gitops_source_repos_urls = module.addons.gitops_source_repos_urls
 }
 
