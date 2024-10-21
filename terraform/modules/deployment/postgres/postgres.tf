@@ -4,7 +4,7 @@ resource "kubernetes_manifest" "postgres" {
     kind       = "Application"
     metadata = {
       name      = "postgres"
-      namespace = var.gitops_namespace
+      namespace = "postgres"
       labels    = var.labels
     }
     spec = {

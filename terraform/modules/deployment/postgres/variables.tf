@@ -31,10 +31,10 @@ variable "gitops_namespace" {
   default     = ""
 }
 
-variable "gitops_source_repos_urls" {
-  type = list(object({
-    url    = string
-    name = string
-  }))
-  description = "List of git repositories to be used as source for the GitOps"
-}
+# variable "gitops_source_repos_urls" {
+#   type = list(object({
+#     url    = string
+#     name = string
+#   }))
+#   description = "List of git repositories to be used as source for the GitOps"
+# }
