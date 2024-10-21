@@ -47,13 +47,12 @@ module "deployment" {
   gitops_source_repos_urls = module.addons.gitops_source_repos_urls
 }
 
-module "switch_cloud_provider" {
-  source               = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/switch/init?ref=develop"
-  project_name         = var.project_name
-  tags                 = var.tags
-  http_dns_records     = module.addons.http_dns_records
-  cloudflare_api_token = var.cloudflare_api_token
-  cloudflare_zone_id   = var.cloudflare_zone_id
-
-}
+# module "switch_cloud_provider" {
+#   source               = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/switch/init?ref=develop"
+#   project_name         = var.project_name
+#   tags                 = var.tags
+#   http_dns_records     = module.addons.http_dns_records
+#   cloudflare_api_token = var.cloudflare_api_token
+#   cloudflare_zone_id   = var.cloudflare_zone_id
+# }
 
