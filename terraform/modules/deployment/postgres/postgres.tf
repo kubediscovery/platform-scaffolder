@@ -4,7 +4,7 @@ resource "kubernetes_manifest" "postgres" {
     kind       = "Application"
     metadata = {
       name      = "postgres"
-      namespace = "postgres"
+      namespace = "argoproj"
       labels    = var.labels
     }
     spec = {
