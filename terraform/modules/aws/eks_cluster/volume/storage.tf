@@ -48,3 +48,30 @@ resource "kubernetes_persistent_volume_v1" "efs_pv" {
     }
   }
 }
+
+resource "kubernetes_persistent_volume_v1" "efs_pv_disk" {
+  metadata {
+    name   = "platform-shared"
+    labels = var.tags
+  }
+  spec {
+    capacity = {
+      storage = var.storage_capacity_size
+    }
+
+    access_modes = [
+      "ReadWriteOnce",
+      "ReadWriteMany"
+    ]
+    volume_mode                      = "Disk"
+    persistent_volume_reclaim_policy = "Delete"
+    storage_class_name               = kubernetes_storage_class_v1.efs_sc.metadata.0.name
+    persistent_volume_source {
+      csi {
+        driver        = kubernetes_storage_class_v1.efs_sc.storage_provisioner
+        volume_handle = aws_efs_file_system.this.id
+      }
+    }
+  }
+}
+
