@@ -12,3 +12,10 @@ locals {
 }
   ]
 }
+
+
+output "gitops_source_repos_urls" {
+  value = local.gitops_source_repos_urls
+  description = "values for the gitops source repos urls"
+  sensitive   = false
+}
