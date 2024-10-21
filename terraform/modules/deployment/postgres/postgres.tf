@@ -85,9 +85,8 @@ resource "kubernetes_manifest" "postgres" {
             },
                         {
               name  = "volumePermissions.securityContext.runAsUser"
-              value = 1001
+              value = 0
             }
-
             
           ]
         }
