@@ -4,7 +4,7 @@ resource "kubernetes_manifest" "repo_argoproj" {
     kind        = "Secret"
     metadata = {
       name      = "repo-argoproj"
-      namespace = var.namespace
+      namespace = "argoproj"
       labels    = merge(var.labels, { "argocd.argoproj.io/secret-type" = "repository" })
     }
 
@@ -25,7 +25,7 @@ resource "kubernetes_manifest" "repo_bitnami" {
     kind        = "Secret"
     metadata = {
       name      = "repo-bitnami"
-      namespace = var.namespace
+      namespace = "argoproj"
       labels    = merge(var.labels, { "argocd.argoproj.io/secret-type" = "repository" })
     }
 

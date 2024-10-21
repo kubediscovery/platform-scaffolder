@@ -1,6 +1,4 @@
-locals {
-  dep = argoproj
-}
+
 resource "kubernetes_manifest" "platform" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
@@ -38,7 +36,6 @@ resource "kubernetes_manifest" "platform" {
     }
   }
 
-  depends_on = [ local.dep ]
 }
 
 resource "kubernetes_manifest" "platform_shared" {
@@ -78,5 +75,4 @@ resource "kubernetes_manifest" "platform_shared" {
     }
   }
 
-  depends_on = [ local.dep ]
 }
