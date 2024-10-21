@@ -43,11 +43,11 @@ resource "kubernetes_manifest" "postgres" {
               name  = "volumePermissions.enabled"
               value = "false"
             },
-                        {
+            {
               name  = "global.storageClass"
               value = var.storage.storage_class_name
             },
-                                    {
+            {
               name  = "global.defaultStorageClass"
               value = var.storage.storage_class_name
             },
@@ -55,7 +55,7 @@ resource "kubernetes_manifest" "postgres" {
               name  = "volumePermissions.securityContext.runAsUser"
               value = "auto"
             },
-                       {
+            {
               name  = "primary.persistence.enabled"
               value = "true"
             },
@@ -75,19 +75,23 @@ resource "kubernetes_manifest" "postgres" {
               name  = "shmVolume.sizeLimit"
               value = "1Gi"
             },
-                        {
+            {
               name  = "containerSecurityContext.enabled"
               value = "false"
             },
-                        {
+            {
               name  = "volumePermissions.enabled"
               value = "true"
             },
-                        {
+            {
               name  = "volumePermissions.securityContext.runAsUser"
-              value = 0
+              value = 1001
+            },
+            {
+              name  = "volumePermissions.securityContext.privileged"
+              value = "true"
             }
-            
+
           ]
         }
       }
