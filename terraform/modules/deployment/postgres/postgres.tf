@@ -40,20 +40,20 @@ resource "kubernetes_manifest" "postgres" {
               value = "root"
             },
             {
-              name  = "global.storageClass"
-              value = var.storage.storage_class_name
-            },
-            {
-              name  = "global.defaultStorageClass"
-              value = var.storage.storage_class_name
-            },
-            {
-              name  = "primary.persistence.enabled"
+              name  = "volumePermissions.enabled"
               value = "false"
             },
             {
-              name  = "primary.persistence.storageClass"
-              value = var.storage.storage_class_name
+              name  = "volumePermissions.securityContext.runAsUser"
+              value = "auto"
+            },
+            {
+              name  = "securityContext.enabled"
+              value = "false"
+            },
+            {
+              name  = "shmVolume.chmod.enabled"
+              value = "false"
             },
             
           ]
