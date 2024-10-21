@@ -2,7 +2,7 @@
 
 module "postgres" {
   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/deployment/postgres/?ref=develop"
-  count  = local.enabled_addons.argoproj_argocd.enabled ? 1 : 0
+  # count  = local.enabled_addons.argoproj_argocd.enabled ? 1 : 0
 
   labels        = var.tags
   project_name  = var.project_name
