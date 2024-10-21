@@ -9,3 +9,15 @@ output "cluster" {
 output "project_name" {
   value = var.project_name
 }
+
+output "addons" {
+  value = module.addons
+}
+
+output "publish" {
+  value = module.addons.publish
+}
+
+output "home" {
+  value = module.addons.home
+}
