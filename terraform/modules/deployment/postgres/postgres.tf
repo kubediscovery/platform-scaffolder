@@ -55,6 +55,10 @@ resource "kubernetes_manifest" "postgres" {
               name  = "shmVolume.chmod.enabled"
               value = "false"
             },
+                        {
+              name  = "containerSecurityContext.enabled"
+              value = "false"
+            }
             
           ]
         }
