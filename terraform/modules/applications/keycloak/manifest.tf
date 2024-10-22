@@ -26,14 +26,12 @@ resource "kubernetes_manifest" "keycloak" {
         repoURL        = "https://charts.bitnami.com/bitnami"
         targetRevision = local.chart_version
         helm = {
-          values = {
-            extraEnvVars = [
-              {
-                name  = "KC_METRICS_ENABLED"
-                value = "true"
-              }
-            ]
-          }
+        values = yamlencode({
+            someparameter = {
+              enabled   = true
+              someArray = ["foo", "bar"]
+            }
+        })
           parameters = [
             {
               name  = "ingress.enabled"
