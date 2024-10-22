@@ -50,7 +50,9 @@ resource "kubernetes_manifest" "keycloak" {
 
 data "kubernetes_ingress_v1" "keycloak" {
   metadata {
-    name      = kubernetes_manifest.keycloak.manifest.metadata.name
-    namespace = kubernetes_manifest.keycloak.manifest.metadata.namespace
+    name      = local.release_name
+    namespace = local.release_namespace
   }
+
+  depends_on = [ kubernetes_manifest.keycloak ]
 }
