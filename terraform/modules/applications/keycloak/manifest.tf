@@ -51,7 +51,12 @@ resource "kubernetes_manifest" "keycloak" {
             {
               name  = "postgresql.auth.passord"
               value = base64encode("kubediscovery")
+            },{
+              name  = "postgresql.auth.existingSecret"
+              value = kubernetes_secret_v1.postgresql.metadata.0.name
             },
+
+            
         ] }
 
       }
@@ -68,12 +73,13 @@ data "kubernetes_ingress_v1" "keycloak" {
 }
 
 
-# resource "kubernetes_secret_v1" "postgresql" {
-#   metadata {
-#     name      = "kdadmin"
-#     namespace = local.release_namespace
-#   }
-#   data = {
-#     password = base64encode("kubediscovery")
-#   }
-# }
+resource "kubernetes_secret_v1" "postgresql" {
+  metadata {
+    name      = "kd-keycloak-postgresql"
+    namespace = local.release_namespace
+  }
+  data = {
+    password = base64encode("kubediscovery")
+    postgres-password = base64encode("kubediscovery2024")
+  }
+}
