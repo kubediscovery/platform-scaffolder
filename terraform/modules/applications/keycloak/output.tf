@@ -5,5 +5,5 @@ output "publish" {
 }
 
 output "publish_debug" {
-  value = data.kubernetes_ingress_v1.keycloak
+  value = kubernetes_manifest.keycloak
 }
