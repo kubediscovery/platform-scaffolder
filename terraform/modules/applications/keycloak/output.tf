@@ -5,5 +5,5 @@ output "publish" {
 }
 
 output "publish_debug" {
-  value = kubernetes_manifest.keycloak.manifest.metadata
+  value = kubernetes_manifest.keycloak.manifest.metadata.name
 }
