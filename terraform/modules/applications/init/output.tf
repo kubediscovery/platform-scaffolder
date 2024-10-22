@@ -11,6 +11,12 @@ output "http_dns_records" {
   description = "values for the http dns records"
 }
 
+output "http_dns_records_debug" {
+  value = module.keycloak[0].publish_debug
+  description = "values for the http dns records"
+}
+
+
 # output "home" {
 #   value = module.atlantis[0].home
 # }
