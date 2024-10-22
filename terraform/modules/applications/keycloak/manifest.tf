@@ -28,7 +28,7 @@ resource "kubernetes_manifest" "keycloak" {
         helm = {
         values = yamlencode({
             extraEnvVars = [
-              {"KC_METRICS_ENABLED" = "true"}
+              {KC_METRICS_ENABLED = "true"}
             ]
         })
           parameters = [
