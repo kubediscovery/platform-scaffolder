@@ -27,9 +27,8 @@ resource "kubernetes_manifest" "keycloak" {
         targetRevision = local.chart_version
         helm = {
         values = yamlencode({
-            someparameter = {
-              enabled   = true
-              someArray = ["foo", "bar"]
+            extraEnvVars = {
+              ["KC_METRICS_ENABLED = true"]
             }
         })
           parameters = [
