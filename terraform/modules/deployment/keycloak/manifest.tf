@@ -3,7 +3,7 @@ resource "kubernetes_manifest" "keycloak" {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
-      name      = "keycloak"
+      name      = local.release_name
       namespace = "argoproj"
       labels    = var.labels
     }
@@ -17,14 +17,14 @@ resource "kubernetes_manifest" "keycloak" {
         "CreateNamespace=true"]
       }
       destination = {
-        namespace = "platform-shared"
+        namespace = local.release_namespace
         server    = "https://kubernetes.default.svc"
       }
-      project = "platform-shared"
+      project = local.release_namespace
       source = {
-        chart          = "keycloak"
+        chart          = local.chart_name
         repoURL        = "https://charts.bitnami.com/bitnami"
-        targetRevision = "24.0.1"
+        targetRevision = local.chart_version
               helm = {
           parameters = [
             {
@@ -44,5 +44,13 @@ resource "kubernetes_manifest" "keycloak" {
         
       }
     }
+  }
+}
+
+
+data "kubernetes_ingress_v1" "keycloak" {
+  metadata {
+    name      = local.release_name
+    namespace = local.release_namespace
   }
 }

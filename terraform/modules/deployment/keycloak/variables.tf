@@ -30,11 +30,3 @@ variable "gitops_namespace" {
   description = "Namespace for the GitOps resources in the cluster"
   default     = ""
 }
-
-# variable "gitops_source_repos_urls" {
-#   type = list(object({
-#     url    = string
-#     name = string
-#   }))
-#   description = "List of git repositories to be used as source for the GitOps"
-# }
