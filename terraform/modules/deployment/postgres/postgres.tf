@@ -29,7 +29,7 @@ resource "kubernetes_manifest" "postgres" {
           parameters = [
             {
               name  = "auth.username"
-              value = "root"
+              value = "cm_user"
             },
             {
               name  = "global.postgresql.auth.database"
@@ -37,7 +37,7 @@ resource "kubernetes_manifest" "postgres" {
             },
             {
               name  = "global.postgresql.auth.username"
-              value = "root"
+              value = "glb_user"
             },
             {
               name  = "volumePermissions.enabled"
@@ -67,7 +67,7 @@ resource "kubernetes_manifest" "postgres" {
               name  = "primary.persistence.securityContext.privileged"
               value = "true"
             },
-              {
+            {
               name  = "primary.persistence.containerSecurityContext.privileged"
               value = "true"
             },
@@ -107,7 +107,6 @@ resource "kubernetes_manifest" "postgres" {
               name  = "volumePermissions.securityContext.privileged"
               value = "true"
             }
-
           ]
         }
       }
