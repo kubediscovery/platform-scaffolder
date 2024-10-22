@@ -5,5 +5,5 @@ output "publish" {
 }
 
 output "publish_debug" {
-  value = kubernetes_manifest.keycloak.manifest.metadata.name
+  value = data.kubernetes_ingress_v1.keycloak.status.0.load_balancer
 }
