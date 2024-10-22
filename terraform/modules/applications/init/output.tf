@@ -12,7 +12,7 @@ output "http_dns_records" {
 }
 
 output "http_dns_records_debug" {
-  value = module.keycloak[0].publish_debug
+  value = module.keycloak.publish_debug
   description = "values for the http dns records"
 }
 
