@@ -55,11 +55,9 @@ resource "kubernetes_manifest" "keycloak" {
               name  = "extraEnvVars"
               value = jsonencode([
                 {
-                  name  = "KC_METRICS_ENABLED"
-                  value = "true"
+                  KC_METRICS_ENABLED: "true"
                 },{
-                  name = "KC_HOSTNAME"
-                  value = "auth.kubediscovery.com"
+                  KC_HOSTNAME: "auth.kubediscovery.com"
                 }
               ])
             }
