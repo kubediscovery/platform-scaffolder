@@ -41,7 +41,7 @@ resource "kubernetes_manifest" "keycloak" {
             },
                         {
               name  = "adminIngress.hostname"
-              value = "auth.kubediscovery.com"
+              value = "admin.auth.kubediscovery.com"
             },
                         {
               name  = "adminIngress.enabled"
