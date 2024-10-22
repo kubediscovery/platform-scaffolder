@@ -27,26 +27,26 @@ resource "kubernetes_manifest" "keycloak" {
         targetRevision = local.chart_version
               helm = {
           parameters = [
-            {
-              name  = "ingress.enabled"
-              value = "false"
-            },
-                        {
-              name  = "ingress.ingressClassName"
-              value = "kong"
-            },
-                        {
-              name  = "ingress.hostname"
-              value = "auth.kubediscovery.com"
-            },
-                        {
-              name  = "adminIngress.hostname"
-              value = "auth.kubediscovery.com"
-            },
-                        {
-              name  = "adminIngress.enabled"
-              value = "false"
-            },
+            # {
+            #   name  = "ingress.enabled"
+            #   value = "false"
+            # },
+            #             {
+            #   name  = "ingress.ingressClassName"
+            #   value = "kong"
+            # },
+            #             {
+            #   name  = "ingress.hostname"
+            #   value = "auth.kubediscovery.com"
+            # },
+            #             {
+            #   name  = "adminIngress.hostname"
+            #   value = "auth.kubediscovery.com"
+            # },
+            #             {
+            #   name  = "adminIngress.enabled"
+            #   value = "false"
+            # },
 
             #             {
             #   name  = "adminIngress.ingressClassName"
