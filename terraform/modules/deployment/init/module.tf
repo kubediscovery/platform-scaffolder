@@ -10,8 +10,8 @@ module "argocd" {
 }
 
 
-module "postgres" {
-  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/deployment/postgres/?ref=develop"
+module "keycloak" {
+  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/deployment/keycloak/?ref=develop"
   # count  = local.enabled_addons.argoproj_argocd.enabled ? 1 : 0
 
   labels        = var.tags
