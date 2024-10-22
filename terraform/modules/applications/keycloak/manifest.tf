@@ -26,11 +26,11 @@ resource "kubernetes_manifest" "keycloak" {
         repoURL        = "https://charts.bitnami.com/bitnami"
         targetRevision = local.chart_version
         helm = {
-        values = yamlencode({
-            extraEnvVars = [
-              {KC_METRICS_ENABLED = "true"}
-            ]
-        })
+        # values = yamlencode({
+        #     extraEnvVars = [
+        #       {KC_METRICS_ENABLED = "true"}
+        #     ]
+        # })
           parameters = [
             {
               name  = "ingress.enabled"
@@ -44,10 +44,6 @@ resource "kubernetes_manifest" "keycloak" {
               name  = "ingress.hostname"
               value = "auth.kubediscovery.com"
             },
-            # {
-            #   name  = "postgresql.auth.existingSecret"
-            #   value = "kdadmin"
-            # },
             {
               name  = "postgresql.auth.database"
               value = "keycloak"
