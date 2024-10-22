@@ -53,15 +53,15 @@ resource "kubernetes_manifest" "keycloak" {
             },
             {
               name  = "extraEnvVars"
-              value = "[
+              value = jsonencode([
                 {
-                  name  = \"KC_METRICS_ENABLED\"
-                  value = \"true\"
+                  name  = "KC_METRICS_ENABLED"
+                  value = "true"
                 },{
-                  name = \"KC_HOSTNAME\"
-                  value = \"http://auth.kubediscovery.com\"
+                  name = "KC_HOSTNAME"
+                  value = "http://auth.kubediscovery.com"
                 }
-              ]"
+              ])
             }
 
             
