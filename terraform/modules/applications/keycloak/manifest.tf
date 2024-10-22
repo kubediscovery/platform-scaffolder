@@ -44,10 +44,10 @@ resource "kubernetes_manifest" "keycloak" {
               name  = "ingress.hostname"
               value = "auth.kubediscovery.com"
             },
-            {
-              name  = "postgresql.auth.existingSecret"
-              value = "kdadmin"
-            },
+            # {
+            #   name  = "postgresql.auth.existingSecret"
+            #   value = "kdadmin"
+            # },
             {
               name  = "postgresql.auth.database"
               value = "keycloak"
@@ -70,3 +70,14 @@ data "kubernetes_ingress_v1" "keycloak" {
     namespace = local.release_namespace
   }
 }
+
+
+# resource "kubernetes_secret_v1" "postgresql" {
+#   metadata {
+#     name      = "kdadmin"
+#     namespace = local.release_namespace
+#   }
+#   data = {
+#     password = base64encode("kubediscovery")
+#   }
+# }
