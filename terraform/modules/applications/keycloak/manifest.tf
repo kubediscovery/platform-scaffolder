@@ -25,39 +25,48 @@ resource "kubernetes_manifest" "keycloak" {
         chart          = local.chart_name
         repoURL        = "https://charts.bitnami.com/bitnami"
         targetRevision = local.chart_version
-              helm = {
+        helm = {
           parameters = [
             {
               name  = "ingress.enabled"
               value = "true"
             },
-                        {
+            {
               name  = "ingress.ingressClassName"
               value = "kong"
             },
-                        {
+            {
               name  = "ingress.hostname"
               value = "auth.kubediscovery.com"
             },
-                        {
+            {
               name  = "adminIngress.hostname"
               value = "auth.kubediscovery.com"
             },
-                        {
+            {
               name  = "adminIngress.enabled"
               value = "false"
             },
-
-                        {
+            {
               name  = "adminIngress.ingressClassName"
               value = "kong"
+            },
+            {
+              name  = "extraEnvVars"
+              value = [
+                {
+                  name  = "KC_METRICS_ENABLED"
+                  value = "true"
+                },{
+                  name = "KC_HOSTNAME"
+                  value = "http://auth.kubediscovery.com"
+                }
+              ]
             }
 
+            
+        ] }
 
-
-
-          ]}
-        
       }
     }
   }
