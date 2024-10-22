@@ -26,6 +26,14 @@ resource "kubernetes_manifest" "keycloak" {
         repoURL        = "https://charts.bitnami.com/bitnami"
         targetRevision = local.chart_version
         helm = {
+          values = {
+            extraEnvVars = [
+              {
+                name  = "KC_METRICS_ENABLED"
+                value = "true"
+              }
+            ]
+          }
           parameters = [
             {
               name  = "ingress.enabled"
@@ -44,25 +52,13 @@ resource "kubernetes_manifest" "keycloak" {
               value = "auth.kubediscovery.com"
             },
             {
-              name  = "adminIngress.enabled"
+          name  = "adminIngress.enabled"
               value = "false"
             },
             {
               name  = "adminIngress.ingressClassName"
               value = "kong"
-            },
-            {
-              name  = "extraEnvVars"
-              value = jsonencode([
-                {
-                  KC_METRICS_ENABLED: "true"
-                },{
-                  KC_HOSTNAME: "auth.kubediscovery.com"
-                }
-              ])
             }
-
-            
         ] }
 
       }
