@@ -59,7 +59,7 @@ resource "kubernetes_manifest" "keycloak" {
                   value = "true"
                 },{
                   name = "KC_HOSTNAME"
-                  value = "http://auth.kubediscovery.com"
+                  value = "auth.kubediscovery.com"
                 }
               ])
             }
