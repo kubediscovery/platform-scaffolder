@@ -79,9 +79,6 @@ resource "kubernetes_manifest" "postgres" {
               name  = "primary.persistence.sidecars.image"
               value = "alpine"
             },
-
-          
-            
             {
               name  = "primary.persistence.size"
               value = "1Gi"
