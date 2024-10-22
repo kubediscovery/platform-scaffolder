@@ -55,7 +55,7 @@ resource "kubernetes_manifest" "postgres" {
       }
       project = "platform-shared"
       source = {
-        chart          = "postgresql"
+        chart          = "postgres"
         repoURL        = "https://charts.bitnami.com/bitnami"
         targetRevision = "16.0.4"
         helm = {
