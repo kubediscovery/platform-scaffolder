@@ -5,5 +5,8 @@ output "publish" {
 }
 
 output "publish_debug" {
-  value = data.kubernetes_ingress_v1.keycloak
+  value = {
+    name      = kubernetes_manifest.keycloak.manifest.metadata.name
+    namespace = kubernetes_manifest.keycloak.manifest.metadata.namespace
+  }
 }
