@@ -5,5 +5,5 @@ output "publish" {
 }
 
 output "publish_debug" {
-  value = data.kubernetes_ingress_v1.keycloak.status.0.load_balancer
+  value = data.kubernetes_ingress_v1.keycloak.status
 }
