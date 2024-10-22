@@ -1,5 +1,5 @@
 module "http_publish" {
-  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/switch/cloudflare/?ref=develop"
+  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/dns/cloudflare/?ref=develop"
 
   api_token = var.cloudflare_api_token
   zone_id   = var.cloudflare_zone_id
