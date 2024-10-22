@@ -71,6 +71,16 @@ resource "kubernetes_manifest" "postgres" {
               name  = "primary.persistence.containerSecurityContext.privileged"
               value = "true"
             },
+            {
+              name  = "primary.persistence.sidecars.name"
+              value = "ubuntu"
+            },
+            {
+              name  = "primary.persistence.sidecars.image"
+              value = "alpine"
+            },
+
+          
             
             {
               name  = "primary.persistence.size"
