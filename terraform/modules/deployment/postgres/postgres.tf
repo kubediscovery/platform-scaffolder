@@ -58,7 +58,18 @@ resource "kubernetes_manifest" "postgres" {
         chart          = "postgres"
         repoURL        = "https://charts.bitnami.com/bitnami"
         targetRevision = "16.0.4"
-        
+        helm = {
+          values = [
+            {
+              name  = "global.postgresql.auth.database"
+              value = "kubediscovery"
+            },
+            {
+              name  = "global.postgresql.auth.username"
+              value = "kd_admin"
+            },
+          ]
+        }
       }
     }
   }
