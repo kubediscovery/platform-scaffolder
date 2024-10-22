@@ -29,7 +29,7 @@ resource "kubernetes_manifest" "keycloak" {
           parameters = [
             {
               name  = "ingress.enabled"
-              value = "true"
+              value = "false"
             },
                         {
               name  = "ingress.ingressClassName"
@@ -39,10 +39,10 @@ resource "kubernetes_manifest" "keycloak" {
               name  = "ingress.hostname"
               value = "auth.kubediscovery.com"
             },
-            #             {
-            #   name  = "adminIngress.hostname"
-            #   value = "admin.auth.kubediscovery.com"
-            # },
+                        {
+              name  = "adminIngress.hostname"
+              value = "auth.kubediscovery.com"
+            },
                         {
               name  = "adminIngress.enabled"
               value = "true"
