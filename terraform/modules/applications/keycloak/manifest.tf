@@ -45,7 +45,7 @@ resource "kubernetes_manifest" "keycloak" {
             },
                         {
               name  = "adminIngress.enabled"
-              value = "true"
+              value = "false"
             },
 
             #             {
