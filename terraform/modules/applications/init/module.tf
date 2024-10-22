@@ -1,6 +1,6 @@
 
 module "argocd" {
-  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/deployment/argocd/?ref=develop"
+  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/applications/argocd/?ref=develop"
   # count  = local.enabled_addons.argoproj_argocd.enabled ? 1 : 0
 
   labels        = var.tags
@@ -11,7 +11,7 @@ module "argocd" {
 
 
 module "keycloak" {
-  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/deployment/keycloak/?ref=develop"
+  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/applications/keycloak/?ref=develop"
   # count  = local.enabled_addons.argoproj_argocd.enabled ? 1 : 0
 
   labels        = var.tags
