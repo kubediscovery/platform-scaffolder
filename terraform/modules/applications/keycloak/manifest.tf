@@ -45,8 +45,8 @@ resource "kubernetes_manifest" "keycloak" {
               value = "auth.kubediscovery.com"
             },
             {
-              name  = "postgresql.auth.username"
-              value = "kd_admin"
+              name  = "postgresql.auth.existingSecret"
+              value = "kdadmin"
             },
             {
               name  = "postgresql.auth.database"
