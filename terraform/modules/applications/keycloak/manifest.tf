@@ -26,11 +26,11 @@ resource "kubernetes_manifest" "keycloak" {
         repoURL        = "https://charts.bitnami.com/bitnami"
         targetRevision = local.chart_version
         helm = {
-        # values = yamlencode({
-        #     extraEnvVars = [
-        #       {KC_METRICS_ENABLED = "true"}
-        #     ]
-        # })
+          # values = yamlencode({
+          #     extraEnvVars = [
+          #       {KC_METRICS_ENABLED = "true"}
+          #     ]
+          # })
           parameters = [
             {
               name  = "ingress.enabled"
@@ -43,6 +43,10 @@ resource "kubernetes_manifest" "keycloak" {
             {
               name  = "ingress.hostname"
               value = "auth.kubediscovery.com"
+            },
+            {
+              name  = "ingress.pathType"
+              value = "Prefix"
             },
             {
               name  = "postgresql.auth.database"
@@ -67,6 +71,10 @@ resource "kubernetes_manifest" "keycloak" {
             {
               name  = "adminIngress.hostname"
               value = "admin-auth.kubediscovery.com"
+            },
+            {
+              name  = "adminIngress.pathType"
+              value = "Prefix"
             },
         ] }
       }
@@ -95,7 +103,7 @@ resource "kubernetes_secret_v1" "postgresql" {
     namespace = local.release_namespace
   }
   data = {
-    password = base64encode("kubediscovery")
+    password          = base64encode("kubediscovery")
     postgres-password = base64encode("kubediscovery2024")
   }
 }
