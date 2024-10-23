@@ -66,7 +66,7 @@ resource "kubernetes_manifest" "keycloak" {
             },
             {
               name  = "adminIngress.hostname"
-              value = "admin.auth.kubediscovery.com"
+              value = "admin-auth.kubediscovery.com"
             },
         ] }
       }
@@ -88,7 +88,6 @@ data "kubernetes_ingress_v1" "keycloak-admin" {
     namespace = local.release_namespace
   }
 }
-
 
 resource "kubernetes_secret_v1" "postgresql" {
   metadata {
