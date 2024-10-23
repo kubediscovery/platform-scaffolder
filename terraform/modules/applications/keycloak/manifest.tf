@@ -51,14 +51,20 @@ resource "kubernetes_manifest" "keycloak" {
             {
               name  = "postgresql.auth.passord"
               value = base64encode("kubediscovery")
-            },{
+            },
+            {
               name  = "postgresql.auth.existingSecret"
               value = kubernetes_secret_v1.postgresql.metadata.0.name
             },
-
-            
+            {
+              name  = "adminIngress.ingressClassName"
+              value = "kong"
+            },
+            {
+              name  = "adminIngress.enabled"
+              value = "true"
+            },
         ] }
-
       }
     }
   }
