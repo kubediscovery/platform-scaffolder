@@ -32,22 +32,22 @@ resource "kubernetes_manifest" "keycloak" {
           #     ]
           # })
           parameters = [
-            # {
-            #   name  = "ingress.enabled"
-            #   value = "true"
-            # },
-            # {
-            #   name  = "ingress.ingressClassName"
-            #   value = "kong"
-            # },
-            # {
-            #   name  = "ingress.hostname"
-            #   value = "auth.kubediscovery.com"
-            # },
-            # {
-            #   name  = "ingress.pathType"
-            #   value = "Prefix"
-            # },
+            {
+              name  = "ingress.enabled"
+              value = "true"
+            },
+            {
+              name  = "ingress.ingressClassName"
+              value = "kong"
+            },
+            {
+              name  = "ingress.hostname"
+              value = "auth.kubediscovery.com"
+            },
+            {
+              name  = "ingress.pathType"
+              value = "Prefix"
+            },
             {
               name  = "postgresql.auth.database"
               value = "keycloak"
