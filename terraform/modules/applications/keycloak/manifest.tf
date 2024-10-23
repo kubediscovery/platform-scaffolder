@@ -68,8 +68,6 @@ resource "kubernetes_manifest" "keycloak" {
               name  = "adminIngress.hostname"
               value = "admin.auth.kubediscovery.com"
             },
-
-            
         ] }
       }
     }
@@ -80,6 +78,13 @@ resource "kubernetes_manifest" "keycloak" {
 data "kubernetes_ingress_v1" "keycloak" {
   metadata {
     name      = kubernetes_manifest.keycloak.manifest.metadata.name
+    namespace = local.release_namespace
+  }
+}
+
+data "kubernetes_ingress_v1" "keycloak-admin" {
+  metadata {
+    name      = "${kubernetes_manifest.keycloak.manifest.metadata.name}-admin"
     namespace = local.release_namespace
   }
 }
