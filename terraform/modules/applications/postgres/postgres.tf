@@ -26,14 +26,24 @@ resource "kubernetes_manifest" "postgresql" {
         repoURL        = "https://charts.bitnami.com/bitnami"
         targetRevision = local.chart_version
         helm = {
-          # values = yamlencode({
-          #   primary = {
-          #     readinessProbe = "false"
-          #     livenessProbe  = "false"
-          #     command = ["sleep"]
-          #     args = ["infinity"]
-          #   }
-          # })
+          values = yamlencode({
+            primary = {
+              initContainers = [
+                "- name: permission
+                  image: docker.io/ubuntu:latest
+                  command: [chown, 1001, -R, /bitnami/postgresql]
+                  volumeMounts:
+                    - mountPath: /bitnami/postgresql
+                      name: data
+                  securityContext:
+                      privileged: true
+                      readOnlyRootFilesystem: false
+                      runAsGroup: 0
+                      runAsNonRoot: false
+                      runAsUser: 0"
+                      ]
+                      }
+          })
           parameters = [
             {
               name  = "global.storageClass"
@@ -59,7 +69,7 @@ resource "kubernetes_manifest" "postgresql" {
               name  = "primary.readinessProbe.enabled"
               value = "false"
             },
-              {
+            {
               name  = "primary.livenessProbe.enabled"
               value = "false"
             },
