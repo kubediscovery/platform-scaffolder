@@ -26,7 +26,7 @@ resource "kubernetes_manifest" "postgresql" {
         repoURL        = "https://charts.bitnami.com/bitnami"
         targetRevision = local.chart_version
         helm = {
-          values = jsonencode({
+          values = yamlencode({
             primary = {
               volumePermissions = {
                 enabled = true
