@@ -33,6 +33,13 @@ resource "kubernetes_manifest" "postgresql" {
                 securityContext = {
                   runAsUser = 1001
                 }
+              securityContext = {
+                    privileged             = true
+                    readOnlyRootFilesystem = false
+                    runAsGroup             = 0
+                    runAsNonRoot           = false
+                    runAsUser              = 0
+                  }
               }
               # initContainers = [
               #   {
