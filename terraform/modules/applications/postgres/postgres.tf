@@ -66,11 +66,11 @@ resource "kubernetes_manifest" "postgresql" {
           parameters = [
             {
               name  = "global.storageClass"
-              value = "azurefile-csi"
+              value = "default"
             },
             {
               name  = "global.defaultStorageClass"
-              value = "azurefile-csi"
+              value = "default"
             },
             {
               name  = "global.database"
