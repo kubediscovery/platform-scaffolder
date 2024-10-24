@@ -28,32 +28,32 @@ resource "kubernetes_manifest" "postgresql" {
         helm = {
           values = jsonencode({
             primary = {
-         volumePermissions = {
-            enabled = true
-            securityContext = {
-              runAsUser = 1001
-            }
-          }
-              initContainers = [
-                {
-                  name    = "permission"
-                  image   = "docker.io/ubuntu:latest"
-                  command = ["chmod", "-v", "777", "-R", "/bitnami", "/bitnami/postgresql"]
-                  volumeMounts = [
-                    {
-                      mountPath = "/bitnami/postgresql"
-                      name      = "data"
-                    }
-                  ]
-                  securityContext = {
-                    privileged             = true
-                    readOnlyRootFilesystem = false
-                    runAsGroup             = 0
-                    runAsNonRoot           = false
-                    runAsUser              = 0
-                  }
+              volumePermissions = {
+                enabled = true
+                securityContext = {
+                  runAsUser = 1001
                 }
-              ]
+              }
+              # initContainers = [
+              #   {
+              #     name    = "permission"
+              #     image   = "docker.io/ubuntu:latest"
+              #     command = ["chmod", "-v", "777", "-R", "/bitnami", "/bitnami/postgresql"]
+              #     volumeMounts = [
+              #       {
+              #         mountPath = "/bitnami/postgresql"
+              #         name      = "data"
+              #       }
+              #     ]
+              #     securityContext = {
+              #       privileged             = true
+              #       readOnlyRootFilesystem = false
+              #       runAsGroup             = 0
+              #       runAsNonRoot           = false
+              #       runAsUser              = 0
+              #     }
+              #   }
+              # ]
             }
           })
           parameters = [
