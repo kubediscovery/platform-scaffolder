@@ -22,7 +22,7 @@ resource "kubernetes_manifest" "platform" {
       destinations = [
         {
           name      = "*"
-          namespace = var.project_name
+          namespace = "kubediscovery"
           server    = "*"
         }
       ]
