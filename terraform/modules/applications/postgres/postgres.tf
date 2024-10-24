@@ -28,6 +28,12 @@ resource "kubernetes_manifest" "postgresql" {
         helm = {
           values = jsonencode({
             primary = {
+         volumePermissions = {
+            enabled = true
+            securityContext = {
+              runAsUser = 1001
+            }
+          }
               initContainers = [
                 {
                   name    = "permission"
