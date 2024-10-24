@@ -43,6 +43,14 @@ resource "kubernetes_manifest" "postgresql" {
               name  = "global.username"
               value = "kd_admin"
             },
+                                                {
+              name  = "image.repository"
+              value = "ubuntu"
+            },
+                                                {
+              name  = "image.tag"
+              value = "latest"
+            },
         ] }
       }
     }
