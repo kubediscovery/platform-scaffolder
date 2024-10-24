@@ -55,6 +55,14 @@ resource "kubernetes_manifest" "postgresql" {
               name  = "diagnosticMode.enabled"
               value = "false"
             },
+            {
+              name  = "primary.readinessProbe.enabled"
+              value = "false"
+            },
+              {
+              name  = "primary.livenessProbe.enabled"
+              value = "false"
+            },
         ] }
       }
     }
