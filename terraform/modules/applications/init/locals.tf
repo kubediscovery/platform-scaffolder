@@ -1,5 +1,5 @@
-locals {
-  http_dns_records = concat([module.keycloak.publish], [])
+# locals {
+#   http_dns_records = concat([module.keycloak.publish], [])
 
-}
+# }
 
