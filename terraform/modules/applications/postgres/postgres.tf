@@ -32,7 +32,7 @@ resource "kubernetes_manifest" "postgresql" {
                 {
                   name    = "permission"
                   image   = "docker.io/ubuntu:latest"
-                  command = ["chmod", "777", "-R", "/bitnami", "/bitnami/postgresql"]
+                  command = ["chmod", "-v", "777", "-R", "/bitnami", "/bitnami/postgresql"]
                   volumeMounts = [
                     {
                       mountPath = "/bitnami/postgresql"
