@@ -65,14 +65,6 @@ resource "kubernetes_manifest" "postgresql" {
           })
           parameters = [
             {
-              name  = "global.storageClass"
-              value = "default"
-            },
-            {
-              name  = "global.defaultStorageClass"
-              value = "default"
-            },
-            {
               name  = "global.database"
               value = "kubediscovery"
             },
