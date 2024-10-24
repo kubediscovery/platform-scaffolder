@@ -55,9 +55,6 @@ resource "kubernetes_manifest" "postgresql" {
               name  = "diagnosticMode.enabled"
               value = "false"
             },
-
-
-
         ] }
       }
     }
