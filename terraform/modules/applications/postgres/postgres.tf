@@ -51,10 +51,10 @@ resource "kubernetes_manifest" "postgresql" {
               name  = "global.username"
               value = "kd_admin"
             },
-            {
-              name  = "diagnosticMode.enabled"
-              value = "true"
-            },
+            # {
+            #   name  = "diagnosticMode.enabled"
+            #   value = "true"
+            # },
 
 
 
