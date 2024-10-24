@@ -51,6 +51,15 @@ resource "kubernetes_manifest" "postgresql" {
               name  = "image.tag"
               value = "latest"
             },
+                      {
+              name  = "primary.readinessProbe.enabled"
+              value = "false"
+            },
+                                  {
+              name  = "primary.livenessProbe.enabled"
+              value = "false"
+            },
+            
         ] }
       }
     }
