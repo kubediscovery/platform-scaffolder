@@ -27,9 +27,9 @@ resource "kubernetes_manifest" "postgresql" {
         targetRevision = local.chart_version
         helm = {
           values = yamlencode({
-            primary = {
-              initContainers = [
-                "- name: permission
+            primary:
+              initContainers: 
+                - name: permission
                   image: docker.io/ubuntu:latest
                   command: [chown, 1001, -R, /bitnami/postgresql]
                   volumeMounts:
@@ -40,9 +40,7 @@ resource "kubernetes_manifest" "postgresql" {
                       readOnlyRootFilesystem: false
                       runAsGroup: 0
                       runAsNonRoot: false
-                      runAsUser: 0"
-                      ]
-                      }
+                      runAsUser: 0
           })
           parameters = [
             {
