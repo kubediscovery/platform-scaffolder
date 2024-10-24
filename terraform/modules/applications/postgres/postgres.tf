@@ -1,3 +1,16 @@
+resource "kubernetes_secret_v1" "postgresql" {
+  metadata {
+    name      = "kd-postgresql"
+    namespace = local.release_namespace
+  }
+  data = {
+    password          = base64encode("kubediscovery")
+    postgres-password = base64encode("kubediscovery2024")
+    username          = base64encode("kd_admin")
+    database          = base64encode("kubediscovery")
+  }
+}
+
 resource "kubernetes_manifest" "postgresql" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
@@ -28,12 +41,8 @@ resource "kubernetes_manifest" "postgresql" {
         helm = {
           parameters = [
             {
-              name  = "global.database"
-              value = "kubediscovery"
-            },
-            {
-              name  = "global.username"
-              value = "kd_admin"
+              name  = "global.existingSecret"
+              value = kubernetes_secret_v1.postgresql.metadata.0.name
             },
             {
               name  = "diagnosticMode.enabled"
