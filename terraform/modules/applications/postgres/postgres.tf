@@ -26,14 +26,14 @@ resource "kubernetes_manifest" "postgresql" {
         repoURL        = "https://charts.bitnami.com/bitnami"
         targetRevision = local.chart_version
         helm = {
-          values = yamlencode({
-            primary = {
-              readinessProbe = "false"
-              livenessProbe  = "false"
-              command = ["sleep"]
-              args = ["infinity"]
-            }
-          })
+          # values = yamlencode({
+          #   primary = {
+          #     readinessProbe = "false"
+          #     livenessProbe  = "false"
+          #     command = ["sleep"]
+          #     args = ["infinity"]
+          #   }
+          # })
           parameters = [
             {
               name  = "global.storageClass"
@@ -52,13 +52,10 @@ resource "kubernetes_manifest" "postgresql" {
               value = "kd_admin"
             },
             {
-              name  = "image.repository"
-              value = "ubuntu"
+              name  = "diagnosticMode.enabled"
+              value = "true"
             },
-            {
-              name  = "image.tag"
-              value = "latest"
-            },
+
 
 
         ] }
