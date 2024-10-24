@@ -33,3 +33,11 @@ module "postgresql" {
   # gitops_namespace = var.gitops_namespace
   # gitops_source_repos_urls = var.gitops_source_repos_urls
 }
+
+module "app_of_apps" {
+  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/applications/appOfApps/?ref=develop"
+
+  labels        = var.tags
+  project_name  = var.project_name
+  storage = var.storage
+}
