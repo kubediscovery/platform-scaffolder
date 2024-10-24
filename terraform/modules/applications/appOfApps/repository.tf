@@ -6,6 +6,9 @@ resource "kubernetes_manifest" "repo_argoproj" {
       name      = "repo-argoproj"
       namespace = "argoproj"
       labels    = merge(var.labels, { "argocd.argoproj.io/secret-type" = "repository" })
+      annotations = {
+        "argocd.argoproj.io/sync-wave" = "1"
+      }
     }
 
     data = {
@@ -27,6 +30,9 @@ resource "kubernetes_manifest" "repo_bitnami" {
       name      = "repo-bitnami"
       namespace = "argoproj"
       labels    = merge(var.labels, { "argocd.argoproj.io/secret-type" = "repository" })
+      annotations = {
+        "argocd.argoproj.io/sync-wave" = "1"
+      }
     }
 
     data = {

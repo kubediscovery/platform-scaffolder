@@ -2,13 +2,13 @@
 resource "kubernetes_manifest" "platform" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
-    kind        = "AppProject"
+    kind       = "AppProject"
     metadata = {
       name      = "kubediscovery"
       namespace = "argoproj"
-      labels      = var.labels
+      labels    = var.labels
       annotations = {
-           "argocd.argoproj.io/sync-wave" = "1"
+        "argocd.argoproj.io/sync-wave" = "2"
       }
     }
     spec = {
@@ -24,6 +24,11 @@ resource "kubernetes_manifest" "platform" {
           name      = "*"
           namespace = "kubediscovery"
           server    = "*"
+        },
+        {
+          name      = "*"
+          namespace = "argoproj"
+          server    = "*"
         }
       ]
       namespaceResourceWhitelist = [
@@ -33,9 +38,9 @@ resource "kubernetes_manifest" "platform" {
         }
       ]
       sourceRepos = [
-       base64decode(kubernetes_manifest.repo_argoproj.manifest.data.url),
-       base64decode(kubernetes_manifest.repo_bitnami.manifest.data.url),
-       "git@github.com:kubediscovery/platform-infrastrucutre.git"
+        base64decode(kubernetes_manifest.repo_argoproj.manifest.data.url),
+        base64decode(kubernetes_manifest.repo_bitnami.manifest.data.url),
+        "git@github.com:kubediscovery/platform-infrastrucutre.git"
       ]
     }
   }
@@ -45,11 +50,14 @@ resource "kubernetes_manifest" "platform" {
 resource "kubernetes_manifest" "platform_shared" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
-    kind        = "AppProject"
+    kind       = "AppProject"
     metadata = {
       name      = "${var.project_name}-shared"
       namespace = "argoproj"
-      labels      = merge(var.labels, { "app.kubernetes.io/part-of" = "platform" })
+      labels    = merge(var.labels, { "app.kubernetes.io/part-of" = "platform" })
+      annotations = {
+        "argocd.argoproj.io/sync-wave" = "2"
+      }
     }
     spec = {
       clusterResourceWhitelist = [
@@ -73,9 +81,9 @@ resource "kubernetes_manifest" "platform_shared" {
         }
       ]
       sourceRepos = [
-       base64decode(kubernetes_manifest.repo_argoproj.manifest.data.url),
-       base64decode(kubernetes_manifest.repo_bitnami.manifest.data.url),
-       "git@github.com:kubediscovery/platform-infrastrucutre.git"
+        base64decode(kubernetes_manifest.repo_argoproj.manifest.data.url),
+        base64decode(kubernetes_manifest.repo_bitnami.manifest.data.url),
+        "git@github.com:kubediscovery/platform-infrastrucutre.git"
       ]
     }
   }
