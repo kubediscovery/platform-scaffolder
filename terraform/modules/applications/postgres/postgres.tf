@@ -34,26 +34,26 @@ resource "kubernetes_manifest" "postgresql" {
                   runAsUser = 1001
                 }
               }
-              initContainers = [
-                {
-        name    = "permission"
-        image   = "docker.io/ubuntu:latest"
-        command = ["chmod", "-R", "0777", "/bitnami/postgresql/data"]
-        volumeMounts = [
-          {
-            mountPath = "/bitnami/postgresql/data"
-            name      = "data"
-          }
-        ]
-        securityContext = {
-          privileged             = true
-          readOnlyRootFilesystem = false
-          runAsGroup             = 0
-          runAsNonRoot           = false
-          runAsUser              = 0
-        }
-                }
-              ]
+              # initContainers = [
+              #   {
+              #     name    = "permission"
+              #     image   = "docker.io/ubuntu:latest"
+              #     command = ["chmod", "-R", "0777", "/bitnami/postgresql/data"]
+              #     volumeMounts = [
+              #       {
+              #         mountPath = "/bitnami/postgresql/data"
+              #         name      = "data"
+              #       }
+              #     ]
+              #     securityContext = {
+              #       privileged             = true
+              #       readOnlyRootFilesystem = false
+              #       runAsGroup             = 0
+              #       runAsNonRoot           = false
+              #       runAsUser              = 0
+              #     }
+              #   }
+              # ]
             }
           })
           parameters = [
