@@ -47,7 +47,10 @@ resource "kubernetes_manifest" "argo_application" {
         namespace = "kubediscovery"
       }
       syncPolicy = {
-        automated = {}
+        automated = {
+          prune    = true
+          selfHeal = true
+        }
         syncOptions = [
           "CreateNamespace=true"
         ]

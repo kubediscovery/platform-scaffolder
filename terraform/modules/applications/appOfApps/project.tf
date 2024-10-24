@@ -7,7 +7,7 @@ resource "kubernetes_manifest" "platform" {
       name      = "kubediscovery"
       namespace = "argoproj"
       labels      = var.labels
-            annotations = {
+      annotations = {
            "argocd.argoproj.io/sync-wave" = "1"
       }
     }
