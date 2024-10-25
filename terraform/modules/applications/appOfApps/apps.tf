@@ -16,7 +16,7 @@ resource "kubernetes_manifest" "argo_application" {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
-      name      = "postgresql"
+      name      = "app-of-apps"
       namespace = "argoproj"
       annotations = {
            "argocd.argoproj.io/sync-wave" = "3"
