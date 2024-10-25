@@ -81,7 +81,7 @@ variable "default_node_pool" {
   })
   default = {
     name                   = "dpool"
-    node_count             = 2
+    node_count             = 1
     enable_host_encryption = false
     zones                  = ["1", "2", "3"]
   }
