@@ -16,7 +16,7 @@ resource "kubernetes_manifest" "repo_argoproj" {
       name    = base64encode("argoproj")
       project = base64encode(var.project_name)
       type    = base64encode("helm")
-      url     = base64encode("https://argoproj.github.io/argo-helm/")
+      url     = base64encode("https://argoproj.github.io/argo-helm")
     }
     type = "Opaque"
   }
