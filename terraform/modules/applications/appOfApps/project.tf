@@ -29,11 +29,6 @@ resource "kubernetes_manifest" "platform" {
           name      = "*"
           namespace = "argoproj"
           server    = "*"
-        },
-        {
-          name      = "*"
-          namespace = "newrelic"
-          server    = "*"
         }
       ]
       namespaceResourceWhitelist = [
@@ -42,12 +37,7 @@ resource "kubernetes_manifest" "platform" {
           kind  = "*"
         }
       ]
-      sourceRepos = [
-        base64decode(kubernetes_manifest.repo_argoproj.manifest.data.url),
-        base64decode(kubernetes_manifest.repo_bitnami.manifest.data.url),
-        base64decode(kubernetes_manifest.repo_newrelic.manifest.data.url),
-        "git@github.com:kubediscovery/platform-infrastrucutre.git"
-      ]
+      sourceRepos = local.sourceRepos
     }
   }
 
@@ -86,12 +76,7 @@ resource "kubernetes_manifest" "platform_shared" {
           kind  = "*"
         }
       ]
-      sourceRepos = [
-        base64decode(kubernetes_manifest.repo_argoproj.manifest.data.url),
-        base64decode(kubernetes_manifest.repo_bitnami.manifest.data.url),
-        base64decode(kubernetes_manifest.repo_newrelic.manifest.data.url),
-        "git@github.com:kubediscovery/platform-infrastrucutre.git"
-      ]
+      sourceRepos =  local.sourceRepos
     }
   }
 

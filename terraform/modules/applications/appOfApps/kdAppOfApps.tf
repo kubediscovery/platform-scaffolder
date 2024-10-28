@@ -11,7 +11,7 @@
 #   }
 # }
 
-resource "kubernetes_manifest" "argo_application" {
+resource "kubernetes_manifest" "kd_app_of_apps" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
