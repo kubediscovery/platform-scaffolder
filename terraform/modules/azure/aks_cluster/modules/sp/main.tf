@@ -30,7 +30,7 @@ resource "azurerm_key_vault_access_policy" "this" {
   object_id    = azuread_service_principal.this.object_id
 
   secret_permissions = [
-    "get",
-    "list",
+    "Get",
+    "List",
   ]
 }
