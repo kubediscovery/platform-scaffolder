@@ -29,6 +29,11 @@ resource "kubernetes_manifest" "platform" {
           name      = "*"
           namespace = "argoproj"
           server    = "*"
+        },
+{
+          name      = "*"
+          namespace = "exsecrets-system"
+          server    = "*"
         }
       ]
       namespaceResourceWhitelist = [
