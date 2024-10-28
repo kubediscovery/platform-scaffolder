@@ -15,7 +15,6 @@ resource "azuread_service_principal" "this" {
 
 resource "azuread_service_principal_password" "this" {
   service_principal_id = azuread_service_principal.this.id
-  value                = base64encode("P@ssw0rd1234!")
 }
 
 data "azurerm_client_config" "current" {}
