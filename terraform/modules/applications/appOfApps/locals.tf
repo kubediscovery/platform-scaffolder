@@ -5,4 +5,6 @@ locals {
     base64decode(kubernetes_manifest.repo_exsecrets.manifest.data.url),
     "git@github.com:kubediscovery/platform-infrastrucutre.git"
   ]
+
+  project_name = "${var.project_name}-shared"
 }

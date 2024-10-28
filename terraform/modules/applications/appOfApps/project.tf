@@ -53,7 +53,7 @@ resource "kubernetes_manifest" "platform_shared" {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "AppProject"
     metadata = {
-      name      = "${var.project_name}-shared"
+      name      = local.project_name
       namespace = "argoproj"
       labels    = merge(var.labels, { "app.kubernetes.io/part-of" = "platform" })
       annotations = {
@@ -71,7 +71,7 @@ resource "kubernetes_manifest" "platform_shared" {
       destinations = [
         {
           name      = "*"
-          namespace = "${var.project_name}-shared"
+          namespace = local.project_name
           server    = "*"
         }
       ]

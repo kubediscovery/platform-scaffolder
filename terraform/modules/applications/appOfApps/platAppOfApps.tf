@@ -32,7 +32,7 @@ resource "kubernetes_manifest" "argo_application" {
       }
     }
     spec = {
-      project = "kubediscovery"
+      project = local.project_name
       source = {
         repoURL        = "git@github.com:kubediscovery/platform-infrastrucutre.git"
         path           = "gitops/platform-shared"
@@ -44,7 +44,7 @@ resource "kubernetes_manifest" "argo_application" {
       }
       destination = {
         server    = "https://kubernetes.default.svc"
-        namespace = "kubediscovery"
+        namespace = local.project_name
       }
       syncPolicy = {
         automated = {
