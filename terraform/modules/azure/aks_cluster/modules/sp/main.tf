@@ -4,6 +4,7 @@ data "azuread_client_config" "current" {}
 resource "azuread_application" "this" {
   display_name = "external-secrets-app"
   owners       = data.azuread_client_config.current.object_id
+  
 }
 
 resource "azuread_service_principal" "this" {

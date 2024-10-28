@@ -9,6 +9,11 @@ locals {
   kube = module.aks[0].raw
 }
 
+module "service_principal" {
+  source   = "./modules/sp"
+  tags     = local.labels
+}
+
 module "resource_group" {
   source   = "./modules/rsg"
   tags     = local.labels
