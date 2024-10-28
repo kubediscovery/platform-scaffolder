@@ -1,12 +1,8 @@
 data "azuread_client_config" "current" {}
 
 
-data "azuread_application" "this" {
-  display_name = "external-secrets-reader"
-}
-
 data "azuread_service_principal" "this" {
-  client_id                    = data.azuread_application.this.client_id
+  client_id                    = "98227fc0-54bd-48aa-a306-d76d5e0b263c"
 }
 
 
