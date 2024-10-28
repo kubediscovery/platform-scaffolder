@@ -11,15 +11,15 @@ output "publish" {
 #   description = "values for the http dns records"
 # }
 
-output "home" {
-  value = module.atlantis[0].home
-}
+# output "home" {
+#   value = module.atlantis[0].home
+# }
 
-output "ingress" {
-  value = {
-    ingress_class_name = module.kong[0].ingress_class_name
-  }
-}
+# output "ingress" {
+#   value = {
+#     ingress_class_name = module.kong[0].ingress_class_name
+#   }
+# }
 
 # output "gitops_source_repos_urls" {
 #   value = module.argocd[0].gitops_source_repos_urls
