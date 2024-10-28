@@ -1,10 +1,3 @@
-data "azuread_client_config" "current" {}
-
-
-data "azuread_service_principal" "this" {
-  client_id                    = "98227fc0-54bd-48aa-a306-d76d5e0b263c"
-}
-
 
 data "azurerm_client_config" "current" {}
 
@@ -16,7 +9,7 @@ data "azurerm_key_vault" "this" {
 resource "azurerm_key_vault_access_policy" "this" {
   key_vault_id = data.azurerm_key_vault.this.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = data.azuread_service_principal.this.object_id
+  object_id    = "9c3fd8aa-39c8-4063-a03d-94cd5efaf81e"
 
   secret_permissions = [
     "Get",
