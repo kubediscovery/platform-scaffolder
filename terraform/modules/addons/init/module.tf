@@ -51,14 +51,14 @@ module "argocd" {
   project_name  = var.project_name
 }
 
-module "kong" {
-  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/kong/?ref=develop"
-  count  = local.enabled_addons.kong_ingress_controller.enabled ? 1 : 0
+# module "kong" {
+#   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/kong/?ref=develop"
+#   count  = local.enabled_addons.kong_ingress_controller.enabled ? 1 : 0
 
-  labels        = var.tags
-  chart_version = try(local.enabled_addons.kong_ingress_controller.version, "2.42.0")
-  project_name  = var.project_name
-}
+#   labels        = var.tags
+#   chart_version = try(local.enabled_addons.kong_ingress_controller.version, "2.42.0")
+#   project_name  = var.project_name
+# }
 
 # module "konga" {
 #   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/konga/?ref=develop"
@@ -70,18 +70,18 @@ module "kong" {
 #   depends_on = [ module.kong ]
 # }
 
-module "atlantis" {
-  source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/atlantis/?ref=develop"
-  count  = local.enabled_addons.atlantis.enabled ? 1 : 0
+# module "atlantis" {
+#   source = "git::https://github.com/kubediscovery/platform-scaffolder.git//terraform/modules/addons/atlantis/?ref=develop"
+#   count  = local.enabled_addons.atlantis.enabled ? 1 : 0
 
-  labels        = var.tags
-  chart_version = try(local.enabled_addons.atlantis.version, "5.7.0")
-  project_name  = var.project_name
-  github_config = try(local.enabled_addons.atlantis.github_config, {})
-  aws_config    = try(local.enabled_addons.atlantis.aws_config, {})
-  atlantis_config = {
-    storage_class_name     = var.storage.storage_class_name
-    persistent_volume_name = var.storage.persistent_volume_name
-    persistent_volume_size = var.storage.persistent_volume_size
-  }
-}
+#   labels        = var.tags
+#   chart_version = try(local.enabled_addons.atlantis.version, "5.7.0")
+#   project_name  = var.project_name
+#   github_config = try(local.enabled_addons.atlantis.github_config, {})
+#   aws_config    = try(local.enabled_addons.atlantis.aws_config, {})
+#   atlantis_config = {
+#     storage_class_name     = var.storage.storage_class_name
+#     persistent_volume_name = var.storage.persistent_volume_name
+#     persistent_volume_size = var.storage.persistent_volume_size
+#   }
+# }
