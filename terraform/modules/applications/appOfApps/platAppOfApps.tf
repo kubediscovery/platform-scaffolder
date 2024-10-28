@@ -16,7 +16,7 @@ resource "kubernetes_manifest" "argo_application" {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
-      name      = "app-of-apps"
+      name      = "plat-app-of-apps"
       namespace = "argoproj"
       annotations = {
            "argocd.argoproj.io/sync-wave" = "3"
@@ -27,7 +27,7 @@ resource "kubernetes_manifest" "argo_application" {
         instance  = "internal"
         owner     = "rafael_tomelin"
         part-of   = "platform"
-        system    = "platform"
+        system    = "app-of-apps"
         version   = "v0.1.0"
       }
     }
@@ -35,7 +35,7 @@ resource "kubernetes_manifest" "argo_application" {
       project = "kubediscovery"
       source = {
         repoURL        = "git@github.com:kubediscovery/platform-infrastrucutre.git"
-        path           = "gitops/"
+        path           = "gitops/platform-shared"
         targetRevision = "main"
         directory = {
           recurse = true
