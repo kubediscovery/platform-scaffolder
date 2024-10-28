@@ -16,7 +16,7 @@ resource "kubernetes_manifest" "kd_app_of_apps" {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
-      name      = "app-of-apps-kubediscovery"
+      name      = "apps-of-kubediscovery"
       namespace = "argoproj"
       annotations = {
            "argocd.argoproj.io/sync-wave" = "3"

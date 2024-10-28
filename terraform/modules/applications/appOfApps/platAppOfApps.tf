@@ -16,7 +16,7 @@ resource "kubernetes_manifest" "argo_application" {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
-      name      = "app-of-apps-platform"
+      name      = "apps-of-${local.project_name}"
       namespace = "argoproj"
       annotations = {
            "argocd.argoproj.io/sync-wave" = "3"
