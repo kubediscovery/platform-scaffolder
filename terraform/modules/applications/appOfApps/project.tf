@@ -1,5 +1,5 @@
 
-resource "kubernetes_manifest" "platform" {
+resource "kubernetes_manifest" "kubediscovery" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "AppProject"
@@ -30,7 +30,7 @@ resource "kubernetes_manifest" "platform" {
           namespace = "argoproj"
           server    = "*"
         },
-{
+        {
           name      = "*"
           namespace = "exsecrets-system"
           server    = "*"
@@ -81,7 +81,7 @@ resource "kubernetes_manifest" "platform_shared" {
           kind  = "*"
         }
       ]
-      sourceRepos =  local.sourceRepos
+      sourceRepos = local.sourceRepos
     }
   }
 
@@ -120,7 +120,7 @@ resource "kubernetes_manifest" "observability" {
           kind  = "*"
         }
       ]
-      sourceRepos =  local.sourceRepos
+      sourceRepos = local.sourceRepos
     }
   }
 
