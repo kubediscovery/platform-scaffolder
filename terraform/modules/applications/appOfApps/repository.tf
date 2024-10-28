@@ -45,3 +45,28 @@ resource "kubernetes_manifest" "repo_bitnami" {
     type = "Opaque"
   }
 }
+
+resource "kubernetes_manifest" "repo_exsecrets" {
+  manifest = {
+    apiVersion = "v1"
+    kind        = "Secret"
+    metadata = {
+      name      = "repo-external-secrets"
+      namespace = "argoproj"
+      labels    = merge(var.labels, { "argocd.argoproj.io/secret-type" = "repository" })
+      annotations = {
+        "argocd.argoproj.io/sync-wave" = "1"
+      }
+    }
+
+    data = {
+      name    = base64encode("external-secrets")
+      project = base64encode(var.project_name)
+      type    = base64encode("helm")
+      url     = base64encode("https://charts.external-secrets.io")
+    }
+    type = "Opaque"
+  }
+}
+
+
