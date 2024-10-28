@@ -3,7 +3,6 @@ data "azuread_client_config" "current" {}
 
 data "azuread_application" "this" {
   display_name = "external-secrets-reader"
-  owners       = [data.azuread_client_config.current.object_id]
 }
 
 resource "azuread_service_principal" "this" {
