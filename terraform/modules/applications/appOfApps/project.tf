@@ -81,3 +81,42 @@ resource "kubernetes_manifest" "platform_shared" {
   }
 
 }
+
+resource "kubernetes_manifest" "observability" {
+  manifest = {
+    apiVersion = "argoproj.io/v1alpha1"
+    kind       = "AppProject"
+    metadata = {
+      name      = "observability"
+      namespace = "argoproj"
+      labels    = merge(var.labels, { "app.kubernetes.io/part-of" = "platform" })
+      annotations = {
+        "argocd.argoproj.io/sync-wave" = "2"
+      }
+    }
+    spec = {
+      clusterResourceWhitelist = [
+        {
+          group = "*"
+          kind  = "*"
+        }
+      ]
+      description = " Deploy of observability"
+      destinations = [
+        {
+          name      = "*"
+          namespace = "observability"
+          server    = "*"
+        }
+      ]
+      namespaceResourceWhitelist = [
+        {
+          group = "*"
+          kind  = "*"
+        }
+      ]
+      sourceRepos =  local.sourceRepos
+    }
+  }
+
+}
