@@ -28,7 +28,6 @@ resource "azurerm_key_vault_access_policy" "writer" {
     "Set",
     "Delete",
     "Purge",
-    "Update",
-    "Create",
+    "Restore",
   ]
 }
