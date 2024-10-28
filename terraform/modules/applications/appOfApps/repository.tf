@@ -45,30 +45,3 @@ resource "kubernetes_manifest" "repo_bitnami" {
     type = "Opaque"
   }
 }
-
-
-resource "kubernetes_manifest" "repo_newrelic" {
-  manifest = {
-    apiVersion = "v1"
-    kind        = "Secret"
-    metadata = {
-      name      = "repo-newrelic"
-      namespace = "argoproj"
-      labels    = merge(var.labels, { "argocd.argoproj.io/secret-type" = "repository" })
-      annotations = {
-        "argocd.argoproj.io/sync-wave" = "1"
-      }
-    }
-
-    data = {
-
-      name    = base64encode("newrelic")
-      project = base64encode(var.project_name)
-      type    = base64encode("helm")
-      url     = base64encode("https://helm-charts.newrelic.com")
-    }
-    type = "Opaque"
-  }
-}
-
-
