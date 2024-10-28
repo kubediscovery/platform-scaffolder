@@ -9,7 +9,7 @@ data "azurerm_key_vault" "this" {
 resource "azurerm_key_vault_access_policy" "reader" {
   key_vault_id = data.azurerm_key_vault.this.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = "9c3fd8aa-39c8-4063-a03d-94cd5efaf81e"
+  object_id    = local.service_principal_reader
 
   secret_permissions = [
     "Get",
@@ -20,7 +20,7 @@ resource "azurerm_key_vault_access_policy" "reader" {
 resource "azurerm_key_vault_access_policy" "writer" {
   key_vault_id = data.azurerm_key_vault.this.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = "d78154d8-0c98-40bd-b0f4-cd3bf95bb820"
+  object_id    = local.service_principal_writer
 
   secret_permissions = [
     "Get",
