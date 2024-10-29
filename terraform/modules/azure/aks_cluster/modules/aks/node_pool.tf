@@ -17,6 +17,9 @@ resource "azurerm_kubernetes_cluster_node_pool" "pool" {
   # upgrade_settings {
   #   max_surge = var.node_pool[count.index].priority == null ? "10%" : "0%"
   # }
+  upgrade_settings {
+    max_surge = "10%"
+  }
   node_labels = var.node_pool[count.index].tags
 
 

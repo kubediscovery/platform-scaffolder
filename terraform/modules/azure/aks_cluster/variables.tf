@@ -106,11 +106,11 @@ variable "node_pool" {
   default = [
     {
       name                   = "pspool"
-      node_count             = 2
+      node_count             = 1
       enable_host_encryption = false
       zones                  = ["1"]
       vm_size                = "Standard_D2_v3"
-      priority               = "Spot"
+      priority               = "Regular"
       tags = {
         "goal" = "platform-shared"
         "service" = "platform-shared"
