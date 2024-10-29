@@ -107,7 +107,7 @@ variable "node_pool" {
       name                   = "pspool"
       node_count             = 1
       enable_host_encryption = false
-      zones                  = ["1", "2", "3"]
+      zones                  = ["1"]
       vm_size                = "Standard_D2_v3"
 
     }
