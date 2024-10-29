@@ -1,4 +1,3 @@
-
 resource "kubernetes_manifest" "kubediscovery" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
