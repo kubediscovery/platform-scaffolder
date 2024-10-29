@@ -88,9 +88,12 @@ resource "kubernetes_manifest" "platform_shared" {
           name      = "*"
           namespace = "ps-redis"
           server    = "*"
+        },
+        {
+          name      = "*"
+          namespace = "ps-*"
+          server    = "*"
         }
-
-
       ]
       namespaceResourceWhitelist = [
         {
