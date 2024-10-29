@@ -114,7 +114,6 @@ variable "node_pool" {
       tags = {
         "goal" = "platform-shared"
         "service" = "platform-shared"
-        "support" = "platform-shared"
       }
     }
   ]
