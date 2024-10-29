@@ -32,6 +32,6 @@ resource "azurerm_kubernetes_cluster_node_pool" "pool" {
     ignore_changes = [
       tags["created_at"]
     ]
-    # create_before_destroy = false
+    create_before_destroy = true
   }
 }
