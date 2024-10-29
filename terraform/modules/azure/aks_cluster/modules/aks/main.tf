@@ -59,7 +59,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   tags = var.tags
 
   lifecycle {
-    create_before_destroy = true
+    create_before_destroy = false
     ignore_changes = [
       tags["created_at"]
     ]
