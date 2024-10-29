@@ -69,7 +69,7 @@ resource "kubernetes_manifest" "platform_shared" {
       ]
       description = " Deploy of platform shared"
       destinations = [
-                {
+        {
           name      = "*"
           namespace = "argoproj"
           server    = "*"
@@ -90,7 +90,7 @@ resource "kubernetes_manifest" "platform_shared" {
           server    = "*"
         }
 
-        
+
       ]
       namespaceResourceWhitelist = [
         {
