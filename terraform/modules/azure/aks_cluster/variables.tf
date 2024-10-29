@@ -110,7 +110,10 @@ variable "node_pool" {
       enable_host_encryption = false
       zones                  = ["1"]
       vm_size                = "Standard_D2_v3"
-priority = "Spot"
+      priority               = "Spot"
+      tags = {
+        "goal" = "platform-shared"
+      }
     }
   ]
   description = "AKS node pool"
