@@ -2,7 +2,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "pool" {
   count                 = length(var.node_pool)
   name                  = var.node_pool[count.index].name
   kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
-  vm_size               = var.node_pool[count.index].vm_size
+  vm_size               = var.node_pool[count.index].vm_size == null ? "Standard_D4_v3" : var.node_pool[count.index].vm_size
   node_count            = var.node_pool[count.index].node_count
   # enable_host_encryption = var.node_pool[count.index].enable_host_encryption
   os_disk_size_gb   = var.node_pool[count.index].os_disk_size_gb != "" ? var.node_pool[count.index].os_disk_size_gb : null
@@ -11,6 +11,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "pool" {
   pod_subnet_id     = var.node_pool[count.index].pod_subnet_id != "" ? var.node_pool[count.index].pod_subnet_id : null
   ultra_ssd_enabled = var.node_pool[count.index].ultra_ssd_enabled
   zones             = length(var.node_pool[count.index].zones) == 0 ? ["1", "2", "3"] : var.node_pool[count.index].zones
+  priority = var.node_pool[count.index].priority == null ? "Spot" : var.node_pool[count.index].priority
   # enable_node_public_ip  = false
   scale_down_mode = var.scale_down_mode
   upgrade_settings {

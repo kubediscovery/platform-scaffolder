@@ -84,6 +84,7 @@ variable "node_pool" {
     ultra_ssd_enabled      = optional(bool)
     vm_size                = optional(string)
     pod_subnet_id          = optional(string)
+    priority               = optional(string)
     zones                  = list(string)
     tags                   = optional(map(string))
   }))
