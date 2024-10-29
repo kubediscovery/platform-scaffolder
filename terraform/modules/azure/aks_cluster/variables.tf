@@ -104,7 +104,7 @@ variable "node_pool" {
   }))
   default = [
     {
-      name                   = "ps-pool"
+      name                   = "pspool"
       node_count             = 1
       enable_host_encryption = false
       zones                  = ["1", "2", "3"]
