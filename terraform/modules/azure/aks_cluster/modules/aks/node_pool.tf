@@ -11,7 +11,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "pool" {
   pod_subnet_id     = var.node_pool[count.index].pod_subnet_id != "" ? var.node_pool[count.index].pod_subnet_id : null
   ultra_ssd_enabled = var.node_pool[count.index].ultra_ssd_enabled
   zones             = length(var.node_pool[count.index].zones) == 0 ? ["1", "2", "3"] : var.node_pool[count.index].zones
-  #priority          = var.node_pool[count.index].priority == null ? "Spot" : var.node_pool[count.index].priority
+  priority          = var.node_pool[count.index].priority == null ? "Spot" : var.node_pool[count.index].priority
   # enable_node_public_ip  = false
   scale_down_mode = var.scale_down_mode
   # upgrade_settings {
