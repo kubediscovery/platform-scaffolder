@@ -98,6 +98,7 @@ variable "node_pool" {
     os_sku                 = optional(string)
     ultra_ssd_enabled      = optional(bool)
     vm_size                = optional(string)
+    priority               = optional(string)
     pod_subnet_id          = optional(string)
     zones                  = list(string)
     tags                   = optional(map(string))
@@ -109,7 +110,7 @@ variable "node_pool" {
       enable_host_encryption = false
       zones                  = ["1"]
       vm_size                = "Standard_D2_v3"
-
+priority = "Spot"
     }
   ]
   description = "AKS node pool"
