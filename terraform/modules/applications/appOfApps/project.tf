@@ -18,7 +18,7 @@ resource "kubernetes_manifest" "kubediscovery" {
           kind  = "*"
         }
       ]
-      description = " Deploy of platform"
+      description = " Deploy of kubediscovery"
       destinations = [
         {
           name      = "*"
@@ -67,13 +67,30 @@ resource "kubernetes_manifest" "platform_shared" {
           kind  = "*"
         }
       ]
-      description = " Deploy of platform"
+      description = " Deploy of platform shared"
       destinations = [
+                {
+          name      = "*"
+          namespace = "argoproj"
+          server    = "*"
+        },
         {
           name      = "*"
           namespace = local.project_name
           server    = "*"
+        },
+        {
+          name      = "*"
+          namespace = "ps-postgresql"
+          server    = "*"
+        },
+        {
+          name      = "*"
+          namespace = "ps-redis"
+          server    = "*"
         }
+
+        
       ]
       namespaceResourceWhitelist = [
         {
