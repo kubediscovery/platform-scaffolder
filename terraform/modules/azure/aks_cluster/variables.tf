@@ -102,12 +102,14 @@ variable "node_pool" {
     zones                  = list(string)
     tags                   = optional(map(string))
   }))
-  default     = [
+  default = [
     {
-      name                   = "npool"
+      name                   = "ps-pool"
       node_count             = 1
       enable_host_encryption = false
       zones                  = ["1", "2", "3"]
+      vm_size                = "Standard_D2_v3"
+
     }
   ]
   description = "AKS node pool"
