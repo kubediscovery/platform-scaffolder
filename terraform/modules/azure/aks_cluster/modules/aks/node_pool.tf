@@ -15,7 +15,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "pool" {
   # enable_node_public_ip  = false
   scale_down_mode = var.scale_down_mode
   upgrade_settings {
-    max_surge = var.node_pool[count.index].priority == null ? "10%" : null
+    max_surge = var.node_pool[count.index].priority == null ? "10%" : "0%"
   }
 
 
