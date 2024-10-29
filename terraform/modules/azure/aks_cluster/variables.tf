@@ -113,6 +113,8 @@ variable "node_pool" {
       priority               = "Spot"
       tags = {
         "goal" = "platform-shared"
+        "service" = "platform-shared"
+        "support" = "platform-shared"
       }
     }
   ]
