@@ -17,6 +17,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "pool" {
   # upgrade_settings {
   #   max_surge = var.node_pool[count.index].priority == null ? "10%" : "0%"
   # }
+  node_labels = merge(var.node_pool[count.index].tags, var.tags)
 
 
   depends_on = [
