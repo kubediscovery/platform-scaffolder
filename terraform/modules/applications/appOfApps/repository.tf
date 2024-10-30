@@ -116,4 +116,27 @@ resource "kubernetes_manifest" "repo_kong" {
   }
 }
 
+resource "kubernetes_manifest" "repo_platform_infrastrucutre" {
+  manifest = {
+    apiVersion = "v1"
+    kind        = "Secret"
+    metadata = {
+      name      = "repo-platform-infrastrucutre"
+      namespace = "argoproj"
+      labels    = merge(var.labels, { "argocd.argoproj.io/secret-type" = "repository" })
+      annotations = {
+        "argocd.argoproj.io/sync-wave" = "1"
+      }
+    }
+
+    data = {
+      name    = base64encode("platform-infrastrucutre")
+      project = base64encode(var.project_name)
+      type    = base64encode("helm")
+      url     = base64encode("https://github.com/kubediscovery/platform-infrastrucutre")
+    }
+    type = "Opaque"
+  }
+}
+
 
