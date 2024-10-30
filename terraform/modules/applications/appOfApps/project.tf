@@ -33,7 +33,13 @@ resource "kubernetes_manifest" "kubediscovery" {
           name      = "*"
           namespace = "exsecrets-system"
           server    = "*"
+        },
+        {
+          name      = "*"
+          namespace = "kong-system"
+          server    = "*"
         }
+
       ]
       namespaceResourceWhitelist = [
         {

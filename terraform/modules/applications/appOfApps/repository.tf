@@ -69,4 +69,26 @@ resource "kubernetes_manifest" "repo_exsecrets" {
   }
 }
 
+resource "kubernetes_manifest" "repo_konga" {
+  manifest = {
+    apiVersion = "v1"
+    kind        = "Secret"
+    metadata = {
+      name      = "repo-konga"
+      namespace = "argoproj"
+      labels    = merge(var.labels, { "argocd.argoproj.io/secret-type" = "repository" })
+      annotations = {
+        "argocd.argoproj.io/sync-wave" = "1"
+      }
+    }
+
+    data = {
+      name    = base64encode("konga")
+      project = base64encode(var.project_name)
+      type    = base64encode("helm")
+      url     = base64encode("https://lakshanmamalgaha96.github.io/konga-helm")
+    }
+    type = "Opaque"
+  }
+}
 
