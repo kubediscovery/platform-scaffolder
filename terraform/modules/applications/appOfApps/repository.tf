@@ -133,7 +133,7 @@ resource "kubernetes_manifest" "repo_kd_helm" {
       name    = base64encode("kd-helm-repo")
       project = base64encode(var.project_name)
       type    = base64encode("helm")
-      url     = base64encode("https://kubediscovery.github.io/helm-repo/")
+      url     = base64encode("https://kubediscovery.github.io/helm-repo")
     }
     type = "Opaque"
   }
