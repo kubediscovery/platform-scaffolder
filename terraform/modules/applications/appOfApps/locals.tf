@@ -5,7 +5,7 @@ locals {
     base64decode(kubernetes_manifest.repo_exsecrets.manifest.data.url),
     base64decode(kubernetes_manifest.repo_konga.manifest.data.url),
     base64decode(kubernetes_manifest.repo_kong.manifest.data.url),
-    base64decode(kubernetes_manifest.repo_platform_infrastrucutre.manifest.data.url),
+    base64decode(kubernetes_manifest.repo_kd_helm.manifest.data.url),
     "git@github.com:kubediscovery/platform-infrastrucutre.git"
   ]
 
