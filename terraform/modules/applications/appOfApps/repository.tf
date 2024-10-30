@@ -92,3 +92,28 @@ resource "kubernetes_manifest" "repo_konga" {
   }
 }
 
+
+resource "kubernetes_manifest" "repo_kong" {
+  manifest = {
+    apiVersion = "v1"
+    kind        = "Secret"
+    metadata = {
+      name      = "repo-kong"
+      namespace = "argoproj"
+      labels    = merge(var.labels, { "argocd.argoproj.io/secret-type" = "repository" })
+      annotations = {
+        "argocd.argoproj.io/sync-wave" = "1"
+      }
+    }
+
+    data = {
+      name    = base64encode("kong")
+      project = base64encode(var.project_name)
+      type    = base64encode("helm")
+      url     = base64encode("https://charts.konghq.com")
+    }
+    type = "Opaque"
+  }
+}
+
+
