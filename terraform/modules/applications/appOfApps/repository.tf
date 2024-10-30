@@ -116,12 +116,12 @@ resource "kubernetes_manifest" "repo_kong" {
   }
 }
 
-resource "kubernetes_manifest" "repo_platform_infrastrucutre" {
+resource "kubernetes_manifest" "repo_kd_helm" {
   manifest = {
     apiVersion = "v1"
     kind        = "Secret"
     metadata = {
-      name      = "repo-platform-infrastrucutre"
+      name      = "repo-kd-helm"
       namespace = "argoproj"
       labels    = merge(var.labels, { "argocd.argoproj.io/secret-type" = "repository" })
       annotations = {
@@ -130,10 +130,10 @@ resource "kubernetes_manifest" "repo_platform_infrastrucutre" {
     }
 
     data = {
-      name    = base64encode("platform-infrastrucutre")
+      name    = base64encode("kd-helm-repo")
       project = base64encode(var.project_name)
       type    = base64encode("helm")
-      url     = base64encode("https://github.com/kubediscovery/platform-infrastrucutre")
+      url     = base64encode("https://kubediscovery.github.io/helm-repo/")
     }
     type = "Opaque"
   }
