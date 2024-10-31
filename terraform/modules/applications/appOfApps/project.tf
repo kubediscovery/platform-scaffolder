@@ -154,3 +154,42 @@ resource "kubernetes_manifest" "observability" {
   }
 
 }
+
+resource "kubernetes_manifest" "kong_api_gateway" {
+  manifest = {
+    apiVersion = "argoproj.io/v1alpha1"
+    kind       = "AppProject"
+    metadata = {
+      name      = "kong-api-gateway"
+      namespace = "argoproj"
+      labels    = merge(var.labels, { "app.kubernetes.io/part-of" = "platform" })
+      annotations = {
+        "argocd.argoproj.io/sync-wave" = "2"
+      }
+    }
+    spec = {
+      clusterResourceWhitelist = [
+        {
+          group = "*"
+          kind  = "*"
+        }
+      ]
+      description = " Deploy of observability"
+      destinations = [
+        {
+          name      = "*"
+          namespace = "kong-system"
+          server    = "*"
+        }
+      ]
+      namespaceResourceWhitelist = [
+        {
+          group = "*"
+          kind  = "*"
+        }
+      ]
+      sourceRepos = local.sourceRepos
+    }
+  }
+
+}
