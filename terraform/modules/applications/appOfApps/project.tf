@@ -39,11 +39,17 @@ resource "kubernetes_manifest" "kubediscovery" {
           namespace = "kong-system"
           server    = "*"
         },
-                {
+        {
           name      = "*"
           namespace = "create-dbs"
           server    = "*"
+        },
+        {
+          name      = "*"
+          namespace = "exdns-system"
+          server    = "*"
         }
+        
       ]
       namespaceResourceWhitelist = [
         {
