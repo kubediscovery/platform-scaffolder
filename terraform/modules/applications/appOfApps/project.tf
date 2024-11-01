@@ -178,7 +178,6 @@ resource "kubernetes_manifest" "observability" {
           namespace = "grafana"
           server    = "*"
         }
-        
       ]
       namespaceResourceWhitelist = [
         {
