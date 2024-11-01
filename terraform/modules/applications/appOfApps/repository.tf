@@ -139,4 +139,28 @@ resource "kubernetes_manifest" "repo_kd_helm" {
   }
 }
 
+resource "kubernetes_manifest" "repo_external_dns" {
+  manifest = {
+    apiVersion = "v1"
+    kind        = "Secret"
+    metadata = {
+      name      = "repo-external-dns"
+      namespace = "argoproj"
+      labels    = merge(var.labels, { "argocd.argoproj.io/secret-type" = "repository" })
+      annotations = {
+        "argocd.argoproj.io/sync-wave" = "1"
+      }
+    }
+
+    data = {
+      name    = base64encode("external-dns")
+      project = base64encode(var.project_name)
+      type    = base64encode("helm")
+      url     = base64encode("https://kubernetes-sigs.github.io/external-dns")
+    }
+    type = "Opaque"
+  }
+}
+
+
 
