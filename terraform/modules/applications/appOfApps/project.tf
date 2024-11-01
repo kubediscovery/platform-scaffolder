@@ -162,7 +162,12 @@ resource "kubernetes_manifest" "observability" {
           name      = "*"
           namespace = "otel"
           server    = "*"
-        }
+        },
+        {
+          name      = "*"
+          namespace = "argoproj"
+          server    = "*"
+        },
       ]
       namespaceResourceWhitelist = [
         {
