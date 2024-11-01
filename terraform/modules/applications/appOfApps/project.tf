@@ -168,6 +168,12 @@ resource "kubernetes_manifest" "observability" {
           namespace = "argoproj"
           server    = "*"
         },
+        {
+          name      = "*"
+          namespace = "kube-system "
+          server    = "*"
+        }
+        
       ]
       namespaceResourceWhitelist = [
         {
