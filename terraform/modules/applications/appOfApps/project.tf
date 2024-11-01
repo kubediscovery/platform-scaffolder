@@ -157,6 +157,11 @@ resource "kubernetes_manifest" "observability" {
           name      = "*"
           namespace = "observability"
           server    = "*"
+        },
+        {
+          name      = "*"
+          namespace = "otel"
+          server    = "*"
         }
       ]
       namespaceResourceWhitelist = [
@@ -210,41 +215,3 @@ resource "kubernetes_manifest" "kong_api_gateway" {
 
 }
 
-resource "kubernetes_manifest" "app_of_apps" {
-  manifest = {
-    apiVersion = "argoproj.io/v1alpha1"
-    kind       = "AppProject"
-    metadata = {
-      name      = "app-of-apps"
-      namespace = "argoproj"
-      labels    = merge(var.labels, { "app.kubernetes.io/part-of" = "platform" })
-      annotations = {
-        "argocd.argoproj.io/sync-wave" = "2"
-      }
-    }
-    spec = {
-      clusterResourceWhitelist = [
-        {
-          group = "*"
-          kind  = "*"
-        }
-      ]
-      description = " Deploy of observability"
-      destinations = [
-        {
-          name      = "*"
-          namespace = "kubediscovery"
-          server    = "*"
-        }
-      ]
-      namespaceResourceWhitelist = [
-        {
-          group = "*"
-          kind  = "*"
-        }
-      ]
-      sourceRepos = local.sourceRepos
-    }
-  }
-
-}
