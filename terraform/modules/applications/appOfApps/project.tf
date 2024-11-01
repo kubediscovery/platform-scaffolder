@@ -48,6 +48,16 @@ resource "kubernetes_manifest" "kubediscovery" {
           name      = "*"
           namespace = "exdns-system"
           server    = "*"
+        },
+        {
+          name      = "*"
+          namespace = "otel"
+          server    = "*"
+        },
+        {
+          name      = "*"
+          namespace = "observability"
+          server    = "*"
         }
         
       ]
