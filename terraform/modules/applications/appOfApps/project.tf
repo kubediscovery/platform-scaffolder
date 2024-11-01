@@ -170,7 +170,12 @@ resource "kubernetes_manifest" "observability" {
         },
         {
           name      = "*"
-          namespace = "kube-system "
+          namespace = "kube-system"
+          server    = "*"
+        },
+        {
+          name      = "*"
+          namespace = "grafana"
           server    = "*"
         }
         
