@@ -12,7 +12,7 @@ server:
   ingress:
     enabled: true
     ingressClassName: ${ingress_class}
-    hostname: gitops.${project_name}.kubediscovery.com
+    hostname: gitops.kubediscovery.com
     annotations:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/ssl-passthrough: "true"
